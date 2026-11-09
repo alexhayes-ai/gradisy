@@ -160,12 +160,12 @@
     const who = document.getElementById('who');
     who.replaceChildren();
     if (!state.user) {
-      who.append(el('button', { class: 'btn primary small', type: 'button', onclick: signIn }, 'Đăng nhập bằng Google'));
+      who.append(el('button', { class: 'btn primary small', type: 'button', onclick: signIn }, 'Đăng nhập'));
       return;
     }
     if (state.me) {
       who.append(
-        el('a', { class: 'btn small', href: '#/dang' }, 'Đăng việc'),
+        el('a', { class: 'btn small hide-sm', href: '#/dang' }, 'Đăng việc'),
         el('a', { class: 'av', href: '#/nguoi/' + state.me.id, title: 'Hồ sơ của tôi', style: 'width:34px;height:34px;font-size:13px;text-decoration:none' }, initials(state.me.display_name))
       );
     } else {
@@ -283,31 +283,102 @@
   }
 
   // ---------- Các trang ----------
+  // Biểu tượng nét mảnh (SVG phải tạo bằng createElementNS mới hiển thị).
+  function icon(...paths) {
+    const NS = 'http://www.w3.org/2000/svg';
+    const s = document.createElementNS(NS, 'svg');
+    for (const [k, v] of Object.entries({ viewBox: '0 0 24 24', width: '22', height: '22', fill: 'none', stroke: 'currentColor', 'stroke-width': '1.7', 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'aria-hidden': 'true' })) s.setAttribute(k, v);
+    for (const d of paths) { const p = document.createElementNS(NS, 'path'); p.setAttribute('d', d); s.append(p); }
+    return s;
+  }
+  const ICONS = {
+    profile: ['M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z', 'M2.5 19c.8-3 3-4.5 5.5-4.5s4.7 1.5 5.5 4.5', 'M16 7h5M16 11h5M16 15h3'],
+    proof: ['M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z', 'M8.5 12l2.5 2.5 4.5-5'],
+    connect: ['M7 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM17 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6z', 'M9.5 7.5l5 8'],
+    learn: ['M4 5.5C6.5 4 9.5 4 12 5.5 14.5 4 17.5 4 20 5.5V19c-2.5-1.5-5.5-1.5-8 0-2.5-1.5-5.5-1.5-8 0V5.5z', 'M12 5.5V19']
+  };
+
+  function heroCta() {
+    if (!state.user) return el('button', { class: 'btn primary lg', type: 'button', onclick: signIn }, 'Tạo hồ sơ miễn phí');
+    if (!state.me) return el('a', { class: 'btn primary lg', href: '#/toi' }, 'Hoàn thiện hồ sơ của bạn');
+    return el('a', { class: 'btn primary lg', href: '#/nguoi/' + state.me.id }, 'Xem hồ sơ của bạn');
+  }
+
+  // Thẻ minh hoạ một hồ sơ (ghi rõ là ví dụ, không phải người thật).
+  function previewCard() {
+    return el('div', { class: 'preview', 'aria-hidden': 'true' },
+      el('div', { class: 'preview-top' },
+        el('div', { class: 'pair' }, el('span', { class: 'av' }, 'B'), el('span', { class: 'av ai' }, 'AI')),
+        el('span', { class: 'preview-tag', text: 'Hồ sơ ví dụ' })),
+      el('b', { class: 'preview-name', text: 'Bạn & AI đồng hành' }),
+      el('span', { class: 'preview-sub', text: 'Thiết kế · Cấp 5/7 · Quy trình' }),
+      el('div', { class: 'preview-bars' }, [1, 2, 3, 4, 5, 6, 7].map(i => el('i', { class: i <= 5 ? 'on' : '' }))),
+      el('div', { class: 'preview-work' },
+        el('span', { class: 'proof yes', text: 'Có bằng chứng' }),
+        el('b', { text: 'Làm 20 phương án ảnh quảng cáo trong 1 buổi' }),
+        el('span', { text: 'AI tạo phương án · bạn chọn và chỉnh tay' })),
+      el('div', { class: 'preview-foot' }, el('span', null, el('b', { text: '3' }), ' việc đã làm'), el('span', null, el('b', { text: '12' }), ' lượt làm theo')));
+  }
+
   async function pageHome(t) {
-    const hero = el('section', { class: 'card hero' },
-      el('h1', { class: 'serif', text: 'Học cách dùng AI từ người cùng nghề' }),
-      el('p', { text: 'Xem người cùng nghề đã dùng AI làm việc gì, làm thế nào và rút ra bài học gì. Mang cách làm đó sang AI của bạn để hỏi tiếp. Rồi tạo hồ sơ để chia sẻ lại.' }),
-      el('div', { class: 'row' },
-        state.user ? el('a', { class: 'btn primary', href: state.me ? '#/dang' : '#/toi' }, state.me ? 'Đăng việc bạn đã làm' : 'Tạo hồ sơ của bạn')
-                   : el('button', { class: 'btn primary', type: 'button', onclick: signIn }, 'Đăng nhập bằng Google'),
-        el('a', { class: 'btn', href: '#/nganh' }, 'Vào Góc ngành')
-      ));
-    const steps = el('section', { class: 'steps' },
-      el('div', { class: 'card step' }, el('b', { text: '1. Xem cách làm thật' }), el('span', { text: 'Mỗi việc ghi rõ vấn đề, AI đã dùng, kết quả, bài học và bằng chứng.' })),
-      el('div', { class: 'card step' }, el('b', { text: '2. Hỏi AI của bạn' }), el('span', { text: 'Một nút chép sẵn cách làm, bạn dán vào ChatGPT, Gemini hoặc Claude để hỏi tiếp.' })),
-      el('div', { class: 'card step' }, el('b', { text: '3. Chia sẻ lại' }), el('span', { text: 'Tạo hồ sơ, đăng việc bạn đã làm, kết nối với người cùng ngành.' }))
-    );
-    render(hero, steps, el('p', { class: 'sub', text: 'Đang tải...' }));
+    const hero = el('section', { class: 'hero2' },
+      el('div', { class: 'hero-copy' },
+        el('span', { class: 'eyebrow', text: 'Nơi đồng hành cùng AI' }),
+        el('h1', { class: 'serif', text: 'Cho thế giới thấy bạn và AI của bạn làm được gì' }),
+        el('p', { class: 'lead', text: 'Gradisy là nơi bạn xây hồ sơ năng lực cho cả bạn và AI đồng hành, chia sẻ những việc thật đã làm cùng AI, và kết nối với những người đang sống, làm việc cùng AI mỗi ngày.' }),
+        el('div', { class: 'row' }, heroCta(), el('a', { class: 'btn lg', href: '#/nganh' }, 'Khám phá cộng đồng')),
+        el('ul', { class: 'trust' },
+          el('li', { text: 'Miễn phí' }),
+          el('li', { text: 'Đăng nhập bằng Google' }),
+          el('li', { text: 'Bạn quyết định chia sẻ gì' }))),
+      previewCard());
+
+    const value = (ic, title, text) => el('div', { class: 'value' }, el('span', { class: 'value-ic' }, icon(...ICONS[ic])), el('h3', { text: title }), el('p', { text: text }));
+    const values = el('section', { class: 'block' },
+      el('div', { class: 'block-head' },
+        el('span', { class: 'eyebrow', text: 'Gradisy giúp bạn' }),
+        el('h2', { class: 'serif', text: 'Một nơi cho cả bạn và AI của bạn' })),
+      el('div', { class: 'values' },
+        value('profile', 'Hồ sơ năng lực cùng AI', 'Giống CV hay LinkedIn, nhưng cho thấy cả cách bạn làm việc với AI: AI bạn dùng, phong cách làm việc, cấp độ dùng AI.'),
+        value('proof', 'Khoe việc thật, có bằng chứng', 'Mỗi việc ghi rõ vấn đề, cách làm, kết quả và bài học. Có link bằng chứng thì được gắn nhãn xác nhận.'),
+        value('connect', 'Kết nối đúng người', 'Tìm người cùng nghề đã đi trước, kết nối và xem họ làm việc cùng AI như thế nào.'),
+        value('learn', 'Học và đồng hành', 'Tài liệu học chọn lọc, cùng một nút mang mọi cách làm sang AI của bạn để học tiếp.')));
+
+    const mission = el('section', { class: 'mission' },
+      el('span', { class: 'eyebrow', text: 'Sứ mệnh' }),
+      el('h2', { class: 'serif', text: 'Một thế giới mà ai cũng dùng được AI.' }),
+      el('p', { text: 'Gradisy muốn mỗi người đều có thể coi AI như một trợ lý đắc lực của mình: giúp làm việc nhanh hơn, học điều mới dễ hơn và có thêm thời gian cho những việc quan trọng. Khi thấy những việc thật người khác đã làm cùng AI, bạn sẽ biết mình có thể bắt đầu từ đâu.' }));
+
+    const step = (n, title, text) => el('div', { class: 'how-step' }, el('span', { class: 'how-n', text: String(n) }), el('h3', { text: title }), el('p', { text: text }));
+    const how = el('section', { class: 'block' },
+      el('div', { class: 'block-head' },
+        el('span', { class: 'eyebrow', text: 'Bắt đầu trong vài phút' }),
+        el('h2', { class: 'serif', text: 'Cách Gradisy hoạt động' })),
+      el('div', { class: 'how' },
+        step(1, 'Tạo hồ sơ', 'Đăng nhập bằng Google, giới thiệu bạn và AI đồng hành của bạn.'),
+        step(2, 'Chia sẻ việc đã làm', 'Đăng những việc thật bạn làm cùng AI, kèm cách làm và bằng chứng.'),
+        step(3, 'Kết nối và học hỏi', 'Theo dõi người cùng nghề, làm theo cách hay, học từ tài liệu chọn lọc.')));
+
+    const cta = el('section', { class: 'cta-band' },
+      el('div', null, el('h2', { class: 'serif', text: 'Bắt đầu hồ sơ của bạn trên Gradisy' }), el('p', { text: 'Miễn phí, chỉ mất một phút với tài khoản Google.' })),
+      heroCta());
+
+    const top = [hero, values, mission, how];
+    render(...top, el('p', { class: 'sub', text: 'Đang tải hoạt động mới...' }), cta);
     try {
-      const [works, people] = await Promise.all([api.feed(), api.newPeople()]);
+      const [works, people, docs] = await Promise.all([api.feed(), api.newPeople(), api.docs().catch(() => [])]);
       const tried = await api.tried(works.map(w => w.id));
       if (t !== renderToken) return;
-      const feed = el('section', { class: 'card' }, works.length ? works.map(w => workCard(w, tried, { showAuthor: true })) : el('div', { class: 'empty', text: 'Chưa có việc nào được đăng. Hãy là người đầu tiên.' }));
-      render(hero, steps,
-        el('div', { class: 'section-title' }, el('h2', { class: 'serif', text: 'Việc mới đăng' })), feed,
-        el('div', { class: 'section-title' }, el('h2', { class: 'serif', text: 'Thành viên mới' })),
-        people.length ? el('div', { class: 'people' }, people.map(personCard)) : el('div', { class: 'card empty', text: 'Chưa có thành viên.' }));
-    } catch (e) { if (t === renderToken) render(hero, steps, errorCard(e)); }
+      const head = (title, link, label) => el('div', { class: 'section-title' }, el('h2', { class: 'serif', text: title }), link ? el('a', { class: 'by', href: link, text: label }) : null);
+      render(...top,
+        head('Việc mới chia sẻ', null),
+        el('section', { class: 'card' }, works.length ? works.slice(0, 6).map(w => workCard(w, tried, { showAuthor: true })) : el('div', { class: 'empty', text: 'Chưa có việc nào được chia sẻ. Hãy là người đầu tiên.' })),
+        docs.length ? head('Tài liệu học mới', '#/tai-lieu', 'Xem tất cả →') : null,
+        docs.length ? el('div', { class: 'docs' }, docs.slice(0, 3).map(docCard)) : null,
+        head('Thành viên mới', '#/nganh', 'Khám phá cộng đồng →'),
+        people.length ? el('div', { class: 'people' }, people.map(personCard)) : el('div', { class: 'card empty', text: 'Chưa có thành viên.' }),
+        cta);
+    } catch (e) { if (t === renderToken) render(...top, errorCard(e), cta); }
   }
 
   async function pageCorner(t, ind) {

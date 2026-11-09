@@ -1,5 +1,5 @@
 -- ============================================================
--- Người + AI · Thêm mục TÀI LIỆU HỌC (chạy sau schema.sql)
+-- Gradisy · Thêm mục TÀI LIỆU HỌC (chạy sau schema.sql)
 -- Ai cũng đọc được. Chỉ quản trị viên (Sir) được đăng / sửa / xoá.
 -- Chạy lại nhiều lần vẫn an toàn.
 -- ============================================================

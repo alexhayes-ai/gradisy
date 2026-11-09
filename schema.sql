@@ -1,5 +1,5 @@
 -- ============================================================
--- Người + AI (tên tạm) · Cơ sở dữ liệu phiên bản 1
+-- Gradisy · Cơ sở dữ liệu phiên bản 1
 -- Dán toàn bộ file này vào Supabase > SQL Editor > Run.
 -- Chạy lại nhiều lần vẫn an toàn (dùng "if not exists").
 -- ============================================================
