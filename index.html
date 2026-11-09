@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gradisy</title>
+<meta name="description" content="Học cách dùng AI từ người cùng nghề: hồ sơ việc đã làm, cách làm và bài học thật.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=4">
+</head>
+<body>
+<header class="nav">
+  <div class="nav-in gutter">
+    <a class="logo" href="#/"><span class="logo-mark">G</span><span class="logo-txt" id="appName">Gradisy</span></a>
+    <nav class="menu" id="menu">
+      <a href="#/" data-route="home">Trang chủ</a>
+      <a href="#/tai-lieu" data-route="tai-lieu">Tài liệu</a>
+      <a href="#/nganh" data-route="nganh">Góc ngành</a>
+    </nav>
+    <div class="who" id="who"></div>
+  </div>
+</header>
+
+<div class="demo gutter" id="demoBar" hidden><div>Chế độ mẫu: dữ liệu giả, chỉ trên máy này, tải lại trang là mất. Điền <code>config.js</code> để chạy thật.</div></div>
+
+<main id="view" class="gutter" aria-live="polite"></main>
+
+<footer class="foot gutter">
+  <p><b id="footName">Gradisy</b> · Phiên bản 1 thử nghiệm.</p>
+  <p>Chúng tôi chỉ hiển thị tên và nội dung bạn tự đăng. Email đăng nhập Google do Supabase lưu, không hiển thị cho ai. Bạn có thể xoá hồ sơ bất cứ lúc nào trong mục "Hồ sơ của tôi".</p>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js?v=5"></script>
+<script src="app.js?v=5"></script>
+</body>
+</html>
