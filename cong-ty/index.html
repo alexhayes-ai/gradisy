@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Hồ sơ công ty · Gradisy</title>
 <meta name="description" content="Hồ sơ Gradisy: đồng hành cùng AI bằng việc thật. Cộng đồng, đào tạo và dịch vụ tự động hoá 1–1, không xong không lấy tiền.">
-<!-- Đăng lên mạng 18/11/2026.
+<!-- Đăng lên mạng 18/11/2026. 19/11: phần dưới ảnh bìa dựng lại theo cấu trúc
+     Giới thiệu → Tầm nhìn → Sứ mệnh → Sản phẩm → Đội ngũ → Tham gia.
      Thêm dịch vụ mới: thêm một dòng vào DICH_VU trong <script> cuối trang. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet">
@@ -13,7 +14,7 @@
 :root{
   --bg:#000; --raise:#121212; --raise-2:#1c1c1c; --line:#2a2a2a;
   --ink:#fff; --ink-2:#c9c9c9; --muted:#8e8e8e;
-  --accent:#f07a3c; --good:#55c48a; --warn:#e8b24a;
+  --accent:#f07a3c; --accent-soft:rgba(240,122,60,.14); --good:#55c48a; --warn:#e8b24a;
   --font:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
   color-scheme:dark;
 }
@@ -23,275 +24,414 @@ body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.75 var(--fon
 a{color:var(--ink)}
 img{max-width:100%;display:block}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left))}
 
-/* thanh trên */
-.top{position:sticky;top:0;z-index:10;background:rgba(0,0,0,.85);backdrop-filter:blur(10px)}
-.top .row{display:flex;align-items:center;gap:16px;height:56px;max-width:1200px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left))}
+/* thanh trên: logo, các mục, nút chính */
+.top{position:sticky;top:0;z-index:10;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
+.top.scrolled{border-bottom-color:var(--line)}
+.top .row{display:flex;align-items:center;gap:16px;height:56px}
 .logo{display:flex;align-items:center;gap:9px;text-decoration:none;font-weight:600;font-size:17px}
 .logo i{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;background:var(--accent);color:#000;font-style:normal;font-weight:600;font-size:15px}
-.top .go{margin-left:auto;font-size:14px;text-decoration:none;background:var(--ink);color:#000;font-weight:500;padding:7px 14px;border-radius:99px}
-.top .go:hover{background:var(--ink-2)}
-/* thanh mục lục, giống thanh "đang đọc mục" */
+.menu{display:none;margin-left:auto;gap:4px}
+.menu a{font-size:14px;color:var(--ink-2);text-decoration:none;padding:6px 12px;border-radius:99px}
+.menu a:hover{color:var(--ink)}
+.menu a.on{color:var(--ink);background:var(--raise-2)}
+.go{margin-left:auto;font-size:14px;text-decoration:none;background:var(--ink);color:#000;font-weight:500;padding:7px 14px;border-radius:99px;white-space:nowrap}
+.go:hover{background:var(--ink-2)}
+/* điện thoại: mục lục gập lại, hiện tên phần đang đọc */
 .toc{border-top:1px solid var(--line);display:none}
 .toc.show{display:block}
-.toc details{max-width:1200px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left))}
 .toc summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;height:40px;font-size:14px;color:var(--ink-2)}
 .toc summary::-webkit-details-marker{display:none}
 .toc summary::after{content:"";width:8px;height:8px;border-right:1.5px solid var(--ink-2);border-bottom:1.5px solid var(--ink-2);transform:rotate(45deg) translateY(-3px)}
 .toc details[open] summary::after{transform:rotate(-135deg)}
 .toc ol{list-style:none;margin:0;padding:4px 0 14px}
-.toc a{display:block;padding:6px 0;font-size:15px;color:var(--ink-2);text-decoration:none}
-.toc a:hover,.toc a.on{color:var(--ink)}
+.toc ol a{display:block;padding:6px 0;font-size:15px;color:var(--ink-2);text-decoration:none}
+.toc ol a.on{color:var(--ink)}
 
-/* đầu trang */
+/* đầu trang và ảnh bìa (giữ nguyên) */
 .head{max-width:860px;margin:0 auto;padding:72px max(16px,env(safe-area-inset-left)) 40px;text-align:center}
 .meta{font-size:14px;color:var(--muted);margin:0 0 22px}
 .meta b{color:var(--ink-2);font-weight:500;margin-right:12px}
 h1{font-weight:500;font-size:clamp(36px,6.4vw,64px);line-height:1.1;letter-spacing:-.02em;margin:0 0 22px;text-wrap:balance}
 .sub{font-size:clamp(17px,2.2vw,20px);color:var(--ink-2);max-width:640px;margin:0 auto;line-height:1.6}
-
-/* khối hình lớn */
-.cover{max-width:1200px;margin:0 auto 64px;padding:0 max(16px,env(safe-area-inset-left))}
+.cover{max-width:1200px;margin:0 auto 24px;padding:0 max(16px,env(safe-area-inset-left))}
 .cover .box{position:relative;aspect-ratio:16/8;border-radius:22px;overflow:hidden;
   background:radial-gradient(120% 90% at 18% 20%,#ffb88a 0,#f07a3c 30%,#9a3b12 58%,#2a0f05 100%)}
-.cover .box::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 60% at 80% 85%,rgba(255,226,196,.45),transparent 70%)}
+.cover video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* lớp tối nhẹ ở giữa để chữ trắng luôn đọc rõ trên nền video */
+.cover .box::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.28),rgba(0,0,0,.28)),radial-gradient(55% 60% at 50% 50%,rgba(0,0,0,.3),transparent 75%)}
+.cover .mark{text-shadow:0 2px 24px rgba(60,20,4,.35)}
 .cover .mark{position:absolute;inset:0;display:grid;place-items:center;z-index:1;text-align:center}
 .cover .mark span{display:block;font-weight:500;font-size:clamp(34px,7vw,84px);letter-spacing:-.02em;color:#fff;line-height:1}
 .cover .mark small{display:block;margin-top:12px;font-size:clamp(14px,1.8vw,18px);color:rgba(255,255,255,.85)}
+.hero-cta{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:32px 0 0}
 
-/* bài */
-.doc{max-width:720px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left))}
-.doc section{padding:8px 0 40px;scroll-margin-top:110px}
-h2{font-weight:500;font-size:clamp(26px,3.6vw,34px);line-height:1.2;letter-spacing:-.01em;margin:0 0 18px}
+/* nút */
+.btn{display:inline-block;font-size:15px;font-weight:500;text-decoration:none;padding:11px 22px;border-radius:99px;border:1px solid var(--line);color:var(--ink)}
+.btn:hover{border-color:var(--ink-2)}
+.btn.main{background:var(--ink);color:#000;border-color:var(--ink)}
+.btn.main:hover{background:var(--ink-2)}
+
+/* các phần: dải nền xen kẽ, tiêu đề ở giữa */
+.part{padding:88px 0;scroll-margin-top:56px}
+.part + .part{border-top:1px solid var(--line)}
+h2{font-weight:500;font-size:clamp(28px,4vw,42px);line-height:1.15;letter-spacing:-.015em;margin:0 0 18px;text-align:center;text-wrap:balance}
+.lead{max-width:720px;margin:0 auto 18px;text-align:center;color:var(--ink-2)}
+.lead b{color:var(--ink);font-weight:500}
 h3{font-weight:500;font-size:20px;line-height:1.3;margin:0 0 8px}
-.doc p{margin:0 0 18px;color:var(--ink-2)}
-.doc p b{color:var(--ink);font-weight:500}
-.doc ol,.doc ul{color:var(--ink-2);padding-left:22px;margin:0 0 18px}
-.doc li{margin:6px 0}
+p{margin:0 0 16px}
+.links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:28px 0 0}
 
-/* thẻ (khối bo tròn nền xám như thẻ tác giả) */
-.panel{background:var(--raise);border-radius:18px;padding:24px;margin:0 0 18px}
-.panel p:last-child,.panel ul:last-child,.panel ol:last-child{margin-bottom:0}
-.pill{display:inline-block;background:var(--raise-2);color:var(--ink);font-size:13px;font-weight:500;padding:4px 12px;border-radius:99px;margin-bottom:12px}
+/* tầm nhìn: một câu lớn */
+.vision{max-width:900px;margin:0 auto;text-align:center;font-size:clamp(22px,3vw,32px);line-height:1.45;font-weight:500;letter-spacing:-.01em;text-wrap:balance}
+
+/* lưới thẻ */
+.grid{display:grid;gap:20px;margin-top:44px}
+.card{background:var(--raise);border:1px solid #1e1e1e;border-radius:18px;padding:26px}
+.card p{color:var(--ink-2);font-size:16px}
+.card p:last-child,.card ul:last-child,.card ol:last-child{margin-bottom:0}
+
+/* sứ mệnh: danh sách có đường kẻ mảnh, không đóng thẻ */
+.rules{display:grid;gap:0 48px;max-width:960px;margin:40px auto 0}
+.rules div{border-top:1px solid var(--line);padding:22px 0 8px}
+.rules dt{font-size:20px;font-weight:500;margin-bottom:6px}
+.rules dd{margin:0;color:var(--ink-2);font-size:16px}
+.pill{margin-bottom:14px;align-self:flex-start}
+
+/* sản phẩm: nhãn, giá, thẻ chủ đề */
+.prod{display:flex;flex-direction:column}
+.pill{display:inline-block;background:var(--raise-2);color:var(--ink);font-size:13px;font-weight:500;padding:4px 12px;border-radius:99px}
 .pill.live{color:var(--good)}
 .pill.soon{color:var(--warn)}
-.price{font-size:22px;color:var(--ink);margin:6px 0 4px}
+.price{font-size:18px;color:var(--ink)!important;margin-top:auto!important;padding-top:6px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 16px;padding:0;list-style:none}
+.tags li{font-size:13px;color:var(--accent);background:var(--accent-soft);border-radius:99px;padding:3px 11px}
+.prod a.more{font-size:15px;font-weight:500}
 
-/* bảng thông tin công ty */
-.facts{width:100%;border-collapse:collapse;font-size:16px;margin:0 0 18px}
-.facts th,.facts td{text-align:left;vertical-align:top;padding:12px 0;border-bottom:1px solid var(--line)}
-.facts th{width:38%;color:var(--muted);font-weight:400;padding-right:16px}
-.facts td{color:var(--ink)}
+/* khối dịch vụ 1–1 */
+.deal{margin-top:72px}
+.deal h3.big{font-size:clamp(22px,2.6vw,28px);text-align:center;margin-bottom:10px}
+.deal ol,.deal ul{color:var(--ink-2);font-size:16px;padding-left:20px;margin:0 0 14px}
+.deal li{margin:6px 0}
+.deal .note{text-align:center;color:var(--muted);font-size:15px;margin:22px auto 0;max-width:720px}
 
 /* đội ngũ */
-.person{display:grid;grid-template-columns:64px 1fr;gap:4px 16px;align-items:center}
-.person img,.person .ph{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:50% 30%}
-.person .ph{display:grid;place-items:center;background:var(--raise-2);color:var(--muted);font-size:22px}
-.person h3{margin:0}
-.person .role{font-size:14px;color:var(--muted)}
-.person .bio{grid-column:1/-1;margin:14px 0 0;color:var(--ink-2)}
-.person ul{grid-column:1/-1;margin:10px 0 0}
-.todo{background:rgba(232,178,74,.14);color:var(--warn);border-radius:6px;padding:1px 6px;font-size:13px}
+.group{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:center;margin:56px 0 18px}
+.lead-card{max-width:560px;margin:44px auto 0;text-align:center}
+.lead-card img,.lead-card .ph{width:120px;height:120px;border-radius:50%;object-fit:cover;object-position:50% 30%;margin:0 auto 16px;border:3px solid var(--accent-soft)}
+.role{display:block;font-size:14px;color:var(--accent);margin-bottom:12px}
+.lead-card ul{list-style:none;padding:0;margin:14px 0 0;color:var(--ink-2);font-size:15px}
+.lead-card li{margin:4px 0}
+.members{display:grid;gap:20px;max-width:760px;margin:0 auto}
+.member{text-align:center}
+.member .ph{display:grid;place-items:center;width:84px;height:84px;border-radius:50%;margin:0 auto 14px;background:var(--raise-2);color:var(--muted);font-size:26px}
+.member .t{color:var(--muted);font-size:15px}
 
-/* xem tiếp */
-.more{max-width:1200px;margin:24px auto 0;padding:48px max(16px,env(safe-area-inset-left)) 0;border-top:1px solid var(--line)}
-.more .bar{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:22px}
-.more h2{margin:0;font-size:24px}
-.cards{display:grid;gap:20px}
-.card{display:block;text-decoration:none}
-.card .img{aspect-ratio:4/3;border-radius:16px;margin-bottom:14px}
-.card .t{display:block;font-size:17px;font-weight:500;line-height:1.35}
-.card .m{display:block;font-size:14px;color:var(--muted);margin-top:6px}
-.card:hover .t{text-decoration:underline}
-.g1{background:radial-gradient(90% 90% at 30% 30%,#8fd3b0,#1f7a46 60%,#0b2a18)}
-.g2{background:radial-gradient(90% 90% at 70% 30%,#ffd48a,#c9862a 55%,#3a2208)}
-.g3{background:radial-gradient(90% 90% at 40% 70%,#a9b8ff,#4256c4 55%,#121a45)}
+/* tham gia */
+.join{display:grid;gap:28px;align-items:start;margin-top:8px}
+.join h2,.join .join .join p{color:var(--ink-2)}
+.chance h3{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.chance ul{list-style:none;padding:0;margin:0}
+.chance li{position:relative;padding:10px 0 10px 30px;border-bottom:1px solid var(--line);color:var(--ink-2);font-size:16px}
+.chance li:last-child{border-bottom:0}
+.chance li::before{content:"";position:absolute;left:4px;top:19px;width:10px;height:10px;border-radius:50%;background:var(--accent)}
 
-footer{max-width:1200px;margin:64px auto 0;padding:24px max(16px,env(safe-area-inset-left)) 48px;border-top:1px solid var(--line);font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px 24px}
-footer a{color:var(--muted)}
+/* chân trang: thông tin công ty */
+footer{border-top:1px solid var(--line);padding:48px 0;font-size:14px;color:var(--muted)}
+.foot{display:grid;gap:28px}
+.foot b{display:block;color:var(--ink);font-size:16px;font-weight:500;margin-bottom:6px}
+.foot dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 16px}
+.foot dt{color:var(--muted)}
+.foot dd{margin:0;color:var(--ink-2)}
+.foot ul{list-style:none;padding:0;margin:0}
+.foot li{margin:4px 0}
+footer a{color:var(--ink-2)}
+.copy{margin-top:32px;padding-top:20px;border-top:1px solid var(--line)}
 
-@media (min-width:760px){ .cards{grid-template-columns:repeat(3,1fr)} }
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+@media (min-width:640px){
+  .grid.g2{grid-template-columns:repeat(2,1fr)}
+  .rules{grid-template-columns:repeat(2,1fr)}
+  .members{grid-template-columns:repeat(2,1fr)}
+}
+@media (min-width:900px){
+  .menu{display:flex}
+  .menu + .go{margin-left:8px}
+  .toc{display:none!important}
+  .grid.g3{grid-template-columns:repeat(3,1fr)}
+  .join{grid-template-columns:1fr 1fr;gap:56px}
+  .foot{grid-template-columns:1.2fr 1.6fr 1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+}
 </style>
 </head>
 <body>
+<script>document.documentElement.classList.add('js')</script>
 
-<header class="top">
-  <div class="row">
+<header class="top" id="top">
+  <div class="wrap row">
     <a class="logo" href="./"><i>G</i>Gradisy</a>
-    <a class="go" href="../">Vào cộng đồng</a>
+    <nav class="menu" id="menu" aria-label="Các phần của hồ sơ"></nav>
+    <a class="go" href="#tham-gia">Đặt buổi 1–1</a>
   </div>
   <nav class="toc" id="toc" aria-label="Mục lục hồ sơ">
-    <details>
-      <summary id="tocNow">Gradisy là ai</summary>
+    <details class="wrap">
+      <summary id="tocNow">Giới thiệu</summary>
       <ol id="tocList"></ol>
     </details>
   </nav>
 </header>
 
 <header class="head">
-  <p class="meta"><b>Hồ sơ công ty</b>Cập nhật 18/11/2026</p>
+  <p class="meta"><b>Hồ sơ công ty</b>Cập nhật 19/11/2026</p>
   <h1>Gradisy</h1>
   <p class="sub">Giúp người đi làm đồng hành cùng AI bằng việc thật: học từ người cùng nghề, làm ra sản phẩm thật, và tự động hoá những việc lặp lại mỗi ngày.</p>
+  <div class="hero-cta">
+    <a class="btn main" href="#san-pham">Xem sản phẩm và dịch vụ</a>
+    <a class="btn" href="../">Vào cộng đồng</a>
+  </div>
 </header>
 
-<div class="cover"><div class="box" role="img" aria-label="Ảnh bìa Gradisy"><div class="mark"><span>Gradisy</span><small>Đồng hành cùng AI, bằng việc thật</small></div></div></div>
+<div class="cover"><div class="box" role="img" aria-label="Ảnh bìa Gradisy: video người đi làm đang dùng máy tính, chữ Gradisy ở giữa">
+  <!-- Video ghép từ 5 đoạn Pexels (giấy phép Pexels, miễn phí): 5944692, 35402241, 7681386, 8631874, 2516160.
+       Bản nền cam cũ vẫn giữ ở video/bia.mp4. -->
+  <video id="biaVideo" src="video/bia-nguoi.mp4" poster="video/bia-nguoi.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
+  <div class="mark"><span>Gradisy</span><small>Đồng hành cùng AI, bằng việc thật</small></div></div></div>
 
-<main class="doc">
+<main>
 
-<section id="la-ai" data-toc="Gradisy là ai">
-  <p>Gradisy bắt đầu từ một câu hỏi: một người bình thường, không biết code, có thể dùng AI làm ra bao nhiêu việc thật? Chúng tôi trả lời bằng cách tự làm, công khai từng bước, rồi giúp người khác làm theo.</p>
-  <p>Hôm nay Gradisy gồm ba mảng: <b>cộng đồng</b> để học từ người cùng nghề, <b>đào tạo</b> cho người bắt đầu từ số 0, và <b>dịch vụ</b> tự động hoá công việc của từng người. Các dịch vụ mới sẽ được thêm dần vào hồ sơ này khi đã chạy thật.</p>
-</section>
-
-<section id="nguyen-tac" data-toc="Cách chúng tôi làm việc">
-  <h2>Cách chúng tôi làm việc</h2>
-  <div class="panel">
-    <h3>Giá trị thật</h3>
-    <p>Chỉ giới thiệu thứ chúng tôi đã tự làm và chạy được. Thứ gì chưa thử, chúng tôi ghi rõ là chưa thử.</p>
-  </div>
-  <div class="panel">
-    <h3>Xứng đáng tiền</h3>
-    <p>Bạn trả tiền cho kết quả, không trả cho lời hứa. Giá công khai, không gạch giá, không đếm ngược.</p>
-  </div>
-  <div class="panel">
-    <h3>Chữ tín</h3>
-    <p>Số nào cũng có nguồn. Dịch vụ không làm xong thì không lấy tiền.</p>
+<!-- 1. Giới thiệu -->
+<section class="part" id="gioi-thieu" data-toc="Giới thiệu">
+  <div class="wrap">
+    <h2>Giới thiệu</h2>
+    <p class="lead">Gradisy bắt đầu từ một câu hỏi: một người bình thường, không biết code, có thể dùng AI làm ra bao nhiêu việc thật? Chúng tôi trả lời bằng cách tự làm, công khai từng bước, rồi giúp người khác làm theo.</p>
+    <p class="lead">Hôm nay Gradisy gồm ba mảng: <b>cộng đồng</b> để học từ người cùng nghề, <b>đào tạo</b> cho người bắt đầu từ số 0, và <b>dịch vụ</b> tự động hoá công việc của từng người. Dịch vụ mới được thêm vào hồ sơ này khi đã chạy thật.</p>
+    <div class="links">
+      <a class="btn" href="https://www.youtube.com/@Vannam_alexhayes" target="_blank" rel="noopener">Kênh YouTube</a>
+      <a class="btn" href="https://alexhayes-ai.github.io/claude-code-van-phong/">Video 02: báo cáo tháng</a>
+      <a class="btn" href="https://alexhayes-ai.github.io/excel-bao-cao-tu-dong/">Video 01: dọn Excel</a>
+    </div>
   </div>
 </section>
 
-<section id="dich-vu" data-toc="Sản phẩm và dịch vụ">
-  <h2>Sản phẩm và dịch vụ</h2>
-  <p>Từ miễn phí đến có người làm cùng bạn.</p>
-  <div id="dsDichVu"></div>
-</section>
-
-<section id="mot-mot" data-toc="Dịch vụ 1–1: không xong, không lấy tiền">
-  <h2>Dịch vụ 1–1: không xong, không lấy tiền</h2>
-  <p>Bạn mang một việc đang làm, lặp lại mỗi tuần hoặc mỗi tháng. Trong buổi, chúng tôi cùng bạn biến việc đó thành một quy trình tự động chạy trên máy bạn. Lần sau bạn chỉ cần gọi nó lên bằng một câu lệnh.</p>
-  <div class="panel">
-    <h3>Thế nào là "xong"</h3>
-    <ol>
-      <li>Gọi quy trình bằng một câu lệnh, nó chạy đúng trên file thật của bạn.</li>
-      <li>Bạn tự chạy lại được một lần, không cần ai cầm tay.</li>
-      <li>Kết quả bạn tự kiểm được, ví dụ khớp với số bạn tự cộng tay hoặc đúng mẫu bạn đưa.</li>
-    </ol>
-    <p>Đủ 3 điều mới thu tiền, bằng chuyển khoản QR sau buổi. Chưa đủ thì bạn không trả gì.</p>
+<!-- 2. Tầm nhìn -->
+<section class="part" id="tam-nhin" data-toc="Tầm nhìn">
+  <div class="wrap">
+    <h2>Tầm nhìn</h2>
+    <p class="vision">Để mỗi người đi làm ở Việt Nam, không cần biết code, tự dùng AI làm xong việc thật của mình, và có bằng chứng cho từng việc đã làm.</p>
   </div>
-  <h3>Cách làm</h3>
-  <ol>
-    <li><b>Trước buổi:</b> bạn trả lời 5 câu (việc gì, bao lâu làm một lần, mất bao lâu, đầu vào là file gì, kết quả mong muốn trông thế nào) và gửi một file mẫu đã bỏ thông tin riêng.</li>
-    <li><b>Trong buổi:</b> gọi video, bạn chia sẻ màn hình. Đọc đề, lập kế hoạch, dựng quy trình bằng Claude Code trên máy bạn, chạy thử.</li>
-    <li><b>Sau buổi:</b> 7 ngày chỉnh sửa nếu cần. Quy trình là của bạn.</li>
-  </ol>
-  <h3>Việc chúng tôi không nhận</h3>
-  <ul>
-    <li>Việc phải đăng nhập hệ thống nội bộ của công ty bạn bằng mật khẩu.</li>
-    <li>Việc phải đưa dữ liệu cá nhân của người khác lên AI.</li>
-    <li>Việc cần phần mềm trả phí mà bạn chưa có.</li>
-  </ul>
-  <p>Bạn cần có Claude Code (gói trả phí của Anthropic) trên máy. Mỗi buổi tối thiểu 1 giờ; phần lớn quy trình cần khoảng 1,5–2 giờ.</p>
 </section>
 
-<section id="doi-ngu" data-toc="Đội ngũ">
-  <h2>Đội ngũ</h2>
-  <div class="panel person">
-    <img src="anh/alex.avif" alt="Ảnh chân dung Alex Hayes" width="128" height="128" loading="lazy">
-    <div><h3>Alex Hayes</h3><span class="role">Sáng lập</span></div>
-    <p class="bio">Đang trên hành trình 10.000 giờ học AI và xây dựng doanh nghiệp về AI. Học công khai, livestream từ thứ Hai đến thứ Sáu. Không biết code, nhưng đã tự làm Gradisy, các báo cáo tự động và bộ quy trình dựng video cùng Claude Code.</p>
-    <ul>
-      <li>Báo cáo 6.002 dòng có kiểm 3 lớp, chạy thử mù đạt 13/13</li>
-      <li>Web Gradisy có đăng nhập Google, làm trong 2 ngày, 0 đồng</li>
-    </ul>
+<!-- 3. Sứ mệnh -->
+<section class="part" id="su-menh" data-toc="Sứ mệnh">
+  <div class="wrap">
+    <div>
+      <h2>Sứ mệnh</h2>
+    </div>
+    <dl class="rules">
+      <div><dt>Giá trị thật</dt><dd>Chỉ giới thiệu thứ chúng tôi đã tự làm và chạy được. Thứ gì chưa thử, chúng tôi ghi rõ là chưa thử.</dd></div>
+      <div><dt>Xứng đáng tiền</dt><dd>Bạn trả tiền cho kết quả, không trả cho lời hứa. Giá công khai, không gạch giá, không đếm ngược.</dd></div>
+      <div><dt>Chữ tín</dt><dd>Số nào cũng có nguồn. Dịch vụ không làm xong thì không lấy tiền.</dd></div>
+      <div><dt>Làm công khai</dt><dd>Toàn bộ quá trình học có trên livestream, xem miễn phí từ đầu đến cuối, không giấu bước nào.</dd></div>
+    </dl>
   </div>
-  <p>Gradisy đang làm việc cùng một cộng sự chuyên môn về học máy. Phần giới thiệu sẽ được cập nhật khi cộng sự đồng ý.</p>
 </section>
 
-<section id="thong-tin" data-toc="Thông tin công ty">
-  <h2>Thông tin công ty</h2>
-  <table class="facts">
-    <tr><th>Tên</th><td>Gradisy (chưa đăng ký pháp nhân)</td></tr>
-    <tr><th>Bắt đầu</th><td>Tháng 11/2026</td></tr>
-    <tr><th>Lĩnh vực</th><td>Đào tạo ứng dụng AI, dịch vụ tự động hoá công việc, cộng đồng chia sẻ việc đã làm cùng AI</td></tr>
-    <tr><th>Khách hàng</th><td>Người đi làm văn phòng, cán bộ, hộ kinh doanh, người làm video</td></tr>
-    <tr><th>Liên hệ</th><td>Bình luận trên <a href="https://www.youtube.com/@Vannam_alexhayes" target="_blank" rel="noopener">kênh YouTube</a>. Kênh nhận khách riêng sẽ cập nhật sớm.</td></tr>
-  </table>
+<!-- 4. Sản phẩm và dịch vụ -->
+<section class="part" id="san-pham" data-toc="Sản phẩm và dịch vụ">
+  <div class="wrap">
+    <div>
+      <h2>Sản phẩm và dịch vụ</h2>
+    </div>
+    <div class="grid g3" id="dsDichVu"></div>
+
+    <div class="deal" id="mot-mot">
+      <div>
+        <h3 class="big">Dịch vụ 1–1: không xong, không lấy tiền</h3>
+        <p class="lead">Bạn mang một việc đang làm, lặp lại mỗi tuần hoặc mỗi tháng. Trong buổi, chúng tôi cùng bạn biến việc đó thành một quy trình tự động chạy trên máy bạn. Lần sau bạn chỉ cần gọi nó lên bằng một câu lệnh.</p>
+      </div>
+      <div class="grid g3">
+        <div class="card">
+          <h3>Thế nào là "xong"</h3>
+          <ol>
+            <li>Gọi quy trình bằng một câu lệnh, nó chạy đúng trên file thật của bạn.</li>
+            <li>Bạn tự chạy lại được một lần, không cần ai cầm tay.</li>
+            <li>Kết quả bạn tự kiểm được, ví dụ khớp với số bạn tự cộng tay hoặc đúng mẫu bạn đưa.</li>
+          </ol>
+          <p>Đủ 3 điều mới thu tiền, bằng chuyển khoản QR sau buổi. Chưa đủ thì bạn không trả gì.</p>
+        </div>
+        <div class="card">
+          <h3>Cách làm</h3>
+          <ol>
+            <li><b>Trước buổi:</b> bạn trả lời 5 câu (việc gì, bao lâu làm một lần, mất bao lâu, đầu vào là file gì, kết quả mong muốn) và gửi một file mẫu đã bỏ thông tin riêng.</li>
+            <li><b>Trong buổi:</b> gọi video, bạn chia sẻ màn hình. Đọc đề, lập kế hoạch, dựng quy trình bằng Claude Code trên máy bạn, chạy thử.</li>
+            <li><b>Sau buổi:</b> 7 ngày chỉnh sửa nếu cần. Quy trình là của bạn.</li>
+          </ol>
+        </div>
+        <div class="card">
+          <h3>Việc chúng tôi không nhận</h3>
+          <ul>
+            <li>Việc phải đăng nhập hệ thống nội bộ của công ty bạn bằng mật khẩu.</li>
+            <li>Việc phải đưa dữ liệu cá nhân của người khác lên AI.</li>
+            <li>Việc cần phần mềm trả phí mà bạn chưa có.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="note">Bạn cần có Claude Code (gói trả phí của Anthropic) trên máy. Mỗi buổi tối thiểu 1 giờ; phần lớn quy trình cần khoảng 1,5–2 giờ.</p>
+    </div>
+  </div>
 </section>
 
-<section id="bang-chung" data-toc="Bằng chứng">
-  <h2>Bằng chứng</h2>
-  <p>Mọi thứ dưới đây đều mở xem được.</p>
-  <ul>
-    <li><a href="../">Cộng đồng Gradisy</a>: web có đăng nhập Google, kho dữ liệu riêng, chi phí 0 đồng.</li>
-    <li><a href="https://alexhayes-ai.github.io/claude-code-van-phong/">Video 02</a>: báo cáo tháng cấp xã từ A đến Z, có bộ file mẫu và đáp án.</li>
-    <li><a href="https://alexhayes-ai.github.io/excel-bao-cao-tu-dong/">Video 01</a>: làm sạch Excel 10.000 dòng, web báo cáo, tự động hoá.</li>
-    <li><a href="https://www.youtube.com/@Vannam_alexhayes" target="_blank" rel="noopener">Kênh YouTube</a>: toàn bộ quá trình học, từ bước đầu đến bước cuối.</li>
-  </ul>
+<!-- 5. Đội ngũ -->
+<section class="part" id="doi-ngu" data-toc="Đội ngũ">
+  <div class="wrap">
+    <div>
+      <h2>Đội ngũ</h2>
+    </div>
+    <div class="card lead-card">
+      <img src="anh/alex.avif" alt="Ảnh chân dung Alex Hayes" width="240" height="240" loading="lazy">
+      <h3>Alex Hayes</h3>
+      <span class="role">Sáng lập</span>
+      <p>Đang trên hành trình 10.000 giờ học AI và xây dựng doanh nghiệp về AI. Học công khai, livestream từ thứ Hai đến thứ Sáu. Không biết code, nhưng đã tự làm Gradisy, các báo cáo tự động và bộ quy trình dựng video cùng Claude Code.</p>
+      <ul>
+        <li>Báo cáo 6.002 dòng có kiểm 3 lớp, chạy thử mù đạt 13/13</li>
+        <li>Web Gradisy có đăng nhập Google, làm trong 2 ngày, 0 đồng</li>
+      </ul>
+    </div>
+    <p class="group">Cộng sự</p>
+    <div class="members">
+      <div class="card member">
+        <div class="ph" aria-hidden="true">?</div>
+        <h3>Cộng sự chuyên môn học máy</h3>
+        <p class="t">Phần giới thiệu sẽ được cập nhật khi cộng sự đồng ý.</p>
+      </div>
+      <div class="card member">
+        <div class="ph" aria-hidden="true">+</div>
+        <h3>Chỗ này dành cho bạn</h3>
+        <p class="t">Gradisy đang tìm người cùng nghề muốn chia sẻ việc thật đã làm cùng AI.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Tham gia -->
+<section class="part" id="tham-gia" data-toc="Tham gia">
+  <div class="wrap join">
+    <div>
+      <h2>Đồng hành cùng Gradisy</h2>
+      <p>Chúng tôi chào đón người đi làm có việc lặp lại muốn giao cho AI, người mới bắt đầu học AI từ số 0, và người muốn chia sẻ việc thật đã làm. Không cần biết code. Chỉ cần một việc thật và muốn làm đến cùng.</p>
+      <p>Hiện chúng tôi nhận liên hệ qua bình luận trên kênh YouTube. Kênh nhận khách riêng sẽ cập nhật sớm.</p>
+      <div class="links" style="justify-content:flex-start">
+        <a class="btn main" href="https://www.youtube.com/@Vannam_alexhayes" target="_blank" rel="noopener">Liên hệ qua YouTube</a>
+        <a class="btn" href="../">Vào cộng đồng</a>
+      </div>
+    </div>
+    <div class="card chance">
+      <h3>Bạn nhận được gì</h3>
+      <ul>
+        <li>Một quy trình AI chạy trên máy bạn, của bạn, gọi lại bằng một câu lệnh</li>
+        <li>Chỉ trả tiền khi việc đã xong, đủ 3 điều kiểm được</li>
+        <li>Học từ việc thật của người cùng nghề, có bằng chứng, không lý thuyết suông</li>
+        <li>Toàn bộ quá trình học công khai, xem lại miễn phí bất cứ lúc nào</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 </main>
 
-<section class="more" aria-labelledby="xemTiep">
-  <div class="bar"><h2 id="xemTiep">Xem tiếp</h2></div>
-  <div class="cards">
-    <a class="card" href="../"><div class="img g1"></div><span class="t">Cộng đồng Gradisy</span><span class="m">Miễn phí · Đang chạy</span></a>
-    <a class="card" href="https://alexhayes-ai.github.io/claude-code-van-phong/"><div class="img g2"></div><span class="t">Claude Code cho dân văn phòng: báo cáo tháng từ A đến Z</span><span class="m">Video 02 · Miễn phí</span></a>
-    <a class="card" href="https://www.youtube.com/@Vannam_alexhayes" target="_blank" rel="noopener"><div class="img g3"></div><span class="t">Livestream học AI mỗi ngày</span><span class="m">YouTube · Thứ Hai đến thứ Sáu</span></a>
-  </div>
-</section>
-
 <footer>
-  <span>Gradisy, đội ngũ sáng lập</span>
-  <a href="../privacy.html">Chính sách quyền riêng tư</a>
-  <a href="../terms.html">Điều khoản sử dụng</a>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <b>Gradisy</b>
+        <span>Đồng hành cùng AI, bằng việc thật.</span>
+      </div>
+      <dl>
+        <dt>Tên</dt><dd>Gradisy (chưa đăng ký pháp nhân)</dd>
+        <dt>Bắt đầu</dt><dd>Tháng 11/2026</dd>
+        <dt>Lĩnh vực</dt><dd>Đào tạo ứng dụng AI, dịch vụ tự động hoá công việc, cộng đồng chia sẻ việc đã làm cùng AI</dd>
+        <dt>Khách hàng</dt><dd>Người đi làm văn phòng, cán bộ, hộ kinh doanh, người làm video</dd>
+      </dl>
+      <ul>
+        <li><a href="../">Cộng đồng Gradisy</a></li>
+        <li><a href="https://www.youtube.com/@Vannam_alexhayes" target="_blank" rel="noopener">Kênh YouTube</a></li>
+        <li><a href="../privacy.html">Chính sách quyền riêng tư</a></li>
+        <li><a href="../terms.html">Điều khoản sử dụng</a></li>
+      </ul>
+    </div>
+    <p class="copy">© 2026 Gradisy, đội ngũ sáng lập.</p>
+  </div>
 </footer>
 
 <script>
-/* Danh sách sản phẩm và dịch vụ. Thêm dịch vụ mới: thêm một dòng. trangThai: "live" (đang chạy) hoặc "soon" (sắp mở). */
+/* Danh sách sản phẩm và dịch vụ. Thêm dịch vụ mới: thêm một dòng.
+   trangThai: "live" (đang chạy) hoặc "soon" (sắp mở). the: các thẻ chủ đề ngắn. */
 var DICH_VU = [
   { ten: "Cộng đồng Gradisy", trangThai: "live", nhan: "Đang chạy", gia: "Miễn phí",
-    mota: "Nơi người cùng nghề chia sẻ việc thật đã làm cùng AI theo mẫu 6 ô có bằng chứng: hồ sơ năng lực dùng AI, Góc ngành, Tài liệu học. Đăng nhập bằng Google.",
+    mota: "Nơi người cùng nghề chia sẻ việc thật đã làm cùng AI theo mẫu 6 ô có bằng chứng. Đăng nhập bằng Google.",
+    the: ["Hồ sơ năng lực", "Góc ngành", "Tài liệu học"],
     link: "../", chuLink: "Vào cộng đồng" },
   { ten: "Khoá học AI từ số 0", trangThai: "soon", nhan: "Sắp mở", gia: "1.000đ cho mỗi giờ người dạy đã học",
-    mota: "Cho dân văn phòng và người làm video: 12 chương, 59 bài ngắn, khoảng 12 giờ xem và 38 giờ tự làm. Toàn bộ quá trình học có trên livestream, xem miễn phí; khoá học là bản tổng kết để bạn tiết kiệm thời gian.",
+    mota: "12 chương, 59 bài ngắn, khoảng 12 giờ xem và 38 giờ tự làm. Toàn bộ quá trình học có trên livestream, xem miễn phí; khoá học là bản tổng kết để bạn tiết kiệm thời gian.",
+    the: ["AI cho công sở", "AI cho edit video"],
     link: "https://www.youtube.com/@Vannam_alexhayes", chuLink: "Xem livestream" },
-  { ten: "Dịch vụ tự động hoá 1–1", trangThai: "live", nhan: "Nhận khách", gia: "200.000đ / giờ · không xong không lấy tiền",
+  { ten: "Dịch vụ tự động hoá 1–1", trangThai: "live", nhan: "Nhận khách", gia: "200.000đ một giờ, không xong không lấy tiền",
     mota: "Bạn mang một việc đang làm, chúng tôi cùng bạn biến nó thành quy trình AI chạy trên máy bạn. Lần sau chỉ cần gọi một câu lệnh.",
+    the: ["Claude Code", "Việc lặp lại", "File thật"],
     link: "#mot-mot", chuLink: "Xem cách làm" }
 ];
 (function(){
+  function el(tag, cls, text){ var x = document.createElement(tag); if (cls) x.className = cls; if (text) x.textContent = text; return x; }
   var box = document.getElementById('dsDichVu');
-  DICH_VU.forEach(function(d){
-    var p = document.createElement('div'); p.className = 'panel';
-    var pill = document.createElement('span'); pill.className = 'pill ' + d.trangThai; pill.textContent = d.nhan;
-    var h = document.createElement('h3'); h.textContent = d.ten;
-    var m = document.createElement('p'); m.textContent = d.mota;
-    var g = document.createElement('p'); g.className = 'price'; g.textContent = d.gia;
-    var a = document.createElement('a'); a.href = d.link; a.textContent = d.chuLink;
+  DICH_VU.forEach(function(d, i){
+    var c = el('div', 'card prod');
+    c.appendChild(el('span', 'pill ' + d.trangThai, d.nhan));
+    c.appendChild(el('h3', '', d.ten));
+    c.appendChild(el('p', '', d.mota));
+    if (d.the && d.the.length) {
+      var ul = el('ul', 'tags');
+      d.the.forEach(function(t){ ul.appendChild(el('li', '', t)); });
+      c.appendChild(ul);
+    }
+    c.appendChild(el('p', 'price', d.gia));
+    var a = el('a', 'more', d.chuLink); a.href = d.link;
     if (/^https?:/.test(d.link)) { a.target = '_blank'; a.rel = 'noopener'; }
-    var pa = document.createElement('p'); pa.appendChild(a);
-    [pill, h, m, g, pa].forEach(function(x){ p.appendChild(x); });
-    box.appendChild(p);
+    var pa = el('p'); pa.appendChild(a); c.appendChild(pa);
+    box.appendChild(c);
   });
 
-  // mục lục theo từng phần, hiện tên phần đang đọc
+  // menu trên máy tính và mục lục gập trên điện thoại, đánh dấu phần đang đọc
   var secs = Array.prototype.slice.call(document.querySelectorAll('section[data-toc]'));
-  var list = document.getElementById('tocList'), now = document.getElementById('tocNow'), toc = document.getElementById('toc');
-  var links = secs.map(function(s){
-    var li = document.createElement('li'), a = document.createElement('a');
-    a.href = '#' + s.id; a.textContent = s.dataset.toc;
-    a.addEventListener('click', function(){ toc.querySelector('details').open = false; });
-    li.appendChild(a); list.appendChild(li); return a;
+  var menu = document.getElementById('menu'), list = document.getElementById('tocList');
+  var now = document.getElementById('tocNow'), toc = document.getElementById('toc'), top = document.getElementById('top');
+  var ngan = { "Sản phẩm và dịch vụ": "Sản phẩm" };
+  var mLinks = [], tLinks = [];
+  secs.forEach(function(s){
+    var a = el('a', '', ngan[s.dataset.toc] || s.dataset.toc); a.href = '#' + s.id; menu.appendChild(a); mLinks.push(a);
+    var li = el('li'), b = el('a', '', s.dataset.toc); b.href = '#' + s.id;
+    b.addEventListener('click', function(){ toc.querySelector('details').open = false; });
+    li.appendChild(b); list.appendChild(li); tLinks.push(b);
   });
   function update(){
-    var head = document.querySelector('.doc');
-    toc.classList.toggle('show', head.getBoundingClientRect().top < 120);
-    var cur = 0;
+    var past = secs[0].getBoundingClientRect().top < 120;
+    toc.classList.toggle('show', past);
+    top.classList.toggle('scrolled', scrollY > 8);
+    var cur = -1;
     secs.forEach(function(s, i){ if (s.getBoundingClientRect().top < 160) cur = i; });
-    now.textContent = secs[cur].dataset.toc;
-    links.forEach(function(a, i){ a.classList.toggle('on', i === cur); });
+    now.textContent = secs[Math.max(cur, 0)].dataset.toc;
+    mLinks.forEach(function(a, i){ a.classList.toggle('on', i === cur); });
+    tLinks.forEach(function(a, i){ a.classList.toggle('on', i === cur); });
   }
   addEventListener('scroll', update, {passive:true}); update();
+
+  // video bìa: dừng nếu máy đã tắt chuyển động
+  var v = document.getElementById('biaVideo');
+  if (v && matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.pause(); }
+
 })();
 </script>
 </body>
