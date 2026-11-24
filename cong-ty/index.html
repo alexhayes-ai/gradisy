@@ -4,40 +4,46 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Hồ sơ công ty · Gradisy</title>
-<meta name="description" content="Hồ sơ Gradisy: đồng hành cùng AI bằng việc thật. Cộng đồng, đào tạo và dịch vụ tự động hoá 1–1, không xong không lấy tiền.">
+<meta name="description" content="Hồ sơ Gradisy: dịch vụ AI cho doanh nghiệp vừa và nhỏ, và cho cá nhân. Tự động hoá 1–1, tự động hoá nhỏ, phần mềm nhỏ, đã gồm bảo hành và duy trì.">
 <!-- Đăng lên mạng 18/11/2026. 19/11: phần dưới ảnh bìa dựng lại theo cấu trúc
      Giới thiệu → Tầm nhìn → Sứ mệnh → Sản phẩm → Đội ngũ → Tham gia.
+     24/11: đổi thiết kế theo kiểu trang Accenture (chữ lớn căn trái, thẻ 3 màu có hình trừu tượng,
+     khối người sáng lập kiểu trích dẫn). Giữ nguyên ảnh bìa video và toàn bộ chữ.
+     Bản trước khi đổi: ../../ho-so-cong-ty/ban-luu/index-truoc-accenture-24-11.html
      Thêm dịch vụ mới: thêm một dòng vào DICH_VU trong <script> cuối trang. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#000; --raise:#121212; --raise-2:#1c1c1c; --line:#2a2a2a;
   --ink:#fff; --ink-2:#c9c9c9; --muted:#8e8e8e;
-  --accent:#f07a3c; --accent-soft:rgba(240,122,60,.14); --good:#55c48a; --warn:#e8b24a;
+  --accent:#f07a3c; --accent-soft:rgba(240,122,60,.14); --accent-deep:#b4501c;
+  --good:#55c48a; --warn:#e8b24a;
+  --paper:#fff; --paper-2:#ececec; --paper-ink:#000; --paper-ink-2:#3a3a3a;
   --font:"Be Vietnam Pro",system-ui,-apple-system,"Segoe UI",sans-serif;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.75 var(--font);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.7 var(--font);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 a{color:var(--ink)}
 img{max-width:100%;display:block}
 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .wrap{max-width:1200px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-left))}
 
 /* thanh trên: logo, các mục, nút chính */
-.top{position:sticky;top:0;z-index:10;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
+.top{position:sticky;top:0;z-index:10;background:rgba(0,0,0,.9);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
 .top.scrolled{border-bottom-color:var(--line)}
-.top .row{display:flex;align-items:center;gap:16px;height:56px}
-.logo{display:flex;align-items:center;gap:9px;text-decoration:none;font-weight:600;font-size:17px}
-.logo i{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;background:var(--accent);color:#000;font-style:normal;font-weight:600;font-size:15px}
-.menu{display:none;margin-left:auto;gap:4px}
-.menu a{font-size:14px;color:var(--ink-2);text-decoration:none;padding:6px 12px;border-radius:99px}
+.top .row{display:flex;align-items:center;gap:16px;height:64px}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none;font-weight:700;font-size:18px;letter-spacing:-.01em}
+.logo i{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;background:var(--accent);color:#000;font-style:normal;font-weight:700;font-size:15px}
+.menu{display:none;margin:0 auto;gap:2px}
+.menu a{font-size:15px;font-weight:500;color:var(--ink-2);text-decoration:none;padding:6px 14px;white-space:nowrap}
+@media (max-width:1100px){.menu a{font-size:14px;padding:6px 9px}}
 .menu a:hover{color:var(--ink)}
-.menu a.on{color:var(--ink);background:var(--raise-2)}
-.go{margin-left:auto;font-size:14px;text-decoration:none;background:var(--ink);color:#000;font-weight:500;padding:7px 14px;border-radius:99px;white-space:nowrap}
-.go:hover{background:var(--ink-2)}
+.menu a.on{color:var(--ink);box-shadow:inset 0 -2px 0 var(--accent)}
+.go{margin-left:auto;font-size:14px;text-decoration:none;background:var(--ink);color:#000;font-weight:600;padding:8px 16px;white-space:nowrap}
+.go:hover{background:var(--accent)}
 /* điện thoại: mục lục gập lại, hiện tên phần đang đọc */
 .toc{border-top:1px solid var(--line);display:none}
 .toc.show{display:block}
@@ -49,117 +55,207 @@ img{max-width:100%;display:block}
 .toc ol a{display:block;padding:6px 0;font-size:15px;color:var(--ink-2);text-decoration:none}
 .toc ol a.on{color:var(--ink)}
 
-/* đầu trang và ảnh bìa (giữ nguyên) */
-.head{max-width:860px;margin:0 auto;padding:72px max(16px,env(safe-area-inset-left)) 40px;text-align:center}
-.meta{font-size:14px;color:var(--muted);margin:0 0 22px}
-.meta b{color:var(--ink-2);font-weight:500;margin-right:12px}
-h1{font-weight:500;font-size:clamp(36px,6.4vw,64px);line-height:1.1;letter-spacing:-.02em;margin:0 0 22px;text-wrap:balance}
-.sub{font-size:clamp(17px,2.2vw,20px);color:var(--ink-2);max-width:640px;margin:0 auto;line-height:1.6}
+/* vạch màu ngắn: dấu hiệu chung của mọi phần */
+.bar{display:block;width:44px;height:4px;background:var(--accent);margin:0 0 20px}
+
+/* đầu trang: tên rất lớn bên trái, giới thiệu ngắn bên phải */
+/* đầu trang nằm trên nền hạt 3D */
+.hero{position:relative;overflow:hidden;isolation:isolate}
+canvas.waves{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(0,0,0,.55) 0,rgba(0,0,0,0) 60%),linear-gradient(0deg,#000 0,rgba(0,0,0,0) 22%)}
+.head{position:relative;max-width:1200px;margin:0 auto;padding:56px max(16px,env(safe-area-inset-left)) 72px;display:grid;gap:36px;align-items:end;min-height:min(78vh,720px)}
+h1{font-weight:700;font-size:clamp(46px,9.2vw,136px);line-height:1.2;letter-spacing:-.04em;margin:0;text-transform:uppercase;align-self:start}
+h1 .l1,h1 .l2{display:block}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.has-waves{position:relative;overflow:hidden;isolation:isolate}
+
+/* dải cảnh video có chữ đè lên, cùng kiểu ảnh bìa */
+.scene{position:relative;border-radius:22px;overflow:hidden;min-height:440px;display:flex;align-items:flex-end;background:#1a0b04 center/cover}
+.scene-v{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.scene::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.85) 0,rgba(0,0,0,.35) 60%,rgba(0,0,0,.2) 100%)}
+.scene-text{position:relative;z-index:1;padding:clamp(24px,4vw,56px)}
+.scene .label{color:#fff}
+.scene.center{align-items:center;justify-content:center;text-align:center;margin-bottom:44px}
+.scene.center::after{background:rgba(0,0,0,.5)}
+.scene.center .big-title{margin:0}
+.head .side{max-width:460px}
+.meta{font-size:14px;color:var(--muted);margin:0 0 10px}
+.meta b{color:var(--ink);font-weight:600;margin-right:12px}
+.sub{font-size:clamp(17px,1.8vw,19px);color:var(--ink-2);margin:0;line-height:1.6}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 0}
+
+/* ảnh bìa (giữ nguyên như bản trước) */
 .cover{max-width:1200px;margin:0 auto 24px;padding:0 max(16px,env(safe-area-inset-left))}
 .cover .box{position:relative;aspect-ratio:16/8;border-radius:22px;overflow:hidden;
   background:radial-gradient(120% 90% at 18% 20%,#ffb88a 0,#f07a3c 30%,#9a3b12 58%,#2a0f05 100%)}
 .cover video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-/* lớp tối nhẹ ở giữa để chữ trắng luôn đọc rõ trên nền video */
 .cover .box::after{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.28),rgba(0,0,0,.28)),radial-gradient(55% 60% at 50% 50%,rgba(0,0,0,.3),transparent 75%)}
 .cover .mark{text-shadow:0 2px 24px rgba(60,20,4,.35)}
 .cover .mark{position:absolute;inset:0;display:grid;place-items:center;z-index:1;text-align:center}
 .cover .mark span{display:block;font-weight:500;font-size:clamp(34px,7vw,84px);letter-spacing:-.02em;color:#fff;line-height:1}
 .cover .mark small{display:block;margin-top:12px;font-size:clamp(14px,1.8vw,18px);color:rgba(255,255,255,.85)}
-.hero-cta{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:32px 0 0}
 
-/* nút */
-.btn{display:inline-block;font-size:15px;font-weight:500;text-decoration:none;padding:11px 22px;border-radius:99px;border:1px solid var(--line);color:var(--ink)}
-.btn:hover{border-color:var(--ink-2)}
+/* nút: góc vuông, nền trắng hoặc viền */
+.btn{display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:600;text-decoration:none;padding:12px 20px;border:1px solid var(--ink-2);color:var(--ink)}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
 .btn.main{background:var(--ink);color:#000;border-color:var(--ink)}
-.btn.main:hover{background:var(--ink-2)}
+.btn.main:hover{background:var(--accent);border-color:var(--accent);color:#000}
+/* ô vuông có mũi nhọn, dùng cho đường dẫn "xem tiếp" */
+.chev{display:inline-grid;place-items:center;width:24px;height:24px;background:var(--accent);color:#000;font-weight:700;font-size:15px;line-height:1;flex:none}
 
-/* các phần: dải nền xen kẽ, tiêu đề ở giữa */
-.part{padding:88px 0;scroll-margin-top:56px}
-.part + .part{border-top:1px solid var(--line)}
-h2{font-weight:500;font-size:clamp(28px,4vw,42px);line-height:1.15;letter-spacing:-.015em;margin:0 0 18px;text-align:center;text-wrap:balance}
-.lead{max-width:720px;margin:0 auto 18px;text-align:center;color:var(--ink-2)}
-.lead b{color:var(--ink);font-weight:500}
-h3{font-weight:500;font-size:20px;line-height:1.3;margin:0 0 8px}
+/* các phần: tiêu đề lớn căn trái */
+.part{padding:80px 0;scroll-margin-top:64px}
+h2{font-weight:700;font-size:clamp(38px,6vw,76px);line-height:1.12;letter-spacing:-.035em;margin:0 0 28px;text-wrap:balance}
+.lead{max-width:640px;margin:0 0 18px;color:var(--ink-2);font-size:clamp(17px,1.6vw,19px)}
+.lead b{color:var(--ink);font-weight:600}
+h3{font-weight:700;font-size:22px;line-height:1.25;letter-spacing:-.01em;margin:0 0 10px}
 p{margin:0 0 16px}
-.links{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:28px 0 0}
+.split{display:grid;gap:40px}
 
-/* tầm nhìn: một câu lớn */
-.vision{max-width:900px;margin:0 auto;text-align:center;font-size:clamp(22px,3vw,32px);line-height:1.45;font-weight:500;letter-spacing:-.01em;text-wrap:balance}
+/* giới thiệu: danh sách "xem tiếp" bên phải */
+.xlist{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.xlist li{border-bottom:1px solid var(--line)}
+.xlist a{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;text-decoration:none;font-size:clamp(20px,2.2vw,26px);font-weight:700;letter-spacing:-.015em;line-height:1.25}
+.xlist a:hover{color:var(--accent)}
 
-/* lưới thẻ */
+/* tầm nhìn: một câu rất lớn */
+.label{display:block;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);margin:0 0 14px}
+.vision{max-width:1040px;margin:0;font-size:clamp(30px,4.8vw,62px);line-height:1.22;font-weight:700;letter-spacing:-.03em;text-wrap:balance}
+
+/* sứ mệnh: 4 cột, mỗi cột có vạch màu */
+.rules{display:grid;gap:40px 32px;margin:24px 0 0}
+.rules div{margin:0}
+.rules dt{font-size:24px;font-weight:700;letter-spacing:-.015em;margin-bottom:10px;line-height:1.2}
+.rules dd{margin:0;color:var(--ink-2);font-size:16px}
+
+/* sản phẩm: thẻ vuông 3 màu, hình trừu tượng ở đáy */
 .grid{display:grid;gap:20px;margin-top:44px}
-.card{background:var(--raise);border:1px solid #1e1e1e;border-radius:18px;padding:26px}
+.card{background:var(--raise);border:1px solid #1e1e1e;padding:28px}
 .card p{color:var(--ink-2);font-size:16px}
 .card p:last-child,.card ul:last-child,.card ol:last-child{margin-bottom:0}
-
-/* sứ mệnh: danh sách có đường kẻ mảnh, không đóng thẻ */
-.rules{display:grid;gap:0 48px;max-width:960px;margin:40px auto 0}
-.rules div{border-top:1px solid var(--line);padding:22px 0 8px}
-.rules dt{font-size:20px;font-weight:500;margin-bottom:6px}
-.rules dd{margin:0;color:var(--ink-2);font-size:16px}
-.pill{margin-bottom:14px;align-self:flex-start}
-
-/* sản phẩm: nhãn, giá, thẻ chủ đề */
-.prod{display:flex;flex-direction:column}
-.pill{display:inline-block;background:var(--raise-2);color:var(--ink);font-size:13px;font-weight:500;padding:4px 12px;border-radius:99px}
-.pill.live{color:var(--good)}
-.pill.soon{color:var(--warn)}
-.price{font-size:18px;color:var(--ink)!important;margin-top:auto!important;padding-top:6px}
+.prod{display:flex;flex-direction:column;padding:0;border:0;--c-ink:var(--ink);--c-ink-2:var(--ink-2);--c-tag:var(--accent);--c-tag-bg:var(--accent-soft)}
+.prod .in{padding:28px 28px 22px;display:flex;flex-direction:column;flex:1}
+.prod.light{background:var(--paper);--c-ink:var(--paper-ink);--c-ink-2:var(--paper-ink-2);--c-tag:var(--accent-deep);--c-tag-bg:rgba(180,80,28,.1)}
+.prod.grey{background:var(--paper-2);--c-ink:var(--paper-ink);--c-ink-2:var(--paper-ink-2);--c-tag:var(--accent-deep);--c-tag-bg:rgba(180,80,28,.1)}
+.prod.dark{background:#141414;border:1px solid #262626}
+.prod h3{color:var(--c-ink);font-size:clamp(24px,2.2vw,28px);letter-spacing:-.02em}
+.prod p{color:var(--c-ink-2)}
+.prod .tag-top{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c-ink);margin-bottom:18px}
+.prod .tag-top::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--good)}
+.prod .tag-top.soon::before{background:var(--warn)}
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 16px;padding:0;list-style:none}
-.tags li{font-size:13px;color:var(--accent);background:var(--accent-soft);border-radius:99px;padding:3px 11px}
-.prod a.more{font-size:15px;font-weight:500}
+.tags li{font-size:13px;font-weight:500;color:var(--c-tag);background:var(--c-tag-bg);padding:3px 10px}
+.price{font-size:17px;font-weight:600;color:var(--c-ink)!important;margin-top:auto!important;padding-top:6px}
+.prod a.more{display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:var(--c-ink);text-decoration:none}
+.prod a.more:hover{text-decoration:underline;text-underline-offset:4px}
+/* hình trừu tượng màu cam, mỗi thẻ một kiểu */
+.art{height:200px;flex:none}
+.art.a1{background:radial-gradient(circle at 50% 120%,#ffd3b5 0,#f07a3c 22%,transparent 23%),radial-gradient(circle at 50% 120%,transparent 0 30%,rgba(240,122,60,.55) 30% 31%,transparent 31%),radial-gradient(circle at 50% 120%,transparent 0 40%,rgba(240,122,60,.35) 40% 41%,transparent 41%),radial-gradient(circle at 50% 120%,transparent 0 52%,rgba(240,122,60,.2) 52% 53%,transparent 53%),#fff}
+.art.a2{background:repeating-conic-gradient(from 0deg at 50% 100%,#f07a3c 0 4deg,#ececec 4deg 9deg)}
+.art.a3{background:repeating-linear-gradient(100deg,transparent 0 22px,rgba(255,170,110,.85) 22px 24px),linear-gradient(180deg,#141414 0,#5a2208 55%,#f07a3c 100%)}
+.art.a4{background:repeating-radial-gradient(circle at 100% 100%,#f07a3c 0 2px,transparent 2px 16px),radial-gradient(circle at 100% 100%,#5a2208 0,#141414 70%)}
+.art.a5{background:radial-gradient(circle,#f07a3c 0 3px,transparent 4px) 0 0/22px 22px,linear-gradient(180deg,#fff 0,#ffe3d0 100%)}
+.art.a6{background:repeating-linear-gradient(135deg,#f07a3c 0 6px,#ffb88a 6px 10px,transparent 10px 44px),#ececec}
+
+/* góc nhìn: thẻ kiểu bài viết, chữ trên, hình dưới */
+.icards{display:grid;gap:28px;margin-top:44px}
+.icard{display:flex;flex-direction:column;min-height:440px;--c-ink:var(--paper-ink);--c-ink-2:var(--paper-ink-2)}
+.icard.light{background:var(--paper)}
+.icard.grey{background:var(--paper-2)}
+.icard.dark{background:#141414;border:1px solid #262626;--c-ink:var(--ink);--c-ink-2:var(--ink-2)}
+.icard .in{padding:26px 24px 20px}
+.icard .kicker{display:block;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c-ink);margin-bottom:12px}
+.icard h3{color:var(--c-ink);font-size:clamp(21px,1.9vw,24px);font-weight:600;letter-spacing:-.015em;line-height:1.25}
+.icard p{color:var(--c-ink-2);font-size:15px;margin:0}
+.icard .art{flex:1;min-height:180px;height:auto}
+.note-sm{color:var(--muted);font-size:15px;margin:20px 0 0}
 
 /* khối dịch vụ 1–1 */
 .deal{margin-top:72px}
-.deal h3.big{font-size:clamp(22px,2.6vw,28px);text-align:center;margin-bottom:10px}
+.deal h3.big{font-size:clamp(28px,3.4vw,44px);letter-spacing:-.03em;line-height:1.1;margin-bottom:16px;max-width:820px}
+.deal .card{border-top:4px solid var(--accent)}
 .deal ol,.deal ul{color:var(--ink-2);font-size:16px;padding-left:20px;margin:0 0 14px}
 .deal li{margin:6px 0}
-.deal .note{text-align:center;color:var(--muted);font-size:15px;margin:22px auto 0;max-width:720px}
+.deal .note{color:var(--muted);font-size:15px;margin:24px 0 0;max-width:720px}
 
-/* đội ngũ */
-.group{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:center;margin:56px 0 18px}
-.lead-card{max-width:560px;margin:44px auto 0;text-align:center}
-.lead-card img,.lead-card .ph{width:120px;height:120px;border-radius:50%;object-fit:cover;object-position:50% 30%;margin:0 auto 16px;border:3px solid var(--accent-soft)}
-.role{display:block;font-size:14px;color:var(--accent);margin-bottom:12px}
-.lead-card ul{list-style:none;padding:0;margin:14px 0 0;color:var(--ink-2);font-size:15px}
-.lead-card li{margin:4px 0}
-.members{display:grid;gap:20px;max-width:760px;margin:0 auto}
-.member{text-align:center}
-.member .ph{display:grid;place-items:center;width:84px;height:84px;border-radius:50%;margin:0 auto 14px;background:var(--raise-2);color:var(--muted);font-size:26px}
+/* đội ngũ: lướt ngang từng người, ảnh tròn bên trái, câu châm ngôn lớn bên phải */
+.team-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
+.nav-btns{display:flex;gap:8px;margin-bottom:34px}
+.nb{width:44px;height:44px;border:1px solid var(--ink-2);background:transparent;color:var(--ink);font:700 22px/1 var(--font);cursor:pointer}
+.nb:hover{border-color:var(--accent);background:var(--accent);color:#000}
+.nb:disabled{opacity:.3;cursor:default;background:transparent;color:var(--ink);border-color:var(--ink-2)}
+.slider{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.slider::-webkit-scrollbar{display:none}
+/* mỗi người: ảnh ngang ở trên, câu nói đậm ở dưới, tên nhỏ cuối cùng (kiểu khối trích dẫn của Accenture) */
+.slide{flex:0 0 100%;scroll-snap-align:start;padding:8px 0}
+.slide > *{max-width:640px}
+.slide img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;object-position:50% 50%;background:#1a0b04}
+.motto{margin:28px 0 0;font-size:clamp(20px,2.2vw,26px);line-height:1.4;font-weight:600;letter-spacing:-.01em;text-wrap:pretty}
+.who{margin:22px 0 0;font-size:16px;color:var(--ink-2)}
+.who b{color:var(--ink);font-weight:500;margin-right:10px}
+.who span{color:var(--muted)}
+.dots{display:flex;gap:8px;margin-top:28px}
+.dots span{width:28px;height:4px;background:var(--line)}
+.dots span.on{background:var(--accent)}
+/* (cũ) người sáng lập kiểu trích dẫn */
+.founder{display:grid;gap:32px;align-items:center;margin-top:16px}
+.founder img{width:100%;max-width:440px;aspect-ratio:1/1;object-fit:cover;object-position:50% 30%}
+.founder h3{font-size:clamp(32px,4vw,52px);letter-spacing:-.035em;line-height:1.05;margin:0 0 8px}
+.role{display:block;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
+.founder p{color:var(--ink-2);font-size:clamp(17px,1.7vw,20px);line-height:1.6;max-width:600px}
+.founder ul{list-style:none;padding:0;margin:20px 0 0;border-top:1px solid var(--line)}
+.founder li{padding:14px 0;border-bottom:1px solid var(--line);color:var(--ink);font-weight:500;font-size:16px}
+.group{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:80px 0 18px}
+.members{display:grid;gap:20px}
+.member .ph{display:grid;place-items:center;width:56px;height:56px;margin:0 0 18px;background:var(--raise-2);color:var(--accent);font-size:24px;font-weight:700}
 .member .t{color:var(--muted);font-size:15px}
 
-/* tham gia */
-.join{display:grid;gap:28px;align-items:start;margin-top:8px}
-.join h2,.join .join .join p{color:var(--ink-2)}
-.chance h3{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+/* tham gia: tiêu đề cực lớn ở giữa */
+.big-title{text-align:center;font-size:clamp(44px,9vw,120px);line-height:1.12;letter-spacing:-.045em;margin:0 auto 44px;max-width:1100px}
+.join{display:grid;gap:28px;align-items:start}
+.join > div > p{color:var(--ink-2)}
+.links{display:flex;flex-wrap:wrap;gap:12px;margin:28px 0 0}
+.chance{border-top:4px solid var(--accent)}
+.chance h3{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
 .chance ul{list-style:none;padding:0;margin:0}
-.chance li{position:relative;padding:10px 0 10px 30px;border-bottom:1px solid var(--line);color:var(--ink-2);font-size:16px}
+.chance li{position:relative;padding:12px 0 12px 28px;border-bottom:1px solid var(--line);color:var(--ink-2);font-size:16px}
 .chance li:last-child{border-bottom:0}
-.chance li::before{content:"";position:absolute;left:4px;top:19px;width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.chance li::before{content:"";position:absolute;left:2px;top:22px;width:12px;height:4px;background:var(--accent)}
 
 /* chân trang: thông tin công ty */
-footer{border-top:1px solid var(--line);padding:48px 0;font-size:14px;color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:56px 0;font-size:14px;color:var(--muted)}
 .foot{display:grid;gap:28px}
-.foot b{display:block;color:var(--ink);font-size:16px;font-weight:500;margin-bottom:6px}
+.foot b{display:block;color:var(--ink);font-size:22px;font-weight:700;letter-spacing:-.02em;margin-bottom:6px}
 .foot dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 16px}
 .foot dt{color:var(--muted)}
 .foot dd{margin:0;color:var(--ink-2)}
 .foot ul{list-style:none;padding:0;margin:0}
 .foot li{margin:4px 0}
 footer a{color:var(--ink-2)}
+footer a:hover{color:var(--accent)}
 .copy{margin-top:32px;padding-top:20px;border-top:1px solid var(--line)}
-
 
 @media (min-width:640px){
   .grid.g2{grid-template-columns:repeat(2,1fr)}
+  .icards{grid-template-columns:repeat(2,1fr)}
   .rules{grid-template-columns:repeat(2,1fr)}
   .members{grid-template-columns:repeat(2,1fr)}
 }
 @media (min-width:900px){
   .menu{display:flex}
-  .menu + .go{margin-left:8px}
+  .menu + .go{margin-left:0}
   .toc{display:none!important}
+  .head{grid-template-columns:1.5fr 1fr;padding-top:72px}
+  h1 .l2{padding-left:14%}
+  .part{padding:112px 0}
+  .scene{min-height:560px}
+  .split{grid-template-columns:7fr 5fr;gap:72px;align-items:start}
+  .rules{grid-template-columns:repeat(4,1fr)}
   .grid.g3{grid-template-columns:repeat(3,1fr)}
+  .prod{min-height:560px}
+  .icards{grid-template-columns:repeat(3,1fr);gap:40px}
+  .icard{min-height:520px}
+  .founder{grid-template-columns:5fr 7fr;gap:64px}
   .join{grid-template-columns:1fr 1fr;gap:56px}
   .foot{grid-template-columns:1.2fr 1.6fr 1fr}
 }
@@ -185,15 +281,22 @@ footer a{color:var(--ink-2)}
   </nav>
 </header>
 
+<div class="hero">
+<!-- Nền hạt 3D: mặt sóng chấm cam vẽ bằng canvas (mã ở cuối trang, không dùng thư viện). -->
+<canvas class="waves" data-alpha="1" aria-hidden="true"></canvas>
 <header class="head">
-  <p class="meta"><b>Hồ sơ công ty</b>Cập nhật 19/11/2026</p>
-  <h1>Gradisy</h1>
-  <p class="sub">Giúp người đi làm đồng hành cùng AI bằng việc thật: học từ người cùng nghề, làm ra sản phẩm thật, và tự động hoá những việc lặp lại mỗi ngày.</p>
-  <div class="hero-cta">
-    <a class="btn main" href="#san-pham">Xem sản phẩm và dịch vụ</a>
-    <a class="btn" href="../">Vào cộng đồng</a>
+  <h1><span class="sr">Gradisy: </span><span class="l1">Dịch vụ AI</span> <span class="l2">bằng việc thật</span></h1>
+  <div class="side">
+    <span class="bar" aria-hidden="true"></span>
+    <p class="meta"><b>Hồ sơ công ty</b>Cập nhật 24/11/2026</p>
+    <p class="sub">Dịch vụ AI cho doanh nghiệp vừa và nhỏ, và cho cá nhân: chúng tôi xem việc thật của bạn, rồi làm công cụ AI đúng cho việc đó.</p>
+    <div class="hero-cta">
+      <a class="btn main" href="#san-pham">Xem dịch vụ</a>
+      <a class="btn" href="../">Vào cộng đồng</a>
+    </div>
   </div>
 </header>
+</div>
 
 <div class="cover"><div class="box" role="img" aria-label="Ảnh bìa Gradisy: video người đi làm đang dùng máy tính, chữ Gradisy ở giữa">
   <!-- Video ghép từ 5 đoạn Pexels (giấy phép Pexels, miễn phí): 5944692, 35402241, 7681386, 8631874, 2516160.
@@ -205,51 +308,60 @@ footer a{color:var(--ink-2)}
 
 <!-- 1. Giới thiệu -->
 <section class="part" id="gioi-thieu" data-toc="Giới thiệu">
-  <div class="wrap">
-    <h2>Giới thiệu</h2>
-    <p class="lead">Gradisy bắt đầu từ một câu hỏi: một người bình thường, không biết code, có thể dùng AI làm ra bao nhiêu việc thật? Chúng tôi trả lời bằng cách tự làm, công khai từng bước, rồi giúp người khác làm theo.</p>
-    <p class="lead">Hôm nay Gradisy gồm ba mảng: <b>cộng đồng</b> để học từ người cùng nghề, <b>đào tạo</b> cho người bắt đầu từ số 0, và <b>dịch vụ</b> tự động hoá công việc của từng người. Dịch vụ mới được thêm vào hồ sơ này khi đã chạy thật.</p>
-    <div class="links">
-      <a class="btn" href="https://www.youtube.com/@Vannam_alexhayes" target="_blank" rel="noopener">Kênh YouTube</a>
-      <a class="btn" href="https://alexhayes-ai.github.io/claude-code-van-phong/">Video 02: báo cáo tháng</a>
-      <a class="btn" href="https://alexhayes-ai.github.io/excel-bao-cao-tu-dong/">Video 01: dọn Excel</a>
+  <div class="wrap split">
+    <div>
+      <span class="bar" aria-hidden="true"></span>
+      <h2>Giới thiệu</h2>
+      <p class="lead">Gradisy là công ty cung cấp dịch vụ AI cho doanh nghiệp vừa và nhỏ, và cho cá nhân. Mỗi công ty có một cách làm riêng: biểu mẫu riêng, file riêng, quy trình riêng. Vì vậy chúng tôi không bán giải pháp đóng sẵn.</p>
+      <p class="lead">Chúng tôi xem việc thật của bạn, chọn việc lặp lại tốn nhiều giờ nhất, rồi làm công cụ AI chạy đúng việc đó trên chính file của bạn. Bên cạnh dịch vụ có <b>cộng đồng</b>, nơi người cùng nghề chia sẻ việc thật đã làm cùng AI.</p>
+      <p class="lead">Gradisy bắt đầu từ tháng 11/2026. Cách chúng tôi làm việc được quay lại công khai trên kênh YouTube, bạn xem được trước khi đặt.</p>
     </div>
+    <ul class="xlist">
+      <li><a href="https://www.youtube.com/@Vannam_alexhayes" target="_blank" rel="noopener">Kênh YouTube<span class="chev" aria-hidden="true">›</span></a></li>
+      <li><a href="https://alexhayes-ai.github.io/claude-code-van-phong/">Video 02: báo cáo tháng<span class="chev" aria-hidden="true">›</span></a></li>
+      <li><a href="https://alexhayes-ai.github.io/excel-bao-cao-tu-dong/">Video 01: dọn Excel<span class="chev" aria-hidden="true">›</span></a></li>
+    </ul>
   </div>
 </section>
 
 <!-- 2. Tầm nhìn -->
 <section class="part" id="tam-nhin" data-toc="Tầm nhìn">
   <div class="wrap">
-    <h2>Tầm nhìn</h2>
-    <p class="vision">Để mỗi người đi làm ở Việt Nam, không cần biết code, tự dùng AI làm xong việc thật của mình, và có bằng chứng cho từng việc đã làm.</p>
+    <!-- Dải cảnh video: Pexels 2516160 (giấy phép Pexels), cắt 1280x560 -->
+    <div class="scene">
+      <video class="scene-v" src="video/canh-tam-nhin.mp4" poster="video/canh-tam-nhin.jpg" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+      <div class="scene-text">
+        <span class="bar" aria-hidden="true"></span>
+        <h2 class="label">Tầm nhìn</h2>
+        <p class="vision">Để mỗi doanh nghiệp nhỏ ở Việt Nam, dù không có đội kỹ thuật, cũng dùng được AI cho đúng việc của mình.</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- 3. Sứ mệnh -->
-<section class="part" id="su-menh" data-toc="Sứ mệnh">
+<section class="part has-waves" id="su-menh" data-toc="Sứ mệnh">
+  <canvas class="waves" data-alpha=".3" aria-hidden="true"></canvas>
   <div class="wrap">
-    <div>
-      <h2>Sứ mệnh</h2>
-    </div>
+    <h2>Sứ mệnh</h2>
     <dl class="rules">
-      <div><dt>Giá trị thật</dt><dd>Chỉ giới thiệu thứ chúng tôi đã tự làm và chạy được. Thứ gì chưa thử, chúng tôi ghi rõ là chưa thử.</dd></div>
-      <div><dt>Xứng đáng tiền</dt><dd>Bạn trả tiền cho kết quả, không trả cho lời hứa. Giá công khai, không gạch giá, không đếm ngược.</dd></div>
-      <div><dt>Chữ tín</dt><dd>Số nào cũng có nguồn. Dịch vụ không làm xong thì không lấy tiền.</dd></div>
-      <div><dt>Làm công khai</dt><dd>Toàn bộ quá trình học có trên livestream, xem miễn phí từ đầu đến cuối, không giấu bước nào.</dd></div>
+      <div><span class="bar" aria-hidden="true"></span><dt>Giá trị thật</dt><dd>Chỉ giới thiệu thứ chúng tôi đã tự làm và chạy được. Thứ gì chưa thử, chúng tôi ghi rõ là chưa thử.</dd></div>
+      <div><span class="bar" aria-hidden="true"></span><dt>Xứng đáng tiền</dt><dd>Bạn trả tiền cho kết quả, không trả cho lời hứa. Giá công khai, không gạch giá, không đếm ngược.</dd></div>
+      <div><span class="bar" aria-hidden="true"></span><dt>Chữ tín</dt><dd>Số nào cũng có nguồn. Dịch vụ không làm xong thì không lấy tiền.</dd></div>
+      <div><span class="bar" aria-hidden="true"></span><dt>Làm công khai</dt><dd>Toàn bộ quá trình học có trên livestream, xem miễn phí từ đầu đến cuối, không giấu bước nào.</dd></div>
     </dl>
   </div>
 </section>
 
 <!-- 4. Sản phẩm và dịch vụ -->
-<section class="part" id="san-pham" data-toc="Sản phẩm và dịch vụ">
+<section class="part" id="san-pham" data-toc="Dịch vụ">
   <div class="wrap">
-    <div>
-      <h2>Sản phẩm và dịch vụ</h2>
-    </div>
+    <h2>Dịch vụ</h2>
     <div class="grid g3" id="dsDichVu"></div>
 
     <div class="deal" id="mot-mot">
       <div>
+        <span class="bar" aria-hidden="true"></span>
         <h3 class="big">Dịch vụ 1–1: không xong, không lấy tiền</h3>
         <p class="lead">Bạn mang một việc đang làm, lặp lại mỗi tuần hoặc mỗi tháng. Trong buổi, chúng tôi cùng bạn biến việc đó thành một quy trình tự động chạy trên máy bạn. Lần sau bạn chỉ cần gọi nó lên bằng một câu lệnh.</p>
       </div>
@@ -285,58 +397,71 @@ footer a{color:var(--ink-2)}
   </div>
 </section>
 
-<!-- 5. Đội ngũ -->
+<!-- 5. Góc nhìn và tình huống mẫu -->
+<section class="part" id="goc-nhin" data-toc="Góc nhìn">
+  <div class="wrap">
+    <h2>Góc nhìn và tình huống</h2>
+    <p class="lead">Cách chúng tôi nghĩ về việc dùng AI cho đúng việc, và vài tình huống mẫu cho từng gói dịch vụ.</p>
+    <div class="icards" id="dsGocNhin"></div>
+    <p class="note-sm">Các tình huống mẫu là ví dụ minh hoạ, chưa phải khách hàng thật. Khi có khách đồng ý chia sẻ, chúng tôi sẽ thay bằng câu chuyện thật.</p>
+  </div>
+</section>
+
+<!-- 6. Đội ngũ -->
 <section class="part" id="doi-ngu" data-toc="Đội ngũ">
   <div class="wrap">
-    <div>
+    <div class="team-head">
       <h2>Đội ngũ</h2>
-    </div>
-    <div class="card lead-card">
-      <img src="anh/alex.avif" alt="Ảnh chân dung Alex Hayes" width="240" height="240" loading="lazy">
-      <h3>Alex Hayes</h3>
-      <span class="role">Sáng lập</span>
-      <p>Đang trên hành trình 10.000 giờ học AI và xây dựng doanh nghiệp về AI. Học công khai, livestream từ thứ Hai đến thứ Sáu. Không biết code, nhưng đã tự làm Gradisy, các báo cáo tự động và bộ quy trình dựng video cùng Claude Code.</p>
-      <ul>
-        <li>Báo cáo 6.002 dòng có kiểm 3 lớp, chạy thử mù đạt 13/13</li>
-        <li>Web Gradisy có đăng nhập Google, làm trong 2 ngày, 0 đồng</li>
-      </ul>
-    </div>
-    <p class="group">Cộng sự</p>
-    <div class="members">
-      <div class="card member">
-        <div class="ph" aria-hidden="true">?</div>
-        <h3>Cộng sự chuyên môn học máy</h3>
-        <p class="t">Phần giới thiệu sẽ được cập nhật khi cộng sự đồng ý.</p>
-      </div>
-      <div class="card member">
-        <div class="ph" aria-hidden="true">+</div>
-        <h3>Chỗ này dành cho bạn</h3>
-        <p class="t">Gradisy đang tìm người cùng nghề muốn chia sẻ việc thật đã làm cùng AI.</p>
+      <div class="nav-btns">
+        <button type="button" class="nb" id="teamPrev" aria-label="Người trước">‹</button>
+        <button type="button" class="nb" id="teamNext" aria-label="Người tiếp theo">›</button>
       </div>
     </div>
+    <!-- Lướt ngang: mỗi người một trang. Thêm người: chép một khối <article class="slide">. -->
+    <div class="slider" id="team" tabindex="0" aria-label="Đội ngũ, lướt ngang để xem từng người">
+      <article class="slide">
+        <img src="anh/sir-toan-than.jpg" alt="Ảnh chân dung Alex Hayes" width="1200" height="800" loading="lazy">
+        <blockquote class="motto">“Tôi tin rằng khi ai cũng có AI làm trợ lý đắc lực, mỗi ngày làm việc sẽ bớt lặp lại, và mỗi người có thêm thời gian cho điều mình thật sự yêu.”</blockquote>
+        <p class="who"><b>Alex Hayes</b><span>Sáng lập</span></p>
+      </article>
+      <article class="slide">
+        <img src="anh/tuan-studio.jpg" alt="Ảnh chân dung anh Tuấn" width="1200" height="800" loading="lazy">
+        <blockquote class="motto">Phụ trách kỹ thuật: duyệt và quyết phần kỹ thuật của mọi dự án Gradisy.</blockquote>
+        <p class="who"><b>Tuấn</b><span>Đồng sáng lập · Giám đốc kỹ thuật (CTO)</span></p>
+      </article>
+    </div>
+    <div class="dots" id="teamDots" aria-hidden="true"></div>
   </div>
 </section>
 
 <!-- 6. Tham gia -->
 <section class="part" id="tham-gia" data-toc="Tham gia">
-  <div class="wrap join">
-    <div>
-      <h2>Đồng hành cùng Gradisy</h2>
-      <p>Chúng tôi chào đón người đi làm có việc lặp lại muốn giao cho AI, người mới bắt đầu học AI từ số 0, và người muốn chia sẻ việc thật đã làm. Không cần biết code. Chỉ cần một việc thật và muốn làm đến cùng.</p>
-      <p>Hiện chúng tôi nhận liên hệ qua bình luận trên kênh YouTube. Kênh nhận khách riêng sẽ cập nhật sớm.</p>
-      <div class="links" style="justify-content:flex-start">
-        <a class="btn main" href="https://www.youtube.com/@Vannam_alexhayes" target="_blank" rel="noopener">Liên hệ qua YouTube</a>
-        <a class="btn" href="../">Vào cộng đồng</a>
+  <div class="wrap">
+    <!-- Dải cảnh video: Pexels 8631874 (giấy phép Pexels), cắt 1280x560 -->
+    <div class="scene center">
+      <video class="scene-v" src="video/canh-tham-gia.mp4" poster="video/canh-tham-gia.jpg" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
+      <div class="scene-text">
+        <h2 class="big-title">Đồng hành cùng Gradisy</h2>
       </div>
     </div>
-    <div class="card chance">
-      <h3>Bạn nhận được gì</h3>
-      <ul>
-        <li>Một quy trình AI chạy trên máy bạn, của bạn, gọi lại bằng một câu lệnh</li>
-        <li>Chỉ trả tiền khi việc đã xong, đủ 3 điều kiểm được</li>
-        <li>Học từ việc thật của người cùng nghề, có bằng chứng, không lý thuyết suông</li>
-        <li>Toàn bộ quá trình học công khai, xem lại miễn phí bất cứ lúc nào</li>
-      </ul>
+    <div class="join">
+      <div>
+        <p>Chúng tôi chào đón doanh nghiệp và người đi làm có việc lặp lại muốn giao cho AI, và người muốn chia sẻ việc thật đã làm. Không cần biết code. Chỉ cần một việc thật và muốn làm đến cùng.</p>
+        <p>Hiện chúng tôi nhận liên hệ qua bình luận trên kênh YouTube. Kênh nhận khách riêng sẽ cập nhật sớm.</p>
+        <div class="links">
+          <a class="btn main" href="https://www.youtube.com/@Vannam_alexhayes" target="_blank" rel="noopener">Liên hệ qua YouTube</a>
+          <a class="btn" href="../">Vào cộng đồng</a>
+        </div>
+      </div>
+      <div class="card chance">
+        <h3>Bạn nhận được gì</h3>
+        <ul>
+          <li>Một quy trình AI chạy trên máy bạn, của bạn, gọi lại bằng một câu lệnh</li>
+          <li>Chỉ trả tiền khi việc đã xong, đủ 3 điều kiểm được</li>
+          <li>Học từ việc thật của người cùng nghề, có bằng chứng, không lý thuyết suông</li>
+          <li>Toàn bộ quá trình học công khai, xem lại miễn phí bất cứ lúc nào</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -353,8 +478,8 @@ footer a{color:var(--ink-2)}
       <dl>
         <dt>Tên</dt><dd>Gradisy (chưa đăng ký pháp nhân)</dd>
         <dt>Bắt đầu</dt><dd>Tháng 11/2026</dd>
-        <dt>Lĩnh vực</dt><dd>Đào tạo ứng dụng AI, dịch vụ tự động hoá công việc, cộng đồng chia sẻ việc đã làm cùng AI</dd>
-        <dt>Khách hàng</dt><dd>Người đi làm văn phòng, cán bộ, hộ kinh doanh, người làm video</dd>
+        <dt>Lĩnh vực</dt><dd>Dịch vụ tự động hoá công việc và phần mềm có AI, cộng đồng chia sẻ việc đã làm cùng AI</dd>
+        <dt>Khách hàng</dt><dd>Doanh nghiệp vừa và nhỏ, hộ kinh doanh, người đi làm</dd>
       </dl>
       <ul>
         <li><a href="../">Cộng đồng Gradisy</a></li>
@@ -369,46 +494,102 @@ footer a{color:var(--ink-2)}
 
 <script>
 /* Danh sách sản phẩm và dịch vụ. Thêm dịch vụ mới: thêm một dòng.
-   trangThai: "live" (đang chạy) hoặc "soon" (sắp mở). the: các thẻ chủ đề ngắn. */
+   trangThai: "live" (đang chạy) hoặc "soon" (sắp mở). the: các thẻ chủ đề ngắn.
+   Màu thẻ tự xoay vòng: trắng, xám, đen. */
 var DICH_VU = [
-  { ten: "Cộng đồng Gradisy", trangThai: "live", nhan: "Đang chạy", gia: "Miễn phí",
-    mota: "Nơi người cùng nghề chia sẻ việc thật đã làm cùng AI theo mẫu 6 ô có bằng chứng. Đăng nhập bằng Google.",
-    the: ["Hồ sơ năng lực", "Góc ngành", "Tài liệu học"],
-    link: "../", chuLink: "Vào cộng đồng" },
-  { ten: "Khoá học AI từ số 0", trangThai: "soon", nhan: "Sắp mở", gia: "1.000đ cho mỗi giờ người dạy đã học",
-    mota: "12 chương, 59 bài ngắn, khoảng 12 giờ xem và 38 giờ tự làm. Toàn bộ quá trình học có trên livestream, xem miễn phí; khoá học là bản tổng kết để bạn tiết kiệm thời gian.",
-    the: ["AI cho công sở", "AI cho edit video"],
-    link: "https://www.youtube.com/@Vannam_alexhayes", chuLink: "Xem livestream" },
   { ten: "Dịch vụ tự động hoá 1–1", trangThai: "live", nhan: "Nhận khách", gia: "200.000đ một giờ, không xong không lấy tiền",
     mota: "Bạn mang một việc đang làm, chúng tôi cùng bạn biến nó thành quy trình AI chạy trên máy bạn. Lần sau chỉ cần gọi một câu lệnh.",
     the: ["Claude Code", "Việc lặp lại", "File thật"],
-    link: "#mot-mot", chuLink: "Xem cách làm" }
+    link: "#mot-mot", chuLink: "Xem cách làm" },
+  { ten: "Tự động hoá nhỏ", trangThai: "live", nhan: "Nhận khách", gia: "Báo giá trọn gói sau khi xem việc. Đã gồm bảo hành và duy trì.",
+    mota: "Một việc bạn đang làm tay lặp đi lặp lại, chúng tôi làm cho máy tự chạy. Bạn vẫn dùng Excel, Google Sheet, Zalo như cũ, không phải học phần mềm mới.",
+    the: ["Excel, Google Sheet", "Báo cáo tự động", "Gom dữ liệu"],
+    link: "#tham-gia", chuLink: "Liên hệ" },
+  { ten: "Phần mềm nhỏ", trangThai: "live", nhan: "Nhận khách", gia: "Báo giá trọn gói sau khi xem việc. Đã gồm bảo hành và duy trì.",
+    mota: "Một trang web hoặc ứng dụng riêng, có đăng nhập, nhiều người cùng dùng: đặt lịch, quản lý khách hàng, trợ lý AI trả lời theo tài liệu nội bộ.",
+    the: ["Web riêng", "Trợ lý AI nội bộ", "Nhiều người dùng"],
+    link: "#tham-gia", chuLink: "Liên hệ" }
+];
+/* Góc nhìn và tình huống mẫu, kiểu thẻ bài viết của Accenture. Tình huống mẫu là ví dụ minh hoạ, không phải khách thật. */
+var GOC_NHIN = [
+  { nhan: "Góc nhìn", ten: "Phần mềm có sẵn hay làm riêng?",
+    mota: "Nếu một phần mềm trên thị trường đã làm được phần lớn việc của bạn, thường nên dùng nó. Chúng tôi nói thẳng khi bạn không cần làm mới." },
+  { nhan: "Góc nhìn", ten: "Hỏi đúng trước khi làm",
+    mota: "Rắc rối của nhiều dự án bắt đầu từ yêu cầu chưa rõ. Chúng tôi dùng AI tách điều đã rõ, điều còn thiếu và điều chỉ là giả định, rồi hỏi bạn trước khi báo giá." },
+  { nhan: "Góc nhìn", ten: "Dữ liệu của bạn khi dùng AI",
+    mota: "Chỉ đưa lên AI những gì cần cho việc. Thông tin cá nhân được bỏ trước khi xử lý, và bạn biết rõ dữ liệu của mình đi đâu." },
+  { nhan: "Tình huống mẫu", ten: "Shop online bán 3 nơi: gom đơn mỗi tối về một bảng",
+    mota: "Ví dụ minh hoạ cho gói Tự động hoá nhỏ: thay việc chép đơn bằng tay mỗi tối bằng một bảng tự cập nhật tổng đơn, doanh thu từng nơi và hàng sắp hết." },
+  { nhan: "Tình huống mẫu", ten: "Phòng khám nha: đặt lịch và nhắc lịch",
+    mota: "Ví dụ minh hoạ cho gói Phần mềm nhỏ: làm phần đặt lịch và nhắc lịch trước, phần hồ sơ điều trị làm sau, dữ liệu sức khoẻ được phân quyền chặt." },
+  { nhan: "Tình huống mẫu", ten: "Công ty 30 người: hỏi đáp quy trình nội bộ",
+    mota: "Ví dụ minh hoạ: trợ lý AI trả lời câu hỏi về quy trình và mẫu biểu, luôn chỉ ra tài liệu gốc, và chỉ cho xem đúng tài liệu theo quyền." }
 ];
 (function(){
   function el(tag, cls, text){ var x = document.createElement(tag); if (cls) x.className = cls; if (text) x.textContent = text; return x; }
   var box = document.getElementById('dsDichVu');
+  var MAU = ['light', 'grey', 'dark'];
   DICH_VU.forEach(function(d, i){
-    var c = el('div', 'card prod');
-    c.appendChild(el('span', 'pill ' + d.trangThai, d.nhan));
-    c.appendChild(el('h3', '', d.ten));
-    c.appendChild(el('p', '', d.mota));
+    var c = el('div', 'card prod ' + MAU[i % 3]);
+    var inner = el('div', 'in');
+    inner.appendChild(el('span', 'tag-top ' + d.trangThai, d.nhan));
+    inner.appendChild(el('h3', '', d.ten));
+    inner.appendChild(el('p', '', d.mota));
     if (d.the && d.the.length) {
       var ul = el('ul', 'tags');
       d.the.forEach(function(t){ ul.appendChild(el('li', '', t)); });
-      c.appendChild(ul);
+      inner.appendChild(ul);
     }
-    c.appendChild(el('p', 'price', d.gia));
+    inner.appendChild(el('p', 'price', d.gia));
     var a = el('a', 'more', d.chuLink); a.href = d.link;
+    var ch = el('span', 'chev', '›'); ch.setAttribute('aria-hidden', 'true'); a.appendChild(ch);
     if (/^https?:/.test(d.link)) { a.target = '_blank'; a.rel = 'noopener'; }
-    var pa = el('p'); pa.appendChild(a); c.appendChild(pa);
+    var pa = el('p'); pa.appendChild(a); inner.appendChild(pa);
+    c.appendChild(inner);
+    var art = el('div', 'art a' + (i % 3 + 1)); art.setAttribute('aria-hidden', 'true');
+    c.appendChild(art);
     box.appendChild(c);
   });
+
+  // thẻ Góc nhìn: chữ ở trên, hình trừu tượng ở dưới; màu và hình xoay vòng
+  var box2 = document.getElementById('dsGocNhin');
+  var MAU2 = ['light', 'grey', 'dark', 'dark', 'light', 'grey'];
+  GOC_NHIN.forEach(function(g, i){
+    var c = el('article', 'icard ' + MAU2[i % 6]);
+    var inner = el('div', 'in');
+    inner.appendChild(el('span', 'kicker', g.nhan));
+    inner.appendChild(el('h3', '', g.ten));
+    inner.appendChild(el('p', '', g.mota));
+    c.appendChild(inner);
+    var art = el('div', 'art a' + (i % 6 + 1)); art.setAttribute('aria-hidden', 'true');
+    c.appendChild(art);
+    box2.appendChild(c);
+  });
+
+  // đội ngũ: nút trước/sau, vạch chỉ người đang xem
+  var team = document.getElementById('team');
+  if (team) {
+    var slides = team.querySelectorAll('.slide'), dots = document.getElementById('teamDots');
+    var prev = document.getElementById('teamPrev'), next = document.getElementById('teamNext');
+    for (var k = 0; k < slides.length; k++) dots.appendChild(el('span'));
+    function idx(){ return Math.round(team.scrollLeft / Math.max(team.clientWidth, 1)); }
+    function mark(){
+      var n = idx();
+      Array.prototype.forEach.call(dots.children, function(d, j){ d.classList.toggle('on', j === n); });
+      prev.disabled = n <= 0; next.disabled = n >= slides.length - 1;
+    }
+    function go(d){ team.scrollTo({ left: (idx() + d) * team.clientWidth, behavior: 'smooth' }); }
+    prev.addEventListener('click', function(){ go(-1); });
+    next.addEventListener('click', function(){ go(1); });
+    team.addEventListener('keydown', function(e){ if (e.key === 'ArrowRight') go(1); if (e.key === 'ArrowLeft') go(-1); });
+    team.addEventListener('scroll', mark, {passive:true}); mark();
+  }
 
   // menu trên máy tính và mục lục gập trên điện thoại, đánh dấu phần đang đọc
   var secs = Array.prototype.slice.call(document.querySelectorAll('section[data-toc]'));
   var menu = document.getElementById('menu'), list = document.getElementById('tocList');
   var now = document.getElementById('tocNow'), toc = document.getElementById('toc'), top = document.getElementById('top');
-  var ngan = { "Sản phẩm và dịch vụ": "Sản phẩm" };
+  var ngan = {};
   var mLinks = [], tLinks = [];
   secs.forEach(function(s){
     var a = el('a', '', ngan[s.dataset.toc] || s.dataset.toc); a.href = '#' + s.id; menu.appendChild(a); mLinks.push(a);
@@ -428,9 +609,58 @@ var DICH_VU = [
   }
   addEventListener('scroll', update, {passive:true}); update();
 
-  // video bìa: dừng nếu máy đã tắt chuyển động
+  // video bìa và dải cảnh: dừng nếu máy đã tắt chuyển động
+  var tat = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var v = document.getElementById('biaVideo');
-  if (v && matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.pause(); }
+  if (v && tat) { v.removeAttribute('autoplay'); v.pause(); }
+  Array.prototype.forEach.call(document.querySelectorAll('.scene-v'), function(sv){
+    if (tat) { sv.removeAttribute('autoplay'); sv.pause(); }
+  });
+
+  // Nền hạt 3D: một lưới chấm nằm trên mặt phẳng, nhấp nhô theo sóng, chiếu phối cảnh
+  // (chấm gần thì to và sáng, xa thì nhỏ và mờ). Chỉ chạy khi đang nhìn thấy trên màn hình.
+  Array.prototype.forEach.call(document.querySelectorAll('canvas.waves'), function(cv){
+    var ctx = cv.getContext('2d'); if (!ctx) return;
+    var a0 = parseFloat(cv.dataset.alpha || '1'), W = 0, H = 0, dpr = 1, cols = 0, rows = 0, run = false, t = 0, last = 0;
+    function size(){
+      dpr = Math.min(devicePixelRatio || 1, 2);
+      W = cv.clientWidth; H = cv.clientHeight;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      cols = Math.max(50, Math.min(140, Math.round(W / 10)));
+      rows = W < 640 ? 40 : 56;
+    }
+    function draw(){
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, W, H);
+      for (var j = rows - 1; j >= 0; j--) {
+        var v = j / (rows - 1), z = 1 + v * 4.2;
+        for (var i = 0; i < cols; i++) {
+          var x = (i / (cols - 1) - .5) * 3.4;
+          var y = .26 * Math.sin(x * 1.9 + t) + .2 * Math.cos(z * 1.5 - t * .8) + .08 * Math.sin((x + z) * 3.1 + t * 1.3);
+          var px = W / 2 + x / z * W * .52;
+          var py = H * .16 + (1.15 - y * 1.6) * H * .62 / z;
+          if (px < -4 || px > W + 4 || py > H + 4) continue;
+          var al = Math.min(1, ((1 - v) * .8 + .25) * a0 * (.75 + y));
+          if (al <= .03) continue;
+          var r = Math.max(1, 3.2 / z);
+          ctx.fillStyle = (i * 7 + j * 13) % 23 === 0 ? 'rgba(255,226,196,' + al + ')' : 'rgba(240,122,60,' + al + ')';
+          ctx.fillRect(px - r / 2, py - r / 2, r, r);
+        }
+      }
+    }
+    function loop(ts){
+      if (!run) return;
+      if (ts - last > 33) { t += .012; draw(); last = ts; }  // khoảng 30 khung/giây là đủ mượt, đỡ tốn pin
+      requestAnimationFrame(loop);
+    }
+    size(); draw();
+    addEventListener('resize', function(){ size(); draw(); });
+    if (tat || !('IntersectionObserver' in window)) return;   // tắt chuyển động: chỉ vẽ một khung đứng yên
+    new IntersectionObserver(function(es){
+      var on = es[0].isIntersecting;
+      if (on && !run) { run = true; requestAnimationFrame(loop); } else if (!on) run = false;
+    }).observe(cv);
+  });
 
 })();
 </script>
