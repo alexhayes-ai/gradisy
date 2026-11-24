@@ -5,11 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Gradisy</title>
 <meta name="description" content="Gradisy: nơi đồng hành cùng AI. Xây hồ sơ năng lực cho bạn và AI đồng hành, chia sẻ việc thật đã làm, kết nối cộng đồng.">
+<meta name="theme-color" content="#f3f2ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141312" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23191917'/%3E%3Ctext x='16' y='23' font-family='Arial' font-weight='700' font-size='20' text-anchor='middle' fill='%23f3f2ee'%3EG%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=7">
+<link rel="stylesheet" href="styles.css?v=8">
 </head>
 <body>
+<a class="skip" href="#view">Bỏ qua, tới nội dung</a>
 <header class="nav">
   <div class="nav-in gutter">
     <a class="logo" href="#/"><span class="logo-mark">G</span><span class="logo-txt" id="appName">Gradisy</span></a>
@@ -24,7 +29,7 @@
 
 <div class="demo gutter" id="demoBar" hidden><div>Chế độ mẫu: dữ liệu giả, chỉ trên máy này, tải lại trang là mất. Điền <code>config.js</code> để chạy thật.</div></div>
 
-<main id="view" class="gutter" aria-live="polite"></main>
+<main id="view" class="gutter" aria-live="polite" tabindex="-1"></main>
 
 <footer class="foot gutter">
   <p><b id="footName">Gradisy</b> · Phiên bản 1 thử nghiệm.</p>

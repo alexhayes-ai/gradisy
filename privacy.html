@@ -3,7 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f3f2ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141312" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23191917'/%3E%3Ctext x='16' y='23' font-family='Arial' font-weight='700' font-size='20' text-anchor='middle' fill='%23f3f2ee'%3EG%3C/text%3E%3C/svg%3E">
 <title>Chính sách quyền riêng tư · Gradisy</title>
+<meta name="description" content="Chính sách quyền riêng tư của Gradisy: thu thập gì, dùng để làm gì, lưu ở đâu và cách xoá dữ liệu.">
 <style>
   :root { --bg: #f3f2ee; --card: #fff; --ink: #191917; --muted: #6f6d67; --line: #e6e3dc; --accent: #b84c14; color-scheme: light; }
   @media (prefers-color-scheme: dark) { :root { --bg: #141312; --card: #1d1c1a; --ink: #f2f0ea; --muted: #9a978f; --line: #2e2c29; --accent: #f07a3c; color-scheme: dark; } }
@@ -11,11 +15,15 @@
   main { max-width: 760px; margin: 0 auto; padding: 32px max(16px, env(safe-area-inset-left)) 64px; }
   article { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 28px clamp(18px, 4vw, 40px); }
   h1 { font-size: 30px; line-height: 1.2; margin: 0 0 6px; } h2 { font-size: 19px; margin: 28px 0 6px; }
-  .muted { color: var(--muted); font-size: 14px; } a { color: var(--accent); } ul { padding-left: 20px; }
+  .muted { color: var(--muted); font-size: 14px; } a { color: var(--accent); } main > p:first-child a { display: inline-block; padding: 8px 0; } ul { padding-left: 20px; }
+ .bar-top { max-width: 760px; margin: 0 auto; padding: 14px max(16px, env(safe-area-inset-left)) 0; display: flex; align-items: center; justify-content: space-between; gap: 12px; } .bar-top .logo { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--ink); text-decoration: none; } .bar-top .logo i { width: 28px; height: 28px; border-radius: 8px; background: var(--ink); color: var(--bg); display: grid; place-items: center; font-style: normal; font-size: 13px; } .bar-top .go { border-radius: 999px; padding: 8px 16px; font-size: 14px; font-weight: 600; background: var(--accent); color: #fff; text-decoration: none; } .bar-top .go:hover { filter: brightness(1.1); } a:hover { text-decoration-thickness: 2px; } :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+ .skip { position: absolute; left: 16px; top: -60px; background: var(--accent); color: #fff; font-weight: 700; padding: 10px 16px; border-radius: 10px; text-decoration: none; z-index: 10; } .skip:focus { top: 10px; }
 </style>
 </head>
 <body>
-<main>
+<a class="skip" href="#noi-dung">Bỏ qua, tới nội dung</a>
+<header class="bar-top"><a class="logo" href="./"><i>G</i>Gradisy</a><a class="go" href="./">Vào Gradisy</a></header>
+<main id="noi-dung" tabindex="-1">
   <p><a href="./">← Về Gradisy</a></p>
   <article>
     <h1>Chính sách quyền riêng tư</h1>

@@ -11,7 +11,10 @@
      khối người sáng lập kiểu trích dẫn). Giữ nguyên ảnh bìa video và toàn bộ chữ.
      Bản trước khi đổi: ../../ho-so-cong-ty/ban-luu/index-truoc-accenture-24-11.html
      Thêm dịch vụ mới: thêm một dòng vào DICH_VU trong <script> cuối trang. -->
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23f07a3c'/%3E%3Ctext x='16' y='23' font-family='Arial' font-weight='700' font-size='20' text-anchor='middle' fill='%23000'%3EG%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -24,7 +27,11 @@
   color-scheme:dark;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+/* 24/11 chấm điểm giao diện: đường tắt bàn phím, chỉ hiện khi bấm Tab */
+.skip{position:absolute;left:16px;top:-60px;z-index:20;background:var(--accent);color:#000;font-weight:700;padding:10px 16px;text-decoration:none}
+.skip:focus{top:12px}
+a,button,summary{touch-action:manipulation;-webkit-tap-highlight-color:rgba(240,122,60,.25)}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.7 var(--font);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 a{color:var(--ink)}
 img{max-width:100%;display:block}
@@ -78,7 +85,9 @@ h1 .l1,h1 .l2{display:block}
 .scene.center{align-items:center;justify-content:center;text-align:center;margin-bottom:44px}
 .scene.center::after{background:rgba(0,0,0,.5)}
 .scene.center .big-title{margin:0}
-.head .side{max-width:460px}
+.head .side{max-width:460px;position:relative}
+/* vùng tối mềm sau chữ giới thiệu, để chấm sóng không đè lên chữ */
+.head .side::before{content:"";position:absolute;inset:-48px -56px;z-index:-1;background:radial-gradient(closest-side,rgba(0,0,0,.88) 55%,rgba(0,0,0,0) 100%);pointer-events:none}
 .meta{font-size:14px;color:var(--muted);margin:0 0 10px}
 .meta b{color:var(--ink);font-weight:600;margin-right:12px}
 .sub{font-size:clamp(17px,1.8vw,19px);color:var(--ink-2);margin:0;line-height:1.6}
@@ -135,8 +144,8 @@ p{margin:0 0 16px}
 .card p:last-child,.card ul:last-child,.card ol:last-child{margin-bottom:0}
 .prod{display:flex;flex-direction:column;padding:0;border:0;--c-ink:var(--ink);--c-ink-2:var(--ink-2);--c-tag:var(--accent);--c-tag-bg:var(--accent-soft)}
 .prod .in{padding:28px 28px 22px;display:flex;flex-direction:column;flex:1}
-.prod.light{background:var(--paper);--c-ink:var(--paper-ink);--c-ink-2:var(--paper-ink-2);--c-tag:var(--accent-deep);--c-tag-bg:rgba(180,80,28,.1)}
-.prod.grey{background:var(--paper-2);--c-ink:var(--paper-ink);--c-ink-2:var(--paper-ink-2);--c-tag:var(--accent-deep);--c-tag-bg:rgba(180,80,28,.1)}
+.prod.light{background:var(--paper);--c-ink:var(--paper-ink);--c-ink-2:var(--paper-ink-2);--c-tag:#8f3a10;--c-tag-bg:rgba(180,80,28,.1)}
+.prod.grey{background:var(--paper-2);--c-ink:var(--paper-ink);--c-ink-2:var(--paper-ink-2);--c-tag:#8f3a10;--c-tag-bg:rgba(180,80,28,.1)}
 .prod.dark{background:#141414;border:1px solid #262626}
 .prod h3{color:var(--c-ink);font-size:clamp(24px,2.2vw,28px);letter-spacing:-.02em}
 .prod p{color:var(--c-ink-2)}
@@ -230,7 +239,24 @@ footer{border-top:1px solid var(--line);padding:56px 0;font-size:14px;color:var(
 .foot dt{color:var(--muted)}
 .foot dd{margin:0;color:var(--ink-2)}
 .foot ul{list-style:none;padding:0;margin:0}
-.foot li{margin:4px 0}
+.foot li{margin:0}
+.foot li a{display:inline-block;padding:7px 0}
+
+/* nút dừng/chạy video (yêu cầu WCAG 2.2.2: chuyển động tự chạy phải dừng được) */
+.vbtn{position:absolute;right:14px;bottom:14px;z-index:2;display:grid;place-items:center;width:40px;height:40px;border:1px solid rgba(255,255,255,.55);background:rgba(0,0,0,.45);color:#fff;cursor:pointer;font:700 13px/1 var(--font)}
+.vbtn:hover{background:var(--accent);border-color:var(--accent);color:#000}
+.vbtn::before{content:"";width:10px;height:12px;border-left:3px solid currentColor;border-right:3px solid currentColor;box-sizing:border-box}
+.vbtn.paused::before{width:0;height:0;border-style:solid;border-width:7px 0 7px 11px;border-color:transparent transparent transparent currentColor}
+
+/* điện thoại: hình trang trí thấp lại để trang bớt dài, chữ lên trước */
+@media (max-width:899px){ html{scroll-padding-top:110px} }
+@media (max-width:639px){
+  .art{height:110px}
+  .icard{min-height:0}
+  .icard .art{flex:none;min-height:0;height:96px}
+  .scene{min-height:380px}
+  .part{padding:64px 0}
+}
 footer a{color:var(--ink-2)}
 footer a:hover{color:var(--accent)}
 .copy{margin-top:32px;padding-top:20px;border-top:1px solid var(--line)}
@@ -266,12 +292,13 @@ footer a:hover{color:var(--accent)}
 </head>
 <body>
 <script>document.documentElement.classList.add('js')</script>
+<a class="skip" href="#noi-dung">Bỏ qua, tới nội dung</a>
 
 <header class="top" id="top">
   <div class="wrap row">
     <a class="logo" href="./"><i>G</i>Gradisy</a>
     <nav class="menu" id="menu" aria-label="Các phần của hồ sơ"></nav>
-    <a class="go" href="#tham-gia">Đặt buổi 1–1</a>
+    <a class="go" href="#lien-he">Đặt buổi 1–1</a>
   </div>
   <nav class="toc" id="toc" aria-label="Mục lục hồ sơ">
     <details class="wrap">
@@ -298,13 +325,13 @@ footer a:hover{color:var(--accent)}
 </header>
 </div>
 
-<div class="cover"><div class="box" role="img" aria-label="Ảnh bìa Gradisy: video người đi làm đang dùng máy tính, chữ Gradisy ở giữa">
+<div class="cover"><div class="box">
   <!-- Video ghép từ 5 đoạn Pexels (giấy phép Pexels, miễn phí): 5944692, 35402241, 7681386, 8631874, 2516160.
        Bản nền cam cũ vẫn giữ ở video/bia.mp4. -->
   <video id="biaVideo" src="video/bia-nguoi.mp4" poster="video/bia-nguoi.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
   <div class="mark"><span>Gradisy</span><small>Đồng hành cùng AI, bằng việc thật</small></div></div></div>
 
-<main>
+<main id="noi-dung" tabindex="-1">
 
 <!-- 1. Giới thiệu -->
 <section class="part" id="gioi-thieu" data-toc="Giới thiệu">
@@ -367,7 +394,7 @@ footer a:hover{color:var(--accent)}
       </div>
       <div class="grid g3">
         <div class="card">
-          <h3>Thế nào là "xong"</h3>
+          <h3>Thế nào là “xong”</h3>
           <ol>
             <li>Gọi quy trình bằng một câu lệnh, nó chạy đúng trên file thật của bạn.</li>
             <li>Bạn tự chạy lại được một lần, không cần ai cầm tay.</li>
@@ -444,7 +471,7 @@ footer a:hover{color:var(--accent)}
         <h2 class="big-title">Đồng hành cùng Gradisy</h2>
       </div>
     </div>
-    <div class="join">
+    <div class="join" id="lien-he">
       <div>
         <p>Chúng tôi chào đón doanh nghiệp và người đi làm có việc lặp lại muốn giao cho AI, và người muốn chia sẻ việc thật đã làm. Không cần biết code. Chỉ cần một việc thật và muốn làm đến cùng.</p>
         <p>Hiện chúng tôi nhận liên hệ qua bình luận trên kênh YouTube. Kênh nhận khách riêng sẽ cập nhật sớm.</p>
@@ -615,6 +642,15 @@ var GOC_NHIN = [
   if (v && tat) { v.removeAttribute('autoplay'); v.pause(); }
   Array.prototype.forEach.call(document.querySelectorAll('.scene-v'), function(sv){
     if (tat) { sv.removeAttribute('autoplay'); sv.pause(); }
+  });
+  // mỗi video có một nút nhỏ góc dưới để dừng/chạy lại
+  Array.prototype.forEach.call(document.querySelectorAll('.cover video, .scene-v'), function(vd){
+    var b = el('button', 'vbtn'); b.type = 'button';
+    function ve(){ var d = vd.paused; b.classList.toggle('paused', d); b.setAttribute('aria-label', d ? 'Chạy video nền' : 'Dừng video nền'); }
+    b.addEventListener('click', function(){ if (vd.paused) vd.play(); else vd.pause(); });
+    vd.addEventListener('play', ve); vd.addEventListener('pause', ve);
+    if (tat) vd.pause();
+    ve(); vd.parentNode.appendChild(b);
   });
 
   // Nền hạt 3D: một lưới chấm nằm trên mặt phẳng, nhấp nhô theo sóng, chiếu phối cảnh

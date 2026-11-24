@@ -1,6 +1,6 @@
 /* Bố cục: thanh trên cùng + một cột nội dung rộng, thẻ hồ sơ và thẻ việc đã làm kiểu mạng nghề nghiệp */
 :root {
-  --bg: #f3f2ee; --card: #ffffff; --ink: #191917; --ink-2: #44433f; --muted: #75736d;
+  --bg: #f3f2ee; --card: #ffffff; --ink: #191917; --ink-2: #44433f; --muted: #64625c;
   --line: #e6e3dc; --soft: #f7f6f2;
   --accent: #b84c14; --accent-ink: #ffffff; --accent-soft: #fbece3;
   --good: #1f7a46; --good-soft: #e3f3e8; --warn: #8f5b00; --warn-soft: #fdf3dc; --bad: #b42318;
@@ -21,7 +21,7 @@
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.6 var(--f-body); }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 var(--f-body); }
 a { color: inherit; }
 button, input, select, textarea { font: inherit; color: inherit; }
 button { cursor: pointer; }
@@ -36,7 +36,7 @@ h1, h2, h3 { margin: 0; }
 .nav-in { max-width: 960px; margin: 0 auto; padding-block: 10px; display: flex; align-items: center; gap: 20px; }
 .logo { display: flex; align-items: center; gap: 8px; font-weight: 700; text-decoration: none; white-space: nowrap; }
 .logo-mark { width: 28px; height: 28px; border-radius: 8px; background: var(--ink); color: var(--bg); display: grid; place-items: center; font-size: 12px; }
-.menu { display: flex; gap: 18px; font-size: 14px; }
+.menu { display: flex; gap: 18px; font-size: 15px; }
 .menu a { text-decoration: none; color: var(--muted); padding-block: 4px; white-space: nowrap; }
 .who .btn { white-space: nowrap; }
 .menu a.on { color: var(--ink); font-weight: 600; box-shadow: inset 0 -2px 0 var(--accent); }
@@ -48,7 +48,7 @@ h1, h2, h3 { margin: 0; }
 main { max-width: 960px; margin: 0 auto; padding-block: 20px 56px; display: grid; gap: 16px; }
 .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); overflow: hidden; min-width: 0; }
 .pad { padding: 22px 24px; }
-.sub { color: var(--muted); font-size: 13.5px; margin: 4px 0 0; }
+.sub { color: var(--muted); font-size: 15px; margin: 4px 0 0; }
 .label { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; }
 .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
@@ -152,7 +152,8 @@ form.stack { display: grid; gap: 14px; }
 .worry p { margin: 4px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; }
 
 /* Chân trang + thông báo */
-.foot { max-width: 960px; margin: 0 auto 40px; color: var(--muted); font-size: 12.5px; }
+.foot { max-width: 960px; margin: 0 auto 40px; color: var(--muted); font-size: 14px; }
+.foot a { display: inline-block; padding: 6px 0; }
 .foot p { margin: 4px 0; }
 .toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 10px; font-size: 14px; opacity: 0; transition: opacity .2s; pointer-events: none; max-width: calc(100% - 32px); z-index: 20; }
 .toast.show { opacity: 1; }
@@ -164,7 +165,7 @@ form.stack { display: grid; gap: 14px; }
 .hero2 h1 { font-size: clamp(32px, 5.2vw, 52px); line-height: 1.08; margin: 14px 0 16px; text-wrap: balance; }
 .hero2 .lead { font-size: 17px; color: var(--ink-2); max-width: 54ch; margin: 0 0 24px; }
 .btn.lg { padding: 12px 22px; font-size: 15px; }
-.trust { list-style: none; padding: 0; margin: 22px 0 0; display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--muted); font-size: 13.5px; }
+.trust { list-style: none; padding: 0; margin: 22px 0 0; display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--muted); font-size: 14px; }
 .trust li { display: flex; align-items: center; gap: 8px; }
 .trust li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--good); }
 
@@ -192,7 +193,7 @@ form.stack { display: grid; gap: 14px; }
 .value { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
 .value-ic { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); margin-bottom: 14px; }
 .value h3 { font-size: 16px; margin-bottom: 6px; }
-.value p { margin: 0; color: var(--muted); font-size: 14px; }
+.value p { margin: 0; color: var(--ink-2); font-size: 15px; }
 
 .mission { margin: 20px 0 4px; border-radius: 18px; padding: 44px 40px; color: #f6f1ea; background: radial-gradient(ellipse 60% 140% at 90% 0%, rgba(240,122,60,.45), transparent 60%), linear-gradient(120deg, var(--banner-a), var(--banner-b)); }
 .mission .eyebrow { color: #f3a774; }
@@ -203,7 +204,7 @@ form.stack { display: grid; gap: 14px; }
 .how-step { border-top: 2px solid var(--ink); padding-top: 14px; }
 .how-n { font-family: var(--f-display); font-size: 28px; color: var(--accent); }
 .how-step h3 { font-size: 16px; margin: 4px 0 6px; }
-.how-step p { margin: 0; color: var(--muted); font-size: 14px; }
+.how-step p { margin: 0; color: var(--ink-2); font-size: 15px; }
 
 .cta-band { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 28px 32px; margin-top: 12px; }
 .cta-band h2 { font-size: 24px; }
@@ -231,8 +232,14 @@ form.stack { display: grid; gap: 14px; }
   .work-top { flex-direction: column; gap: 6px; }
   .logo-txt { display: none; }
   .nav-in { gap: 12px; }
-  .menu { gap: 12px; font-size: 13px; }
+  .menu { gap: 12px; font-size: 14px; }
   .who { gap: 8px; }
   .who .signout, .who .hide-sm { display: none; }
   .menu { gap: 10px; }
 }
+
+/* 24/11 chấm điểm giao diện: đường tắt bàn phím, vùng bấm trên điện thoại */
+.skip { position: absolute; left: 16px; top: -60px; z-index: 30; background: var(--accent); color: var(--accent-ink); font-weight: 700; padding: 10px 16px; border-radius: 10px; text-decoration: none; }
+.skip:focus { top: 10px; }
+a, button, summary { touch-action: manipulation; }
+html { scroll-padding-top: 64px; }
