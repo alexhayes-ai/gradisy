@@ -9,47 +9,55 @@
 var LIEN_HE = { zalo: "", email: "" };
 
 /* Kịch bản trợ lý. Sửa câu chữ hoặc thêm lựa chọn ngay trong bảng này.
-   goi: "tdh" = Luồng việc tự chạy, "pm" = Ứng dụng may đo, "tv" = cần trao đổi trực tiếp */
+   goi: "hd" = Hướng dẫn 1–1, "tdh" = Phần mềm nhỏ, "pm" = Hệ thống trọn gói, "tv" = cần trao đổi trực tiếp */
 var KICH_BAN = {
-  chao: "Chào bạn. Mình là trợ lý của Gradisy. Trả lời 4 câu ngắn, mình gợi ý việc nào của bạn nên giao cho AI. Miễn phí.",
+  chao: "Chào bạn. Mình là trợ lý của Gradisy. Trả lời 5 câu ngắn, mình gợi ý việc nào của bạn nên giao cho AI. Miễn phí.",
   nganh: {
     hoi: "Bạn đang làm lĩnh vực nào?",
     chon: [
       { id: "online", chu: "Bán hàng online" },
       { id: "dichvu", chu: "Phòng khám, spa, dịch vụ đặt lịch" },
       { id: "vanphong", chu: "Văn phòng, công ty" },
+      { id: "noidung", chu: "Làm nội dung, video" },
       { id: "khac", chu: "Lĩnh vực khác" }
     ]
   },
   viec: {
-    hoi: "Việc nào đang lặp lại và tốn giờ nhất?",
+    hoi: "Việc nào bạn làm đi làm lại mà thấy mệt nhất?",
     theoNganh: {
       online:   [ { chu: "Gom đơn từ nhiều sàn về một bảng", goi: "tdh", vd: 0 },
                   { chu: "Làm báo cáo doanh thu, tồn kho", goi: "tdh", vd: 0 },
-                  { chu: "Trả lời mãi những câu khách hỏi giống nhau", goi: "pm", vd: 2 } ],
+                  { chu: "Trả lời mãi những câu khách hỏi giống nhau", goi: "tdh", vd: 2 } ],
       dichvu:   [ { chu: "Đặt lịch và nhắc lịch khách", goi: "pm", vd: 1 },
                   { chu: "Quản lý hồ sơ khách", goi: "pm", vd: 1 },
-                  { chu: "Trả lời câu hỏi thường gặp", goi: "pm", vd: 2 } ],
+                  { chu: "Trả lời câu hỏi thường gặp", goi: "tdh", vd: 2 } ],
       vanphong: [ { chu: "Làm báo cáo từ file Excel", goi: "tdh", vd: 0 },
                   { chu: "Gom dữ liệu từ nhiều file", goi: "tdh", vd: 0 },
                   { chu: "Hỏi đáp quy trình, mẫu biểu nội bộ", goi: "pm", vd: 2 } ],
+      noidung:  [ { chu: "Lên ý tưởng, viết kịch bản", goi: "tdh", vd: 3 },
+                  { chu: "Cắt ghép, làm phụ đề video", goi: "tdh", vd: 3 },
+                  { chu: "Đăng bài, trả lời bình luận", goi: "tdh", vd: 2 } ],
       khac:     [ { chu: "Nhập liệu, làm báo cáo", goi: "tdh", vd: 0 },
                   { chu: "Chăm sóc, nhắc lịch khách", goi: "pm", vd: 1 },
-                  { chu: "Trả lời câu hỏi lặp lại", goi: "pm", vd: 2 } ]
+                  { chu: "Trả lời câu hỏi lặp lại", goi: "tdh", vd: 2 } ]
     },
     khac: "Việc khác (tự ghi)"
   },
-  gio: { hoi: "Mỗi tuần việc đó mất khoảng bao lâu?", chon: ["Dưới 2 giờ", "2 đến 5 giờ", "Trên 5 giờ"] },
-  dung: { hoi: "Hiện bạn đang làm việc đó bằng gì?", chon: ["Excel, Google Sheet", "Zalo, Messenger", "Một phần mềm có sẵn", "Giấy, sổ tay"] },
+  gio: { hoi: "Mỗi tuần việc đó lấy của bạn bao nhiêu giờ?", chon: ["Dưới 2 giờ", "2 đến 5 giờ", "Trên 5 giờ"] },
+  nguoi: { hoi: "Bao nhiêu người sẽ dùng công cụ này?", chon: ["Chỉ mình tôi", "2–5 người", "Trên 5 người"] },
+  hocNhom: "Có thể học theo nhóm cho cả đội, chúng tôi trao đổi thêm khi liên hệ.",
+  muon: { hoi: "Bạn muốn thế nào?", chon: [ { chu: "Tự học để làm được", goi: "hd" }, { chu: "Giao hẳn cho Gradisy làm", goi: "giao" }, { chu: "Chưa biết, cần tư vấn", goi: "tv" } ] },
   goi: {
-    tdh: { ten: "Luồng việc tự chạy (tự động hoá)", vi: "Việc của bạn là làm tay lặp đi lặp lại trên file và bảng. Máy có thể tự chạy phần này, bạn vẫn dùng công cụ quen thuộc." },
-    pm:  { ten: "Ứng dụng may đo (phần mềm riêng)", vi: "Việc của bạn cần một chỗ riêng để nhiều người cùng dùng hoặc để khách tự thao tác. Một trang web hoặc ứng dụng nhỏ sẽ hợp." },
+    hd:  { ten: "Hướng dẫn 1–1", vi: "Bạn muốn tự làm và hiểu được. Chúng tôi xem nhu cầu của bạn, rồi kèm bạn làm từ đầu đến cuối để bạn tự dùng AI cho việc này." },
+    tdh: { ten: "Phần mềm nhỏ", vi: "Việc của bạn chỉ cần một công cụ: chúng tôi làm, bạn dùng ngay, không phải học cách làm." },
+    pm:  { ten: "Hệ thống trọn gói", vi: "Việc của bạn cần nhiều công cụ nối vào nhau, nhiều người cùng dùng. Chúng tôi làm cả hệ thống chạy chung một chỗ." },
     tv:  { ten: "Trao đổi trực tiếp", vi: "Việc của bạn cần nghe kỹ hơn trước khi gợi ý. Chúng tôi sẽ hỏi thêm vài câu rồi đề xuất cách làm." }
   },
   viDu: [
     "Ví dụ tương tự: shop online bán 3 nơi, thay việc chép đơn mỗi tối bằng một bảng tự cập nhật.",
     "Ví dụ tương tự: phòng khám nha, làm phần đặt lịch và nhắc lịch trước.",
-    "Ví dụ tương tự: công ty 30 người, trợ lý AI trả lời câu hỏi về quy trình và mẫu biểu."
+    "Ví dụ tương tự: công ty 30 người, trợ lý AI trả lời câu hỏi về quy trình và mẫu biểu.",
+    "Ví dụ tương tự: người làm video để AI lên kịch bản, cắt ghép, chỉ còn quay và duyệt."
   ],
   gioNho: "Việc này hiện còn nhỏ. Khi trao đổi, chúng tôi sẽ nói thẳng nếu chưa đáng làm.",
   chot: "Đây là gợi ý ban đầu. Chúng tôi xem việc thật rồi mới báo giá trọn gói.",
@@ -112,7 +120,7 @@ var KICH_BAN = {
   log.tabIndex = -1;  // để giữ viền chọn trong khung khi nút vừa bấm biến mất
   function noi(chu, cls) { var m = el("div", { class: "m " + (cls || "bot") }, chu); log.appendChild(m); log.scrollTop = log.scrollHeight; if (!hop.contains(document.activeElement)) log.focus({ preventScroll: true }); return m; }
   function hoi(buoc, chu, luaChon, khiChon) {
-    var m = noi(chu); m.insertBefore(el("span", { class: "step" }, "Câu " + buoc + "/4 · "), m.firstChild);
+    var m = noi(chu); m.insertBefore(el("span", { class: "step" }, "Câu " + buoc + "/5 · "), m.firstChild);
     var o = el("div", { class: "opts" });
     luaChon.forEach(function (c) {
       var b = el("button", { type: "button" }, c.chu || c);
@@ -143,14 +151,26 @@ var KICH_BAN = {
   function cau3() {
     hoi(3, KICH_BAN.gio.hoi, KICH_BAN.gio.chon, function (g) {
       tl.gio = g;
-      hoi(4, KICH_BAN.dung.hoi, KICH_BAN.dung.chon, function (d) { tl.dung = d; ketQua(); });
+      hoi(4, KICH_BAN.nguoi.hoi, KICH_BAN.nguoi.chon, function (n) {
+        tl.nguoi = n;
+        hoi(5, KICH_BAN.muon.hoi, KICH_BAN.muon.chon, function (m) {
+          tl.muon = m.chu;
+          // chọn gói theo câu 4 và 5: tự học → 1–1 (trên 5 người thì gợi ý học nhóm); giao cho Gradisy → trên 5 người thì hệ thống, ít người thì phần mềm nhỏ
+          tl.goi = m.goi === "giao" ? (n === KICH_BAN.nguoi.chon[2] ? "pm" : "tdh") : m.goi;
+          tl.ghiThem = m.goi === "hd" && n === KICH_BAN.nguoi.chon[2] ? KICH_BAN.hocNhom : "";
+          tl.dung = "Số người: " + n + " · Muốn: " + m.chu;
+          ketQua();
+        });
+      });
     });
   }
-  function tomTat() { return "Lĩnh vực: " + tl.nganh + "\nViệc: " + tl.viec + "\nThời gian: " + tl.gio + "/tuần\nĐang dùng: " + tl.dung; }
+  function tomTat() { return "Lĩnh vực: " + tl.nganh + "\nViệc: " + tl.viec + "\nThời gian: " + tl.gio + "/tuần\nSố người: " + tl.nguoi + "\nMuốn: " + tl.muon; }
   function ketQua() {
     var g = KICH_BAN.goi[tl.goi] || KICH_BAN.goi.tv;
     var kq = el("div", { class: "m kq" }); kq.appendChild(el("b", null, "Gợi ý: " + g.ten));
     kq.appendChild(el("p", null, g.vi));
+    if (tl.ghiThem) kq.appendChild(el("p", null, tl.ghiThem));
+    if (tl.gio) kq.appendChild(el("p", null, "Việc này đang lấy của bạn " + tl.gio.toLowerCase() + " mỗi tuần."));
     if (tl.vd != null && tl.goi !== "tv") kq.appendChild(el("p", null, KICH_BAN.viDu[tl.vd]));
     if (tl.gio === KICH_BAN.gio.chon[0]) kq.appendChild(el("p", null, KICH_BAN.gioNho));
     kq.appendChild(el("p", { class: "step" }, KICH_BAN.chot));

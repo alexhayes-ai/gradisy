@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Hồ sơ công ty · Gradisy</title>
-<meta name="description" content="Hồ sơ Gradisy: dịch vụ AI cho doanh nghiệp vừa và nhỏ, và cho cá nhân. Bản đồ việc (tư vấn miễn phí), luồng việc tự chạy, ứng dụng may đo, đã gồm bảo hành và duy trì.">
+<meta name="description" content="Hồ sơ Gradisy: dịch vụ AI cho doanh nghiệp vừa và nhỏ, và cho cá nhân. Tư vấn miễn phí, hướng dẫn 1–1, phần mềm nhỏ, hệ thống trọn gói, đã gồm bảo hành và duy trì.">
 <!-- 25/11: giữ nguyên thiết kế này, chỉ gắn thêm trợ lý tư vấn (chung.js) + nút Zalo, đổi 1–1 thành Tư vấn,
      bỏ phần học công khai. Bản 3 trang thử (Sir không chọn): ../../ho-so-cong-ty/ban-luu/thiet-ke-3-trang-25-11/
      Đăng lên mạng 18/11/2026. 19/11: phần dưới ảnh bìa dựng lại theo cấu trúc
@@ -97,7 +97,7 @@ h1 .l1,h1 .l2{display:block}
 .head .side .bar{display:none}
 .head .hero-cta{justify-content:center}
 /* vùng tối mềm sau chữ, để chấm sóng không đè lên chữ */
-.head::before{content:"";position:absolute;inset:0 -10%;z-index:-1;background:radial-gradient(closest-side,rgba(0,0,0,.82) 45%,rgba(0,0,0,0) 100%);pointer-events:none}
+.head::before{content:"";position:absolute;inset:0 max(-10%, calc(50% - 50vw));z-index:-1;background:radial-gradient(closest-side,rgba(0,0,0,.82) 45%,rgba(0,0,0,0) 100%);pointer-events:none}
 .part{position:relative}
 .meta{font-size:14px;color:var(--muted);margin:0 0 10px}
 .meta b{color:var(--ink);font-weight:600;margin-right:12px}
@@ -160,6 +160,35 @@ p{margin:0 0 16px}
 .prod.dark{background:#141414;border:1px solid #262626}
 .prod h3{color:var(--c-ink);font-size:clamp(24px,2.2vw,28px);letter-spacing:-.02em}
 .prod p{color:var(--c-ink-2)}
+.prod .cau{font-size:19px;font-weight:600;color:var(--c-ink);line-height:1.4;margin:2px 0 14px}
+.prod .vd{font-size:15px;border-top:1px solid rgba(128,128,128,.25);padding-top:12px}
+.prod .vd b{color:var(--c-ink)}
+#dsDichVu{perspective:1200px}
+.sv{position:relative;background:linear-gradient(180deg,#151515 0,#0c0c0c 100%);border:1px solid #242424;border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transform-style:preserve-3d;transition:transform .25s ease,border-color .25s,box-shadow .25s}
+.sv:hover{border-color:rgba(240,122,60,.55);box-shadow:0 30px 60px -20px rgba(240,122,60,.35)}
+.sv::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 260px at var(--mx,50%) 0,rgba(240,122,60,.18),transparent 70%);pointer-events:none}
+.sv.noi{border-color:rgba(240,122,60,.5)}
+.sv canvas{display:block;width:100%;height:230px}
+.sv .in{padding:4px 26px 26px;display:flex;flex-direction:column;flex:1;position:relative}
+.sv .tag{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.sv h3{font-size:28px;letter-spacing:-.02em;margin:0 0 10px;line-height:1.15}
+.sv .cau{font-size:18px;font-weight:600;margin:0 0 12px;color:var(--ink)}
+.sv p{color:var(--ink-2);margin:0 0 12px;font-size:15.5px}
+.sv ul{list-style:none;padding:0;margin:0 0 16px;display:grid;gap:8px}
+.sv li{display:flex;gap:10px;font-size:15px;color:var(--ink-2)}
+.sv li::before{content:"";flex:none;width:18px;height:18px;margin-top:3px;border-radius:50%;background:var(--accent-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f07a3c' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M6 12l4 4 8-8'/%3E%3C/svg%3E") center/12px no-repeat}
+.sv .vd{font-size:14.5px;border-top:1px solid #262626;padding-top:12px}
+.sv .vd b{color:var(--ink)}
+.sv .gia{margin-top:auto;padding-top:8px;font-weight:600;color:var(--ink);font-size:15px}
+.sv a.nut{margin-top:14px;display:flex;justify-content:center;align-items:center;min-height:48px;padding:12px;font-weight:700;text-decoration:none;color:var(--ink);border:1px solid #333;border-radius:10px;transition:background .2s,color .2s}
+.sv a.nut:hover,.sv.noi a.nut{background:var(--accent);color:#000;border-color:var(--accent)}
+@media (prefers-reduced-motion:reduce){.sv{transition:none}}
+.sosanh{width:100%;border-collapse:collapse;margin-top:28px;font-size:15px}
+.sosanh-wrap{overflow-x:auto;margin-top:8px}
+.sosanh th,.sosanh td{text-align:left;padding:14px 16px;border-bottom:1px solid #262626;vertical-align:top}
+.sosanh thead th{color:var(--ink);font-size:16px}
+.sosanh tbody th{color:var(--ink-2);font-weight:500;width:18%}
+.sosanh td{color:var(--ink)}
 .prod .tag-top{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c-ink);margin-bottom:18px}
 .prod .tag-top::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--good)}
 .prod .tag-top.soon::before{background:var(--warn)}
@@ -301,7 +330,8 @@ footer a:hover{color:var(--accent)}
 /* 25/11 (học từ n8n.io): dải 3 cam kết dưới tiêu đề, theo kiểu dải số liệu của n8n */
 .promises{max-width:1200px;margin:0 auto 24px;padding:0 max(16px,env(safe-area-inset-left));display:grid;gap:12px}
 .promises div{background:var(--raise);border:1px solid #1e1e1e;padding:18px 20px;display:flex;gap:14px;align-items:center}
-.promises b{display:grid;place-items:center;flex:none;width:36px;height:36px;background:var(--accent);color:#000;font-size:15px;font-weight:700}
+.promises i{flex:none;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffb487 0,#f07a3c 45%,#7a2e08 100%);box-shadow:0 0 0 6px rgba(240,122,60,.1),0 8px 24px rgba(240,122,60,.25)}
+.promises i svg{width:22px;height:22px;fill:none;stroke:#1a0a02;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .promises span{font-size:16px;font-weight:600;line-height:1.35}
 .promises small{display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px}
 @media (min-width:760px){.promises{grid-template-columns:repeat(3,1fr)}}
@@ -518,9 +548,9 @@ footer a:hover{color:var(--accent)}
 
 <!-- Dải 3 cam kết (25/11, học từ dải số liệu của n8n.io; mình chưa có số thật nên dùng cam kết) -->
 <div class="promises" aria-label="Cam kết của Gradisy">
-  <div><b aria-hidden="true">1</b><span>Tư vấn miễn phí<small>Trả lời 4 câu, nhận gợi ý ngay</small></span></div>
-  <div><b aria-hidden="true">2</b><span>Báo giá trọn gói<small>Một giá cho cả việc, không phát sinh</small></span></div>
-  <div><b aria-hidden="true">3</b><span>Bảo hành, duy trì<small>Có lỗi hoặc cần chỉnh, chúng tôi sửa</small></span></div>
+  <div><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg></i><span>Tư vấn miễn phí<small>Trả lời 5 câu, nhận gợi ý ngay</small></span></div>
+  <div><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 12l9-9h8v8l-9 9z"/><circle cx="16" cy="8" r="1.5"/></svg></i><span>Báo giá trọn gói<small>Một giá cho cả việc, không phát sinh</small></span></div>
+  <div><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></i><span>Bảo hành, duy trì<small>Có lỗi hoặc cần chỉnh, chúng tôi sửa</small></span></div>
 </div>
 
 <div class="cover"><div class="box">
@@ -596,38 +626,53 @@ footer a:hover{color:var(--accent)}
   <div class="wrap">
     <h2>Dịch vụ</h2>
     <div class="grid g3" id="dsDichVu"></div>
+    <div class="sosanh-wrap" role="region" aria-label="So sánh 3 dịch vụ" tabindex="0">
+      <table class="sosanh">
+        <thead><tr><th scope="col"><span class="sr">Tiêu chí</span></th><th scope="col">Hướng dẫn 1–1</th><th scope="col">Phần mềm nhỏ</th><th scope="col">Hệ thống trọn gói</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Ai làm</th><td>Bạn, có người kèm</td><td>Chúng tôi</td><td>Chúng tôi</td></tr>
+          <tr><th scope="row">Làm gì</th><td>Việc lặp lại của bạn</td><td>Một công cụ</td><td>Nhiều công cụ nối nhau</td></tr>
+          <tr><th scope="row">Bạn được</th><td>Hiểu và tự dùng AI</td><td>Công cụ dùng ngay</td><td>Hệ thống cho cả đội</td></tr>
+        </tbody>
+      </table>
+    </div>
 
     <div class="deal" id="mot-mot">
       <div>
         <span class="bar" aria-hidden="true"></span>
-        <h3 class="big">Bản đồ việc: tư vấn miễn phí</h3>
-        <p class="lead">Trợ lý hỏi bạn 4 câu về việc đang làm, gợi ý gói hợp, rồi chúng tôi liên hệ lại để báo giá.</p>
+        <h3 class="big">Chưa biết chọn gì? Tư vấn miễn phí</h3>
+        <p class="lead">Trả lời 5 câu trong khoảng 1 phút. Trợ lý gợi ý dịch vụ hợp với bạn, rồi chúng tôi liên hệ lại để báo giá.</p>
         <div class="hero-cta" style="margin:0 0 8px"><a class="btn main" href="#mot-mot" data-tu-van>Bắt đầu tư vấn</a></div>
       </div>
       <div class="grid g3">
         <div class="card">
           <h3>Cách chúng tôi làm</h3>
           <ol>
-            <li><b>Tư vấn miễn phí:</b> bạn kể việc đang làm, chúng tôi chỉ ra việc nào nên giao cho AI.</li>
-            <li><b>Báo giá trọn gói:</b> một giá cho cả việc, không phát sinh.</li>
-            <li><b>Làm và bàn giao:</b> công cụ chạy đúng trên file và việc thật của bạn.</li>
+            <li><b>Nghe việc của bạn (miễn phí):</b> chúng tôi chỉ ra phần nào AI làm được, phần nào chưa nên làm.</li>
+            <li><b>Báo giá trọn gói:</b> ghi rõ làm gì, bao lâu xong. Không phát sinh.</li>
+            <li><b>Làm trên việc thật:</b> với 1–1, bạn tự làm và có người kèm. Với phần mềm, chúng tôi làm và thử trên dữ liệu của bạn trước khi giao.</li>
             <li><b>Bảo hành, duy trì:</b> có lỗi hoặc cần chỉnh, chúng tôi sửa.</li>
           </ol>
         </div>
         <div class="card">
           <h3>Câu hỏi thường gặp</h3>
           <ul>
-            <li><b>Tôi có cần biết code không?</b> Không cần biết code. Chỉ cần một việc thật và muốn làm đến cùng.</li>
-            <li><b>Báo giá thế nào?</b> Báo giá trọn gói sau khi xem việc. Đã gồm bảo hành và duy trì.</li>
-            <li><b>Tư vấn có mất phí không?</b> Không. Tư vấn miễn phí.</li>
+            <li><b>Tôi không rành công nghệ, có làm được không?</b> Được. Bạn chỉ cần kể việc đang làm hằng ngày.</li>
+            <li><b>Có được dùng thử trước không?</b> Được. Chúng tôi làm một bản thử chạy trên dữ liệu mẫu của bạn, bạn dùng thử 7 ngày qua đường link của chúng tôi. Ưng rồi mới làm bản đầy đủ.</li>
+            <li><b>Mất bao lâu?</b> Báo rõ trong báo giá, trước khi bắt đầu làm.</li>
+            <li><b>Có phải trả thêm phí AI hằng tháng không?</b> Tuỳ công cụ. Nếu có, chúng tôi báo rõ con số trước khi làm.</li>
+            <li><b>Dữ liệu của tôi có an toàn không?</b> Chỉ đưa lên AI những gì cần cho việc. Thông tin cá nhân được bỏ trước khi xử lý.</li>
+            <li><b>Tư vấn có mất phí không?</b> Không.</li>
           </ul>
         </div>
         <div class="card">
           <h3>Việc chúng tôi không nhận</h3>
           <ul>
-            <li>Việc phải đăng nhập hệ thống nội bộ của công ty bạn bằng mật khẩu.</li>
-            <li>Việc phải đưa dữ liệu cá nhân của người khác lên AI.</li>
-            <li>Việc cần phần mềm trả phí mà bạn chưa có.</li>
+            <li>Dùng AI sai mục đích: lừa đảo, giả mạo người khác, tạo tin giả.</li>
+            <li>Dùng dữ liệu cá nhân của người khác khi họ chưa đồng ý.</li>
+            <li>Spam tin nhắn, tạo tài khoản ảo, hoặc việc trái điều khoản của nền tảng.</li>
+            <li>Làm giả giấy tờ, hoá đơn, hoặc dùng nội dung vi phạm bản quyền.</li>
+            <li>Hứa kết quả trước khi xem việc thật.</li>
           </ul>
         </div>
       </div>
@@ -730,18 +775,24 @@ footer a:hover{color:var(--accent)}
    trangThai: "live" (đang chạy) hoặc "soon" (sắp mở). the: các thẻ chủ đề ngắn.
    Màu thẻ tự xoay vòng: trắng, xám, đen. */
 var DICH_VU = [
-  { ten: "Bản đồ việc", trangThai: "live", nhan: "Tư vấn · Miễn phí", gia: "Miễn phí",
-    mota: "Trả lời 4 câu, trợ lý vẽ ra việc nào của bạn nên giao cho AI. Sau đó chúng tôi liên hệ lại để báo giá.",
-    the: ["4 câu hỏi", "Khoảng 1 phút", "Gợi ý gói hợp"],
+  { ten: "Hướng dẫn 1–1", trangThai: "live", hinh: "kem",
+    diem: ["Xem nhu cầu của bạn trước", "Kèm bạn làm từ đầu đến cuối", "Hiểu từng bước, tự sửa được"], nhan: "Bạn tự làm, có người kèm",
+    cau: "“Tôi muốn tự làm và hiểu được.”",
+    vd: "bạn hay dựng video, cập nhật thông tin, làm báo cáo mỗi ngày? Học xong, bạn tự giao những việc đó cho AI.",
+    gia: "Báo giá sau khi xem nhu cầu.",
     link: "#mot-mot", chuLink: "Bắt đầu tư vấn", tuVan: true },
-  { ten: "Luồng việc tự chạy", trangThai: "live", nhan: "Tự động hoá", gia: "Báo giá trọn gói sau khi xem việc. Đã gồm bảo hành và duy trì.",
-    mota: "Một việc bạn đang làm tay lặp đi lặp lại, chúng tôi làm cho máy tự chạy. Bạn vẫn dùng Excel, Google Sheet, Zalo như cũ, không phải học phần mềm mới.",
-    the: ["Excel, Google Sheet", "Báo cáo tự động", "Gom dữ liệu"],
-    link: "#tham-gia", chuLink: "Liên hệ" },
-  { ten: "Ứng dụng may đo", trangThai: "live", nhan: "Phần mềm riêng", gia: "Báo giá trọn gói sau khi xem việc. Đã gồm bảo hành và duy trì.",
-    mota: "Một trang web hoặc ứng dụng riêng, có đăng nhập, nhiều người cùng dùng: đặt lịch, quản lý khách hàng, trợ lý AI trả lời theo tài liệu nội bộ.",
-    the: ["Web riêng", "Trợ lý AI nội bộ", "Nhiều người dùng"],
-    link: "#tham-gia", chuLink: "Liên hệ" }
+  { ten: "Phần mềm nhỏ", trangThai: "live", hinh: "khoi",
+    diem: ["Một công cụ cho một việc", "Dùng ngay, không phải học", "Thử trên dữ liệu thật trước khi giao"], nhan: "Chúng tôi làm · Một công cụ",
+    cau: "“Làm giúp tôi một công cụ.”",
+    vd: "chatbot trả lời khách trên web hoặc Zalo, bảng báo cáo tự cập nhật.",
+    gia: "Báo giá trọn gói, đã gồm bảo hành.",
+    link: "#mot-mot", chuLink: "Bắt đầu tư vấn", tuVan: true },
+  { ten: "Hệ thống trọn gói", trangThai: "live", hinh: "mang",
+    diem: ["Nhiều công cụ nối vào nhau", "Cả đội dùng chung một chỗ", "Mỗi người thấy đúng phần việc của mình"], nhan: "Chúng tôi làm · Cả hệ thống",
+    cau: "“Làm cho công ty tôi cả một hệ thống.”",
+    vd: "chatbot nhận đơn → ghi vào kho → báo cáo cho chủ → nhắc nhân viên giao hàng.",
+    gia: "Báo giá trọn gói, đã gồm bảo hành.",
+    link: "#mot-mot", chuLink: "Bắt đầu tư vấn", tuVan: true }
 ];
 var ICON = {
   clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
@@ -884,28 +935,59 @@ ICON.model = '<rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 3v4M1
 (function(){
   function el(tag, cls, text){ var x = document.createElement(tag); if (cls) x.className = cls; if (text) x.textContent = text; return x; }
   var box = document.getElementById('dsDichVu');
-  var MAU = ['light', 'grey', 'dark'];
-  DICH_VU.forEach(function(d, i){
-    var c = el('div', 'card prod ' + MAU[i % 3]);
+  DICH_VU.forEach(function(d){
+    var c = el('article', 'sv' + (d.noi ? ' noi' : '')); c.dataset.hinh = d.hinh || 'khoi';
+    var cv = el('canvas'); cv.setAttribute('aria-hidden', 'true'); c.appendChild(cv);
     var inner = el('div', 'in');
-    inner.appendChild(el('span', 'tag-top ' + d.trangThai, d.nhan));
+    inner.appendChild(el('span', 'tag', d.nhan));
     inner.appendChild(el('h3', '', d.ten));
-    inner.appendChild(el('p', '', d.mota));
-    if (d.the && d.the.length) {
-      var ul = el('ul', 'tags');
-      d.the.forEach(function(t){ ul.appendChild(el('li', '', t)); });
-      inner.appendChild(ul);
-    }
-    inner.appendChild(el('p', 'price', d.gia));
-    var a = el('a', 'more', d.chuLink); a.href = d.link; if (d.tuVan) a.setAttribute('data-tu-van', '');
-    var ch = el('span', 'chev', '›'); ch.setAttribute('aria-hidden', 'true'); a.appendChild(ch);
-    if (/^https?:/.test(d.link)) { a.target = '_blank'; a.rel = 'noopener'; }
-    var pa = el('p'); pa.appendChild(a); inner.appendChild(pa);
-    c.appendChild(inner);
-    var art = el('div', 'art a' + (i % 3 + 1)); art.setAttribute('aria-hidden', 'true');
-    c.appendChild(art);
-    box.appendChild(c);
+    if (d.cau) inner.appendChild(el('p', 'cau', d.cau));
+    if (d.diem) { var ul = el('ul'); d.diem.forEach(function(t){ ul.appendChild(el('li', '', t)); }); inner.appendChild(ul); }
+    if (d.vd) { var v = el('p', 'vd'); v.appendChild(el('b', '', 'Ví dụ: ')); v.appendChild(document.createTextNode(d.vd)); inner.appendChild(v); }
+    inner.appendChild(el('p', 'gia', d.gia));
+    var a = el('a', 'nut', d.chuLink); a.href = d.link; if (d.tuVan) a.setAttribute('data-tu-van', '');
+    inner.appendChild(a);
+    c.appendChild(inner); box.appendChild(c);
   });
+  // khối chấm 3D trong thẻ dịch vụ: kem = quả cầu có người kèm bay quanh, khoi = khối vuông, mang = nhiều cầu nối nhau
+  (function(){
+    var tat = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function cau(n, r, cx, cy, cz){ var d = [], g = Math.PI * (3 - Math.sqrt(5)); for (var i = 0; i < n; i++){ var y = 1 - 2 * i / (n - 1), rr = Math.sqrt(1 - y * y), t = g * i; d.push([cx + Math.cos(t) * rr * r, cy + y * r, cz + Math.sin(t) * rr * r]); } return d; }
+    function vong(n, r, ng){ var d = []; for (var i = 0; i < n; i++){ var t = i / n * Math.PI * 2; d.push([Math.cos(t) * r, Math.sin(t) * r * Math.sin(ng), Math.sin(t) * r * Math.cos(ng), 1]); } return d; }
+    function khoi(sz, b){ var d = []; for (var x = 0; x <= b; x++) for (var y = 0; y <= b; y++) for (var z = 0; z <= b; z++){ if ((x === 0 || x === b) + (y === 0 || y === b) + (z === 0 || z === b) >= 1) d.push([(x / b - .5) * sz, (y / b - .5) * sz, (z / b - .5) * sz]); } return d; }
+    function doan(p, q, n){ var d = []; for (var i = 1; i < n; i++){ var t = i / n; d.push([p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t, p[2] + (q[2] - p[2]) * t, 1]); } return d; }
+    var HINH = {
+      kem: function(){ return cau(420, 62, 0, 0, 0).concat(vong(70, 100, 1.1)).concat(cau(60, 12, 100, 0, 0).map(function(p){ return p.concat(1); })); },
+      khoi: function(){ return khoi(120, 9); },
+      mang: function(){ var nut = [[-85, -30, 0], [0, -55, 40], [85, -25, -10], [-40, 45, -30], [50, 50, 30]], d = [];
+        nut.forEach(function(c){ d = d.concat(cau(90, 20, c[0], c[1], c[2])); });
+        [[0, 1], [1, 2], [0, 3], [3, 4], [2, 4], [1, 4]].forEach(function(e){ d = d.concat(doan(nut[e[0]], nut[e[1]], 16)); }); return d; }
+    };
+    Array.prototype.forEach.call(document.querySelectorAll('.sv'), function(the){
+      var cv = the.querySelector('canvas'), x = cv.getContext('2d'), diem = HINH[the.dataset.hinh](), goc = Math.random() * 6, w, h, mX = 0, mY = 0, dangThay = false, chayRoi = false;
+      function co(){ var dpr = Math.min(2, devicePixelRatio || 1); w = cv.clientWidth; h = cv.clientHeight; cv.width = w * dpr; cv.height = h * dpr; x.setTransform(dpr, 0, 0, dpr, 0, 0); ve(); }
+      function ve(){
+        x.clearRect(0, 0, w, h);
+        var cy = Math.cos(goc + mX), sy = Math.sin(goc + mX), cx = Math.cos(.35 + mY), sx = Math.sin(.35 + mY);
+        diem.map(function(p){ var X = p[0] * cy - p[2] * sy, Z = p[0] * sy + p[2] * cy, Y = p[1] * cx - Z * sx; Z = p[1] * sx + Z * cx; var k = 380 / (380 + Z); return [w / 2 + X * k, h / 2 + Y * k, Z, k, p[3]]; })
+          .sort(function(a, b){ return b[2] - a[2]; })
+          .forEach(function(q){ var a = 1 - Math.max(0, Math.min(1, (q[2] + 120) / 240)) * .8;
+            x.fillStyle = q[4] ? 'rgba(255,190,150,' + (a * .9) + ')' : 'rgba(240,122,60,' + a + ')';
+            x.beginPath(); x.arc(q[0], q[1], Math.max(.6, 1.7 * q[3]), 0, 7); x.fill(); });
+      }
+      function chay(){ if (!dangThay) { chayRoi = false; return; } goc += .004; ve(); requestAnimationFrame(chay); }
+      // chỉ xoay khi thẻ đang trong màn hình, đỡ tốn pin
+      new IntersectionObserver(function(es){ dangThay = es[0].isIntersecting; if (dangThay && !tat && !chayRoi) { chayRoi = true; chay(); } }).observe(the);
+      co(); addEventListener('resize', co);
+      the.addEventListener('pointermove', function(e){
+        var r = the.getBoundingClientRect(), px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
+        the.style.setProperty('--mx', (px + .5) * 100 + '%');
+        if (tat || e.pointerType !== 'mouse') return;
+        the.style.transform = 'rotateY(' + px * 8 + 'deg) rotateX(' + (-py * 8) + 'deg) translateY(-4px)'; mX = px * .6; mY = py * .4;
+      });
+      the.addEventListener('pointerleave', function(){ the.style.transform = ''; mX = mY = 0; if (tat) ve(); });
+    });
+  })();
 
   // luồng việc dài: chọn ví dụ, bấm + để nối thêm chặng, cuối cùng là nút Tư vấn miễn phí. Vị trí tự xếp theo cột.
   var wf = document.getElementById('wf'), wfWrap = document.getElementById('wfWrap'), wfTabs = document.getElementById('wfTabs');
@@ -1233,6 +1315,6 @@ ICON.model = '<rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 3v4M1
 })();
 </script>
 <script src="../config.js?v=5"></script>
-<script src="chung.js?v=4"></script>
+<script src="chung.js?v=7"></script>
 </body>
 </html>
