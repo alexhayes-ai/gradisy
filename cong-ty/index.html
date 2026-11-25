@@ -4,18 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Hồ sơ công ty · Gradisy</title>
-<meta name="description" content="Hồ sơ Gradisy: dịch vụ AI cho doanh nghiệp vừa và nhỏ, và cho cá nhân. Tự động hoá 1–1, tự động hoá nhỏ, phần mềm nhỏ, đã gồm bảo hành và duy trì.">
-<!-- Đăng lên mạng 18/11/2026. 19/11: phần dưới ảnh bìa dựng lại theo cấu trúc
+<meta name="description" content="Hồ sơ Gradisy: dịch vụ AI cho doanh nghiệp vừa và nhỏ, và cho cá nhân. Bản đồ việc (tư vấn miễn phí), luồng việc tự chạy, ứng dụng may đo, đã gồm bảo hành và duy trì.">
+<!-- 25/11: giữ nguyên thiết kế này, chỉ gắn thêm trợ lý tư vấn (chung.js) + nút Zalo, đổi 1–1 thành Tư vấn,
+     bỏ phần học công khai. Bản 3 trang thử (Sir không chọn): ../../ho-so-cong-ty/ban-luu/thiet-ke-3-trang-25-11/
+     Đăng lên mạng 18/11/2026. 19/11: phần dưới ảnh bìa dựng lại theo cấu trúc
      Giới thiệu → Tầm nhìn → Sứ mệnh → Sản phẩm → Đội ngũ → Tham gia.
      24/11: đổi thiết kế theo kiểu trang Accenture (chữ lớn căn trái, thẻ 3 màu có hình trừu tượng,
      khối người sáng lập kiểu trích dẫn). Giữ nguyên ảnh bìa video và toàn bộ chữ.
      Bản trước khi đổi: ../../ho-so-cong-ty/ban-luu/index-truoc-accenture-24-11.html
      Thêm dịch vụ mới: thêm một dòng vào DICH_VU trong <script> cuối trang. -->
 <meta name="theme-color" content="#000000">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23f07a3c'/%3E%3Ctext x='16' y='23' font-family='Arial' font-weight='700' font-size='20' text-anchor='middle' fill='%23000'%3EG%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="anh/logo-favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Poppins:wght@500&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#000; --raise:#121212; --raise-2:#1c1c1c; --line:#2a2a2a;
@@ -42,8 +44,13 @@ img{max-width:100%;display:block}
 .top{position:sticky;top:0;z-index:10;background:rgba(0,0,0,.9);backdrop-filter:blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
 .top.scrolled{border-bottom-color:var(--line)}
 .top .row{display:flex;align-items:center;gap:16px;height:64px}
-.logo{display:flex;align-items:center;gap:9px;text-decoration:none;font-weight:700;font-size:18px;letter-spacing:-.01em}
-.logo i{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;background:var(--accent);color:#000;font-style:normal;font-weight:700;font-size:15px}
+/* logo Gradisy "Vòng chuyển sắc" (25/11): biểu tượng SVG + chữ Poppins giãn rộng. File: anh/logo-gradisy*.svg */
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo img{width:30px;height:30px;flex:none}
+.logo span,.logo-chan span{font-family:Poppins,var(--font);font-weight:500;font-size:15px;letter-spacing:.34em;text-transform:uppercase;margin-right:-.34em}
+.logo-chan{display:flex!important;align-items:center;gap:14px}
+.logo-chan img{width:40px;height:40px}
+.logo-chan span{font-size:19px}
 .menu{display:none;margin:0 auto;gap:2px}
 .menu a{font-size:15px;font-weight:500;color:var(--ink-2);text-decoration:none;padding:6px 14px;white-space:nowrap}
 @media (max-width:1100px){.menu a{font-size:14px;padding:6px 9px}}
@@ -67,11 +74,12 @@ img{max-width:100%;display:block}
 
 /* đầu trang: tên rất lớn bên trái, giới thiệu ngắn bên phải */
 /* đầu trang nằm trên nền hạt 3D */
-.hero{position:relative;overflow:hidden;isolation:isolate}
-canvas.waves{position:absolute;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
-.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(0,0,0,.55) 0,rgba(0,0,0,0) 60%),linear-gradient(0deg,#000 0,rgba(0,0,0,0) 22%)}
-.head{position:relative;max-width:1200px;margin:0 auto;padding:56px max(16px,env(safe-area-inset-left)) 72px;display:grid;gap:36px;align-items:end;min-height:min(78vh,720px)}
-h1{font-weight:700;font-size:clamp(46px,9.2vw,136px);line-height:1.2;letter-spacing:-.04em;margin:0;text-transform:uppercase;align-self:start}
+/* 25/11: nền chấm sóng nằm cố định sau TOÀN TRANG (Sir muốn chấm chạy xuyên suốt khi cuộn) */
+.hero{position:relative}
+canvas.waves{position:fixed;inset:0;width:100vw;height:100vh;z-index:-1;pointer-events:none}
+/* đầu trang kiểu n8n: tiêu đề 2 dòng đặt giữa, câu phụ, 2 nút */
+.head{position:relative;max-width:1000px;margin:0 auto;padding:clamp(72px,11vh,128px) max(16px,env(safe-area-inset-left)) 56px;display:flex;flex-direction:column;align-items:center;text-align:center}
+h1{font-weight:700;font-size:clamp(38px,6.2vw,84px);line-height:1.08;letter-spacing:-.035em;margin:0;text-wrap:balance}
 h1 .l1,h1 .l2{display:block}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .has-waves{position:relative;overflow:hidden;isolation:isolate}
@@ -85,9 +93,12 @@ h1 .l1,h1 .l2{display:block}
 .scene.center{align-items:center;justify-content:center;text-align:center;margin-bottom:44px}
 .scene.center::after{background:rgba(0,0,0,.5)}
 .scene.center .big-title{margin:0}
-.head .side{max-width:460px;position:relative}
-/* vùng tối mềm sau chữ giới thiệu, để chấm sóng không đè lên chữ */
-.head .side::before{content:"";position:absolute;inset:-48px -56px;z-index:-1;background:radial-gradient(closest-side,rgba(0,0,0,.88) 55%,rgba(0,0,0,0) 100%);pointer-events:none}
+.head .side{max-width:640px;position:relative;margin-top:24px}
+.head .side .bar{display:none}
+.head .hero-cta{justify-content:center}
+/* vùng tối mềm sau chữ, để chấm sóng không đè lên chữ */
+.head::before{content:"";position:absolute;inset:0 -10%;z-index:-1;background:radial-gradient(closest-side,rgba(0,0,0,.82) 45%,rgba(0,0,0,0) 100%);pointer-events:none}
+.part{position:relative}
 .meta{font-size:14px;color:var(--muted);margin:0 0 10px}
 .meta b{color:var(--ink);font-weight:600;margin-right:12px}
 .sub{font-size:clamp(17px,1.8vw,19px);color:var(--ink-2);margin:0;line-height:1.6}
@@ -242,12 +253,6 @@ footer{border-top:1px solid var(--line);padding:56px 0;font-size:14px;color:var(
 .foot li{margin:0}
 .foot li a{display:inline-block;padding:7px 0}
 
-/* nút dừng/chạy video (yêu cầu WCAG 2.2.2: chuyển động tự chạy phải dừng được) */
-.vbtn{position:absolute;right:14px;bottom:14px;z-index:2;display:grid;place-items:center;width:40px;height:40px;border:1px solid rgba(255,255,255,.55);background:rgba(0,0,0,.45);color:#fff;cursor:pointer;font:700 13px/1 var(--font)}
-.vbtn:hover{background:var(--accent);border-color:var(--accent);color:#000}
-.vbtn::before{content:"";width:10px;height:12px;border-left:3px solid currentColor;border-right:3px solid currentColor;box-sizing:border-box}
-.vbtn.paused::before{width:0;height:0;border-style:solid;border-width:7px 0 7px 11px;border-color:transparent transparent transparent currentColor}
-
 /* điện thoại: hình trang trí thấp lại để trang bớt dài, chữ lên trước */
 @media (max-width:899px){ html{scroll-padding-top:110px} }
 @media (max-width:639px){
@@ -261,6 +266,195 @@ footer a{color:var(--ink-2)}
 footer a:hover{color:var(--accent)}
 .copy{margin-top:32px;padding-top:20px;border-top:1px solid var(--line)}
 
+/* 25/11: trợ lý tư vấn miễn phí (mã ở chung.js), tô theo màu trang này */
+.tv-open{position:fixed;right:max(20px,env(safe-area-inset-right));bottom:max(20px,env(safe-area-inset-bottom));z-index:50;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+.tv-open[hidden],.tv[hidden]{display:none}
+.tv{position:fixed;z-index:60;right:max(20px,env(safe-area-inset-right));bottom:max(20px,env(safe-area-inset-bottom));width:390px;max-height:min(640px,calc(100svh - 40px));display:flex;flex-direction:column;background:var(--raise);border:1px solid var(--line);border-top:4px solid var(--accent);box-shadow:0 18px 48px rgba(0,0,0,.6)}
+.tv header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px 12px 20px;border-bottom:1px solid var(--line)}
+.tv header b{font-size:17px;font-weight:700}
+.tv header small{display:block;color:var(--muted);font-size:13px}
+.tv .x{width:44px;height:44px;border:0;background:transparent;color:var(--ink-2);font:300 28px/1 var(--font);cursor:pointer}
+.tv .x:hover{color:var(--accent)}
+.tv .log{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:20px;display:flex;flex-direction:column;gap:12px}
+.tv .log:focus{outline:none}
+.tv .m{max-width:88%;font-size:15px;line-height:1.6;margin:0}
+.tv .m.me{align-self:flex-end;background:var(--accent-soft);color:var(--ink);padding:8px 14px}
+.tv .m.kq{border-top:4px solid var(--accent);background:var(--raise-2);padding:14px 16px;max-width:100%}
+.tv .m.kq b{display:block;font-size:18px;margin-bottom:6px}
+.tv .m.kq p{color:var(--ink-2);margin:0 0 8px}
+.tv .opts{display:flex;flex-direction:column;gap:8px}
+.tv .opts button{min-height:46px;text-align:left;padding:10px 14px;border:1px solid var(--line);background:transparent;color:var(--ink);font:500 15px/1.4 var(--font);cursor:pointer}
+.tv .opts button:hover{border-color:var(--accent);color:var(--accent)}
+.tv form{display:grid;gap:10px}
+.tv label{font-size:14px;color:var(--ink-2)}
+.tv input,.tv textarea{width:100%;min-height:46px;background:#000;border:1px solid var(--line);color:var(--ink);font:400 16px/1.4 var(--font);padding:10px 12px}
+.tv input:focus,.tv textarea:focus{border-color:var(--accent);outline:none}
+.tv textarea{min-height:70px;resize:vertical}
+.tv .err{color:#ff9a8a;font-size:14px;margin:0}
+.tv .bay{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.tv .step{color:var(--muted);font-size:13px}
+.tv .btn{justify-content:center}
+@media (max-width:640px){
+  .tv{left:0;right:0;bottom:0;width:auto;height:90svh;max-height:none;border-left:0;border-right:0;border-bottom:0}
+  .tv-open{left:16px;right:16px;justify-content:center}
+}
+/* 25/11 (học từ n8n.io): dải 3 cam kết dưới tiêu đề, theo kiểu dải số liệu của n8n */
+.promises{max-width:1200px;margin:0 auto 24px;padding:0 max(16px,env(safe-area-inset-left));display:grid;gap:12px}
+.promises div{background:var(--raise);border:1px solid #1e1e1e;padding:18px 20px;display:flex;gap:14px;align-items:center}
+.promises b{display:grid;place-items:center;flex:none;width:36px;height:36px;background:var(--accent);color:#000;font-size:15px;font-weight:700}
+.promises span{font-size:16px;font-weight:600;line-height:1.35}
+.promises small{display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px}
+@media (min-width:760px){.promises{grid-template-columns:repeat(3,1fr)}}
+
+/* sơ đồ luồng việc dài kiểu n8n (25/11): bấm dấu + để nối thêm chặng, càng nối càng rắc rối → mời để Gradisy làm.
+   Dữ liệu: mảng LUONG_VIEC cuối trang. */
+.flowbox{border:1px solid #232323;border-top:4px solid var(--accent);padding:clamp(18px,2.4vw,32px);margin-top:36px;
+  background:radial-gradient(circle,#2c2c2c 1px,transparent 1.6px) 0 0/22px 22px,#0d0d0d}
+.wf-dau{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin:0 0 8px;color:var(--muted);font-size:14px}
+.wf-dau b{color:var(--ink);font-weight:600}
+.wf-dau button{min-height:40px;background:transparent;border:1px solid var(--line);color:var(--ink-2);padding:6px 14px;font:600 13px var(--font);cursor:pointer}
+.wf-dau button:hover{border-color:var(--accent);color:var(--ink)}
+.wfwrap{overflow-x:auto;overscroll-behavior-x:contain;scroll-behavior:smooth;margin:0 -8px;padding:8px}
+.wf{position:relative;height:470px;transition:width .5s ease}
+.wf > svg{position:absolute;left:0;top:0;height:470px;overflow:visible}
+.wf .e{fill:none;stroke:#565656;stroke-width:1.8}
+.wf .e.chay{stroke:#8a5a3c;stroke-dasharray:5 7;animation:chay 1.2s linear infinite}
+.wf .e.moi{animation:ve .6s ease-out both}
+.wf .cg{fill:#8a8a8a}
+.wf .nh{fill:#a0a0a0;font:600 13px var(--font)}
+@keyframes chay{to{stroke-dashoffset:-12}}
+@keyframes ve{from{opacity:0}}
+.wn{position:absolute;width:150px;transform:translate(-50%,-36px);text-align:center}
+.wn .o{width:72px;height:72px;margin:0 auto;display:grid;place-items:center;background:#1c1c1c;border:1px solid #353535;border-radius:16px}
+.wn.mo .o{border-radius:36px 14px 14px 36px}
+.wn.ai .o{border-color:rgba(240,122,60,.6);background:#22150d}
+.wn .o svg{width:30px;height:30px;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.wn span{display:block;margin-top:10px;font-size:13.5px;font-weight:600;line-height:1.3;color:var(--ink-2)}
+.wn.moi{animation:hien .5s ease-out both}
+@keyframes hien{from{opacity:0;transform:translate(-50%,-36px) scale(.7)}}
+.wplus{position:absolute;width:40px;height:40px;transform:translate(-50%,-50%);background:#fff;color:#000;border:0;font:500 26px/1 var(--font);cursor:pointer;display:grid;place-items:center}
+.wplus::after{content:"";position:absolute;inset:-6px;border:2px solid var(--accent);animation:goi 1.6s ease-out infinite}
+.wplus:hover{background:var(--accent)}
+@keyframes goi{from{opacity:1;transform:scale(.9)}to{opacity:0;transform:scale(1.5)}}
+.wend{position:absolute;transform:translateY(-50%);white-space:nowrap;animation:hien2 .6s ease-out both}
+.ftabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
+.ftabs button{min-height:44px;background:#111;color:var(--ink-2);border:1px solid var(--line);padding:8px 16px;font:600 14px var(--font);cursor:pointer}
+.ftabs button:hover{border-color:var(--accent);color:var(--ink)}
+.ftabs button[aria-selected=true]{background:var(--accent);border-color:var(--accent);color:#000}
+@keyframes hien2{from{opacity:0;transform:translateY(-50%) translateX(-12px)}}
+@media (prefers-reduced-motion:reduce){.wf .e.chay,.wplus::after,.wn.moi,.wend,.wf .e.moi{animation:none}}
+.vuot{display:none;color:var(--muted);font-size:13px;margin:4px 0 0}
+@media (max-width:1100px){.vuot{display:block}}
+.fout{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;margin:20px 0 0;padding-top:20px;border-top:1px solid var(--line)}
+.fout p{margin:0;color:var(--ink-2);font-size:17px}
+.fout p b{color:var(--ink)}
+
+/* "Thấy rõ + hiểu rõ + tin được AI" (kiểu n8n): chữ + danh sách mở ra bên trái, sơ đồ trợ lý AI trong khung tối bên phải */
+.tin{display:grid;gap:40px;align-items:center}
+.tin h2{margin-bottom:16px}
+.acc{margin-top:36px;border-top:1px solid var(--line)}
+.acc .it{border-bottom:1px solid var(--line)}
+.acc button{width:100%;min-height:56px;display:flex;justify-content:space-between;align-items:center;gap:16px;background:transparent;border:0;color:var(--ink-2);text-align:left;padding:16px 0;font:700 clamp(19px,1.8vw,22px)/1.3 var(--font);cursor:pointer}
+.acc button::after{content:"+";color:var(--accent);font-weight:400;font-size:26px;line-height:1}
+.acc button[aria-expanded=true]{color:var(--ink)}
+.acc button[aria-expanded=true]::after{content:"–"}
+.acc button:hover{color:var(--ink)}
+.acc .nd2{margin:0;padding:0 0 18px;color:var(--ink-2);font-size:16px;max-width:30em}
+.tin-phai{min-width:0}
+.tin-cuon{border-radius:22px;overflow-x:auto;overscroll-behavior-x:contain;border:1px solid #262626;
+  background:radial-gradient(circle,#333 1px,transparent 1.6px) 0 0/20px 20px,#151515}
+#tinGraph svg{display:block;width:100%;height:auto}
+@media (max-width:979px){#tinGraph svg{min-width:720px}}
+#tinGraph .k{fill:#262626;stroke:#3a3a3a;stroke-width:1.2;transition:stroke .3s,fill .3s}
+#tinGraph .ic{fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+#tinGraph .d.chay{stroke-dasharray:5 7;animation:chay 1.2s linear infinite}
+#tinGraph .nhanh{fill:#9a9a9a;font:600 14px var(--font)}
+@media (prefers-reduced-motion:reduce){#tinGraph .d.chay{animation:none;stroke-dasharray:none}}
+#tinGraph .d{fill:none;stroke:#5a5a5a;stroke-width:1.6}
+#tinGraph .d.n{stroke-dasharray:7 6}
+#tinGraph .c{fill:#888}
+#tinGraph text{fill:#d8d8d8;font:500 15px var(--font)}
+#tinGraph text.m{fill:#9a9a9a;font-size:14px}
+#tinGraph text.t{fill:#fff;font-weight:600;font-size:16px}
+#tinGraph .sang .k{stroke:var(--accent);fill:#2a160b}
+#tinGraph .sang .d,#tinGraph .d.sang{stroke:var(--accent)}
+@media (min-width:980px){
+  .tin{grid-template-columns:4fr 8fr;gap:48px;align-items:start}
+  .tin-trai > h2,.tin-trai > .lead{position:relative}
+  .tin-phai{position:sticky;top:calc(50vh - 200px)}
+  .acc{border-top:0;margin-top:8vh}
+  .acc .it{min-height:48vh;display:flex;flex-direction:column;justify-content:center;border-bottom:0;border-left:2px solid var(--line);padding-left:22px;transition:border-color .3s}
+  .acc .it.on{border-left-color:var(--accent)}
+  .acc button::after{display:none}
+  .acc .it .nd2{color:var(--muted);transition:color .3s}
+  .acc .it.on .nd2{color:var(--ink-2)}
+  .acc .it.on button{color:var(--ink)}
+}
+
+/* câu chuyện khách hàng thật (kiểu case study của n8n): nhãn, tiêu đề kết quả trên nền chấm, thẻ người, nút xem cách làm */
+.cs{display:grid;gap:40px;margin-top:40px}
+.cs-nhan{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.cs-nhan span{border:1px solid var(--line);padding:5px 10px;color:var(--ink-2)}
+.cs-nhan span.o{background:var(--accent);border-color:var(--accent);color:#000}
+.cs-tieu{margin:0 0 18px;padding:22px 4px;font-size:clamp(26px,2.8vw,36px);font-weight:700;line-height:1.15;letter-spacing:-.02em;
+  background:radial-gradient(circle,#2c2c2c 1px,transparent 1.6px) 0 0/20px 20px}
+.cs-the{display:flex;gap:18px;background:var(--raise);border:1px solid #232323;padding:22px}
+.cs-av{flex:none;width:84px;height:84px;border-radius:14px;background:var(--accent);color:#000;display:grid;place-items:center;font-size:30px;font-weight:700;object-fit:cover}
+.cs-the p{margin:0 0 10px;color:var(--ink-2);font-size:16px}
+.cs-the .ai{margin:0;font-size:14px;color:var(--muted)}
+.cs-the .ai b{display:block;color:var(--ink);font-weight:600}
+.cs details{margin-top:14px}
+.cs summary{list-style:none;display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:10px 18px;border:1px solid var(--ink-2);font-weight:600;font-size:15px;cursor:pointer}
+.cs summary::-webkit-details-marker{display:none}
+.cs summary:hover{border-color:var(--accent);color:var(--accent)}
+.cs details[open] summary{border-color:var(--accent)}
+.cs dl{margin:16px 0 0;display:grid;gap:12px}
+.cs dt{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.cs dd{margin:2px 0 0;color:var(--ink-2)}
+.cs-moi{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;margin-top:44px;padding:24px 28px;border:1px solid #232323;border-left:0;background:var(--raise)}
+.cs-moi p{margin:0;font-size:clamp(18px,1.8vw,22px);font-weight:700}
+@media (min-width:900px){.cs{grid-template-columns:1fr 1fr}}
+
+/* ô lời khen chạy vòng (kiểu tường lời khen của n8n). Lời thật: mảng LOI_KHEN cuối trang */
+.khen{overflow:hidden;padding:8px 0 8px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.khen-ray{display:flex;gap:20px;width:max-content;animation:khen-chay 70s linear infinite}
+.khen:hover .khen-ray,.khen:focus-within .khen-ray{animation-play-state:paused}
+@keyframes khen-chay{to{transform:translateX(-50%)}}
+.khen .o{flex:none;width:320px;min-height:240px;display:flex;flex-direction:column;justify-content:space-between;padding:26px;background:var(--raise);border:1px solid #232323}
+.khen .o:nth-child(3n+2){background:var(--paper-2);color:var(--paper-ink)}
+.khen .o:nth-child(3n){background:#1c1c1c}
+.khen .o p{margin:0;font-size:20px;font-weight:600;line-height:1.35}
+.khen .o small{display:flex;align-items:center;gap:8px;margin-top:20px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.khen .o:nth-child(3n+2) small{color:#555}
+.khen .o small::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.khen .o.mau p{color:#9a9a9a;font-style:italic}
+.khen .o.mau:nth-child(3n+2) p{color:#555}
+@media (prefers-reduced-motion:reduce){.khen{overflow-x:auto}.khen-ray{animation:none}}
+
+/* lời kêu gọi cuối trang (kiểu n8n): khung nền chấm + 1 nút chính + ảnh thật */
+.cuoi{display:grid;gap:24px;align-items:stretch}
+.cuoi-trai{display:flex;flex-direction:column;justify-content:center;padding:clamp(28px,5vw,64px);border:1px solid #232323;border-top:4px solid var(--accent);
+  background:radial-gradient(circle,#2c2c2c 1px,transparent 1.6px) 0 0/22px 22px,#0d0d0d}
+.cuoi-trai h2{font-size:clamp(36px,5vw,68px);line-height:1.08;margin:0 0 28px}
+.cuoi-trai .bo{color:var(--muted);font-size:15px;margin:14px 0 0}
+.cuoi img{width:100%;height:auto;aspect-ratio:4/5;align-self:start;object-fit:cover;object-position:50% 25%;border-radius:22px;background:#2a1a10}
+@media (min-width:900px){.cuoi{grid-template-columns:1.1fr .9fr}}
+
+/* dải tên khách hàng đã dùng dịch vụ (kiểu dải logo của n8n). Ẩn khi mảng KHACH_HANG còn trống */
+.khach{padding:40px 0 8px;text-align:center}
+.khach p{color:var(--muted);font-size:15px;margin:0 0 18px}
+.khach ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:14px 44px}
+.khach li{font-size:clamp(18px,2vw,24px);font-weight:700;letter-spacing:-.01em;color:#cfcfcf}
+.khach li img{height:36px;width:auto;filter:grayscale(1) brightness(1.6);opacity:.85}
+
+/* phần kết (thay cho dải video cuối): khung nền chấm, tiêu đề lớn, nút */
+.ket{border:1px solid #232323;border-top:4px solid var(--accent);padding:clamp(28px,5vw,64px);
+  background:radial-gradient(circle,#2c2c2c 1px,transparent 1.6px) 0 0/22px 22px,#0d0d0d}
+.ket .big-title{text-align:left;margin:0 0 28px;max-width:none;font-size:clamp(40px,6.4vw,88px)}
+
+.contact-btns{display:flex;flex-wrap:wrap;gap:12px;margin:28px 0 0}
+.contact-btns [hidden]{display:none}
+
 @media (min-width:640px){
   .grid.g2{grid-template-columns:repeat(2,1fr)}
   .icards{grid-template-columns:repeat(2,1fr)}
@@ -271,12 +465,10 @@ footer a:hover{color:var(--accent)}
   .menu{display:flex}
   .menu + .go{margin-left:0}
   .toc{display:none!important}
-  .head{grid-template-columns:1.5fr 1fr;padding-top:72px}
-  h1 .l2{padding-left:14%}
   .part{padding:112px 0}
   .scene{min-height:560px}
   .split{grid-template-columns:7fr 5fr;gap:72px;align-items:start}
-  .rules{grid-template-columns:repeat(4,1fr)}
+  .rules{grid-template-columns:repeat(3,1fr)}
   .grid.g3{grid-template-columns:repeat(3,1fr)}
   .prod{min-height:560px}
   .icards{grid-template-columns:repeat(3,1fr);gap:40px}
@@ -296,9 +488,9 @@ footer a:hover{color:var(--accent)}
 
 <header class="top" id="top">
   <div class="wrap row">
-    <a class="logo" href="./"><i>G</i>Gradisy</a>
+    <a class="logo" href="./"><img src="anh/logo-gradisy-sang.svg" alt="" width="30" height="30"><span>Gradisy</span></a>
     <nav class="menu" id="menu" aria-label="Các phần của hồ sơ"></nav>
-    <a class="go" href="#lien-he">Đặt buổi 1–1</a>
+    <a class="go" href="#mot-mot" data-tu-van>Tư vấn miễn phí</a>
   </div>
   <nav class="toc" id="toc" aria-label="Mục lục hồ sơ">
     <details class="wrap">
@@ -312,17 +504,23 @@ footer a:hover{color:var(--accent)}
 <!-- Nền hạt 3D: mặt sóng chấm cam vẽ bằng canvas (mã ở cuối trang, không dùng thư viện). -->
 <canvas class="waves" data-alpha="1" aria-hidden="true"></canvas>
 <header class="head">
-  <h1><span class="sr">Gradisy: </span><span class="l1">Dịch vụ AI</span> <span class="l2">bằng việc thật</span></h1>
+  <h1><span class="sr">Gradisy: </span><span class="l1">Giao việc lặp lại cho AI.</span> <span class="l2">Hiểu rõ từng bước nó làm.</span></h1>
   <div class="side">
     <span class="bar" aria-hidden="true"></span>
-    <p class="meta"><b>Hồ sơ công ty</b>Cập nhật 24/11/2026</p>
-    <p class="sub">Dịch vụ AI cho doanh nghiệp vừa và nhỏ, và cho cá nhân: chúng tôi xem việc thật của bạn, rồi làm công cụ AI đúng cho việc đó.</p>
+    <p class="sub">Gradisy làm công cụ AI cho đúng việc của doanh nghiệp bạn. Mở từng bước, xem nó làm gì, và giải thích được cho cả đội.</p>
     <div class="hero-cta">
-      <a class="btn main" href="#san-pham">Xem dịch vụ</a>
-      <a class="btn" href="../">Vào cộng đồng</a>
+      <a class="btn main" href="#mot-mot" data-tu-van>Tư vấn miễn phí</a>
+      <a class="btn" href="#san-pham">Xem dịch vụ</a>
     </div>
   </div>
 </header>
+</div>
+
+<!-- Dải 3 cam kết (25/11, học từ dải số liệu của n8n.io; mình chưa có số thật nên dùng cam kết) -->
+<div class="promises" aria-label="Cam kết của Gradisy">
+  <div><b aria-hidden="true">1</b><span>Tư vấn miễn phí<small>Trả lời 4 câu, nhận gợi ý ngay</small></span></div>
+  <div><b aria-hidden="true">2</b><span>Báo giá trọn gói<small>Một giá cho cả việc, không phát sinh</small></span></div>
+  <div><b aria-hidden="true">3</b><span>Bảo hành, duy trì<small>Có lỗi hoặc cần chỉnh, chúng tôi sửa</small></span></div>
 </div>
 
 <div class="cover"><div class="box">
@@ -333,6 +531,34 @@ footer a:hover{color:var(--accent)}
 
 <main id="noi-dung" tabindex="-1">
 
+<!-- Khách hàng đã dùng dịch vụ (kiểu dải logo của n8n). Ẩn khi mảng KHACH_HANG cuối trang còn trống. -->
+<section class="khach" id="khach-hang" aria-label="Khách hàng" hidden>
+  <div class="wrap">
+    <p>Đã đồng hành cùng</p>
+    <ul id="dsKhach"></ul>
+  </div>
+</section>
+
+<!-- 0. Luồng việc dài kiểu n8n (25/11, thay 3 tab ngành): bấm dấu + để nối thêm chặng. Dữ liệu: mảng LUONG_VIEC cuối trang. -->
+<section class="part" id="so-do" aria-labelledby="so-do-tieu-de">
+  <div class="wrap">
+    <span class="bar" aria-hidden="true"></span>
+    <h2 id="so-do-tieu-de">Việc bạn làm tay, máy làm thế nào</h2>
+    <p class="lead">Một việc tưởng đơn giản, nối thêm vài bước là thành cả một hệ thống. Bấm dấu <b>+</b> để xem.</p>
+    <div class="flowbox">
+      <div class="ftabs" role="tablist" aria-label="Chọn ví dụ" id="wfTabs"></div>
+      <div class="wf-dau"><span><span id="wfMo"></span> · Đã nối <b id="wfDem">0</b> bước</span><button type="button" id="wfLai" hidden>Xem lại từ đầu</button></div>
+      <div class="wfwrap" id="wfWrap"><div class="wf" id="wf" role="img" aria-label="Sơ đồ luồng việc của một shop online"></div></div>
+      <p class="vuot">Vuốt ngang để xem hết sơ đồ.</p>
+      <div class="fout">
+        <p><b>Không muốn tự nối?</b> Bạn kể việc, Gradisy làm giúp.</p>
+        <a class="btn main" href="#mot-mot" data-tu-van>Tư vấn miễn phí</a>
+      </div>
+      <p class="note-sm">Ví dụ minh hoạ, chưa phải khách hàng thật.</p>
+    </div>
+  </div>
+</section>
+
 <!-- 1. Giới thiệu -->
 <section class="part" id="gioi-thieu" data-toc="Giới thiệu">
   <div class="wrap split">
@@ -340,43 +566,28 @@ footer a:hover{color:var(--accent)}
       <span class="bar" aria-hidden="true"></span>
       <h2>Giới thiệu</h2>
       <p class="lead">Gradisy là công ty cung cấp dịch vụ AI cho doanh nghiệp vừa và nhỏ, và cho cá nhân. Mỗi công ty có một cách làm riêng: biểu mẫu riêng, file riêng, quy trình riêng. Vì vậy chúng tôi không bán giải pháp đóng sẵn.</p>
-      <p class="lead">Chúng tôi xem việc thật của bạn, chọn việc lặp lại tốn nhiều giờ nhất, rồi làm công cụ AI chạy đúng việc đó trên chính file của bạn. Bên cạnh dịch vụ có <b>cộng đồng</b>, nơi người cùng nghề chia sẻ việc thật đã làm cùng AI.</p>
-      <p class="lead">Gradisy bắt đầu từ tháng 11/2026. Cách chúng tôi làm việc được quay lại công khai trên kênh YouTube, bạn xem được trước khi đặt.</p>
+      <p class="lead">Chúng tôi xem việc thật của bạn, chọn việc lặp lại tốn nhiều giờ nhất, rồi làm công cụ AI chạy đúng việc đó trên chính file của bạn.</p>
+      <p class="lead">Gradisy bắt đầu từ tháng 11/2026.</p>
     </div>
     <ul class="xlist">
-      <li><a href="https://www.youtube.com/@Vannam_alexhayes" target="_blank" rel="noopener">Kênh YouTube<span class="chev" aria-hidden="true">›</span></a></li>
-      <li><a href="https://alexhayes-ai.github.io/claude-code-van-phong/">Video 02: báo cáo tháng<span class="chev" aria-hidden="true">›</span></a></li>
-      <li><a href="https://alexhayes-ai.github.io/excel-bao-cao-tu-dong/">Video 01: dọn Excel<span class="chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#mot-mot" data-tu-van>Tư vấn miễn phí<span class="chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#san-pham">Dịch vụ<span class="chev" aria-hidden="true">›</span></a></li>
+      <li><a href="#doi-ngu">Đội ngũ<span class="chev" aria-hidden="true">›</span></a></li>
     </ul>
   </div>
 </section>
 
-<!-- 2. Tầm nhìn -->
-<section class="part" id="tam-nhin" data-toc="Tầm nhìn">
-  <div class="wrap">
-    <!-- Dải cảnh video: Pexels 2516160 (giấy phép Pexels), cắt 1280x560 -->
-    <div class="scene">
-      <video class="scene-v" src="video/canh-tam-nhin.mp4" poster="video/canh-tam-nhin.jpg" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
-      <div class="scene-text">
-        <span class="bar" aria-hidden="true"></span>
-        <h2 class="label">Tầm nhìn</h2>
-        <p class="vision">Để mỗi doanh nghiệp nhỏ ở Việt Nam, dù không có đội kỹ thuật, cũng dùng được AI cho đúng việc của mình.</p>
-      </div>
+<!-- 2. Thấy rõ + hiểu rõ + tin được (25/11, thay phần Tầm nhìn; học từ mảng "See + understand + trust your agents" của n8n).
+     Bấm một ý bên trái, phần tương ứng trên sơ đồ bên phải sáng lên. Sửa chữ: mảng MINH_BACH cuối trang. -->
+<section class="part" id="minh-bach" data-toc="Minh bạch">
+  <div class="wrap tin">
+    <div class="tin-trai">
+      <h2>Thấy rõ + hiểu rõ + tin được AI</h2>
+      <p class="lead">Chọn mô hình AI hợp với việc, xem từng quyết định, và thêm bước người duyệt khi cần.</p>
+      <div class="acc" id="acc"></div>
     </div>
-  </div>
-</section>
-
-<!-- 3. Sứ mệnh -->
-<section class="part has-waves" id="su-menh" data-toc="Sứ mệnh">
-  <canvas class="waves" data-alpha=".3" aria-hidden="true"></canvas>
-  <div class="wrap">
-    <h2>Sứ mệnh</h2>
-    <dl class="rules">
-      <div><span class="bar" aria-hidden="true"></span><dt>Giá trị thật</dt><dd>Chỉ giới thiệu thứ chúng tôi đã tự làm và chạy được. Thứ gì chưa thử, chúng tôi ghi rõ là chưa thử.</dd></div>
-      <div><span class="bar" aria-hidden="true"></span><dt>Xứng đáng tiền</dt><dd>Bạn trả tiền cho kết quả, không trả cho lời hứa. Giá công khai, không gạch giá, không đếm ngược.</dd></div>
-      <div><span class="bar" aria-hidden="true"></span><dt>Chữ tín</dt><dd>Số nào cũng có nguồn. Dịch vụ không làm xong thì không lấy tiền.</dd></div>
-      <div><span class="bar" aria-hidden="true"></span><dt>Làm công khai</dt><dd>Toàn bộ quá trình học có trên livestream, xem miễn phí từ đầu đến cuối, không giấu bước nào.</dd></div>
-    </dl>
+    <div class="tin-phai"><div class="tin-cuon"><div id="tinGraph" role="img" aria-label="Sơ đồ: email hoá đơn mới, đọc file PDF, AI kiểm tra và đối chiếu, nếu khớp công nợ thì lên lệnh chuyển khoản, người duyệt rồi báo nhóm Zalo; nếu không khớp thì ghi vào bảng cần xem lại và email hỏi nhà cung cấp. AI dùng mô hình AI, lịch sử hoá đơn, file công nợ Excel, hợp đồng và tra mã số thuế."></div></div>
+      <p class="vuot">Vuốt ngang để xem hết sơ đồ.</p></div>
   </div>
 </section>
 
@@ -389,26 +600,27 @@ footer a:hover{color:var(--accent)}
     <div class="deal" id="mot-mot">
       <div>
         <span class="bar" aria-hidden="true"></span>
-        <h3 class="big">Dịch vụ 1–1: không xong, không lấy tiền</h3>
-        <p class="lead">Bạn mang một việc đang làm, lặp lại mỗi tuần hoặc mỗi tháng. Trong buổi, chúng tôi cùng bạn biến việc đó thành một quy trình tự động chạy trên máy bạn. Lần sau bạn chỉ cần gọi nó lên bằng một câu lệnh.</p>
+        <h3 class="big">Bản đồ việc: tư vấn miễn phí</h3>
+        <p class="lead">Trợ lý hỏi bạn 4 câu về việc đang làm, gợi ý gói hợp, rồi chúng tôi liên hệ lại để báo giá.</p>
+        <div class="hero-cta" style="margin:0 0 8px"><a class="btn main" href="#mot-mot" data-tu-van>Bắt đầu tư vấn</a></div>
       </div>
       <div class="grid g3">
         <div class="card">
-          <h3>Thế nào là “xong”</h3>
+          <h3>Cách chúng tôi làm</h3>
           <ol>
-            <li>Gọi quy trình bằng một câu lệnh, nó chạy đúng trên file thật của bạn.</li>
-            <li>Bạn tự chạy lại được một lần, không cần ai cầm tay.</li>
-            <li>Kết quả bạn tự kiểm được, ví dụ khớp với số bạn tự cộng tay hoặc đúng mẫu bạn đưa.</li>
+            <li><b>Tư vấn miễn phí:</b> bạn kể việc đang làm, chúng tôi chỉ ra việc nào nên giao cho AI.</li>
+            <li><b>Báo giá trọn gói:</b> một giá cho cả việc, không phát sinh.</li>
+            <li><b>Làm và bàn giao:</b> công cụ chạy đúng trên file và việc thật của bạn.</li>
+            <li><b>Bảo hành, duy trì:</b> có lỗi hoặc cần chỉnh, chúng tôi sửa.</li>
           </ol>
-          <p>Đủ 3 điều mới thu tiền, bằng chuyển khoản QR sau buổi. Chưa đủ thì bạn không trả gì.</p>
         </div>
         <div class="card">
-          <h3>Cách làm</h3>
-          <ol>
-            <li><b>Trước buổi:</b> bạn trả lời 5 câu (việc gì, bao lâu làm một lần, mất bao lâu, đầu vào là file gì, kết quả mong muốn) và gửi một file mẫu đã bỏ thông tin riêng.</li>
-            <li><b>Trong buổi:</b> gọi video, bạn chia sẻ màn hình. Đọc đề, lập kế hoạch, dựng quy trình bằng Claude Code trên máy bạn, chạy thử.</li>
-            <li><b>Sau buổi:</b> 7 ngày chỉnh sửa nếu cần. Quy trình là của bạn.</li>
-          </ol>
+          <h3>Câu hỏi thường gặp</h3>
+          <ul>
+            <li><b>Tôi có cần biết code không?</b> Không cần biết code. Chỉ cần một việc thật và muốn làm đến cùng.</li>
+            <li><b>Báo giá thế nào?</b> Báo giá trọn gói sau khi xem việc. Đã gồm bảo hành và duy trì.</li>
+            <li><b>Tư vấn có mất phí không?</b> Không. Tư vấn miễn phí.</li>
+          </ul>
         </div>
         <div class="card">
           <h3>Việc chúng tôi không nhận</h3>
@@ -419,19 +631,28 @@ footer a:hover{color:var(--accent)}
           </ul>
         </div>
       </div>
-      <p class="note">Bạn cần có Claude Code (gói trả phí của Anthropic) trên máy. Mỗi buổi tối thiểu 1 giờ; phần lớn quy trình cần khoảng 1,5–2 giờ.</p>
     </div>
   </div>
 </section>
 
-<!-- 5. Góc nhìn và tình huống mẫu -->
-<section class="part" id="goc-nhin" data-toc="Góc nhìn">
+<!-- 5. Câu chuyện khách hàng thật (25/11, kiểu case study của n8n). Nội dung: mảng CASE_STUDY cuối trang.
+     Chỉ ghi đúng điều Sir kể; lời nói của khách chỉ thêm khi khách gửi. -->
+<section class="part" id="cau-chuyen" data-toc="Khách hàng">
   <div class="wrap">
-    <h2>Góc nhìn và tình huống</h2>
-    <p class="lead">Cách chúng tôi nghĩ về việc dùng AI cho đúng việc, và vài tình huống mẫu cho từng gói dịch vụ.</p>
-    <div class="icards" id="dsGocNhin"></div>
-    <p class="note-sm">Các tình huống mẫu là ví dụ minh hoạ, chưa phải khách hàng thật. Khi có khách đồng ý chia sẻ, chúng tôi sẽ thay bằng câu chuyện thật.</p>
+    <span class="bar" aria-hidden="true"></span>
+    <h2>Câu chuyện khách hàng</h2>
+    <p class="lead">Việc thật chúng tôi đã làm cùng khách.</p>
+    <div class="cs" id="dsCase"></div>
+    <div class="cs-moi">
+      <p>Muốn làm như vậy cho việc của bạn?</p>
+      <a class="btn main" href="#mot-mot" data-tu-van>Tư vấn miễn phí</a>
+    </div>
   </div>
+</section>
+
+<!-- 5b. Ô lời khen chạy vòng. Lời thật: mảng LOI_KHEN cuối trang. Ô mẫu chỉ hiện khi xem trên máy (localhost), không hiện trên web thật. -->
+<section class="part" id="loi-khen" aria-label="Lời khách hàng" hidden>
+  <div class="khen"><div class="khen-ray" id="khenRay"></div></div>
 </section>
 
 <!-- 6. Đội ngũ -->
@@ -447,12 +668,12 @@ footer a:hover{color:var(--accent)}
     <!-- Lướt ngang: mỗi người một trang. Thêm người: chép một khối <article class="slide">. -->
     <div class="slider" id="team" tabindex="0" aria-label="Đội ngũ, lướt ngang để xem từng người">
       <article class="slide">
-        <img src="anh/sir-toan-than.jpg" alt="Ảnh chân dung Alex Hayes" width="1200" height="800" loading="lazy">
+        <img src="anh/sir-toan-than-net.jpg" alt="Ảnh chân dung Alex Hayes" width="1500" height="1000" loading="lazy">
         <blockquote class="motto">“Tôi tin rằng khi ai cũng có AI làm trợ lý đắc lực, mỗi ngày làm việc sẽ bớt lặp lại, và mỗi người có thêm thời gian cho điều mình thật sự yêu.”</blockquote>
         <p class="who"><b>Alex Hayes</b><span>Sáng lập</span></p>
       </article>
       <article class="slide">
-        <img src="anh/tuan-studio.jpg" alt="Ảnh chân dung anh Tuấn" width="1200" height="800" loading="lazy">
+        <img src="anh/tuan-studio-net.jpg" alt="Ảnh chân dung anh Tuấn" width="1500" height="1000" loading="lazy">
         <blockquote class="motto">Phụ trách kỹ thuật: duyệt và quyết phần kỹ thuật của mọi dự án Gradisy.</blockquote>
         <p class="who"><b>Tuấn</b><span>Đồng sáng lập · Giám đốc kỹ thuật (CTO)</span></p>
       </article>
@@ -461,35 +682,20 @@ footer a:hover{color:var(--accent)}
   </div>
 </section>
 
-<!-- 6. Tham gia -->
-<section class="part" id="tham-gia" data-toc="Tham gia">
-  <div class="wrap">
-    <!-- Dải cảnh video: Pexels 8631874 (giấy phép Pexels), cắt 1280x560 -->
-    <div class="scene center">
-      <video class="scene-v" src="video/canh-tham-gia.mp4" poster="video/canh-tham-gia.jpg" autoplay muted loop playsinline preload="none" aria-hidden="true"></video>
-      <div class="scene-text">
-        <h2 class="big-title">Đồng hành cùng Gradisy</h2>
+<!-- 7. Lời kêu gọi cuối trang (25/11, kiểu n8n): thay khung "Đồng hành cùng Gradisy" -->
+<section class="part" id="tham-gia" data-toc="Bắt đầu">
+  <div class="wrap cuoi" id="lien-he">
+    <div class="cuoi-trai">
+      <h2>Bắt đầu từ một việc bạn đang làm tay</h2>
+      <div class="contact-btns" style="margin:0">
+        <a class="btn main" href="#mot-mot" data-tu-van>Tư vấn miễn phí</a>
+        <a class="btn" data-lien-he="zalo" href="#">Nhắn Zalo</a>
+        <a class="btn" data-lien-he="email" href="#">Gửi email</a>
       </div>
+      <p class="bo">Khoảng 1 phút · Không cần biết code · Báo giá trọn gói, đã gồm bảo hành và duy trì</p>
+      <p class="note-sm" data-chua-co-lien-he hidden>Zalo và email đang cập nhật. Bấm “Tư vấn miễn phí” để để lại thông tin, chúng tôi sẽ liên hệ lại.</p>
     </div>
-    <div class="join" id="lien-he">
-      <div>
-        <p>Chúng tôi chào đón doanh nghiệp và người đi làm có việc lặp lại muốn giao cho AI, và người muốn chia sẻ việc thật đã làm. Không cần biết code. Chỉ cần một việc thật và muốn làm đến cùng.</p>
-        <p>Hiện chúng tôi nhận liên hệ qua bình luận trên kênh YouTube. Kênh nhận khách riêng sẽ cập nhật sớm.</p>
-        <div class="links">
-          <a class="btn main" href="https://www.youtube.com/@Vannam_alexhayes" target="_blank" rel="noopener">Liên hệ qua YouTube</a>
-          <a class="btn" href="../">Vào cộng đồng</a>
-        </div>
-      </div>
-      <div class="card chance">
-        <h3>Bạn nhận được gì</h3>
-        <ul>
-          <li>Một quy trình AI chạy trên máy bạn, của bạn, gọi lại bằng một câu lệnh</li>
-          <li>Chỉ trả tiền khi việc đã xong, đủ 3 điều kiểm được</li>
-          <li>Học từ việc thật của người cùng nghề, có bằng chứng, không lý thuyết suông</li>
-          <li>Toàn bộ quá trình học công khai, xem lại miễn phí bất cứ lúc nào</li>
-        </ul>
-      </div>
-    </div>
+    <img src="anh/sir-tot-nghiep-net.jpg" alt="Alex Hayes, người sáng lập Gradisy, trong ngày tốt nghiệp" width="648" height="1684" loading="lazy" style="object-position:50% 12%">
   </div>
 </section>
 
@@ -499,13 +705,13 @@ footer a:hover{color:var(--accent)}
   <div class="wrap">
     <div class="foot">
       <div>
-        <b>Gradisy</b>
+        <b class="logo-chan"><img src="anh/logo-gradisy-sang.svg" alt="" width="40" height="40" loading="lazy"><span>Gradisy</span></b>
         <span>Đồng hành cùng AI, bằng việc thật.</span>
       </div>
       <dl>
         <dt>Tên</dt><dd>Gradisy (chưa đăng ký pháp nhân)</dd>
         <dt>Bắt đầu</dt><dd>Tháng 11/2026</dd>
-        <dt>Lĩnh vực</dt><dd>Dịch vụ tự động hoá công việc và phần mềm có AI, cộng đồng chia sẻ việc đã làm cùng AI</dd>
+        <dt>Lĩnh vực</dt><dd>Dịch vụ tự động hoá công việc và phần mềm có AI</dd>
         <dt>Khách hàng</dt><dd>Doanh nghiệp vừa và nhỏ, hộ kinh doanh, người đi làm</dd>
       </dl>
       <ul>
@@ -524,34 +730,157 @@ footer a:hover{color:var(--accent)}
    trangThai: "live" (đang chạy) hoặc "soon" (sắp mở). the: các thẻ chủ đề ngắn.
    Màu thẻ tự xoay vòng: trắng, xám, đen. */
 var DICH_VU = [
-  { ten: "Dịch vụ tự động hoá 1–1", trangThai: "live", nhan: "Nhận khách", gia: "200.000đ một giờ, không xong không lấy tiền",
-    mota: "Bạn mang một việc đang làm, chúng tôi cùng bạn biến nó thành quy trình AI chạy trên máy bạn. Lần sau chỉ cần gọi một câu lệnh.",
-    the: ["Claude Code", "Việc lặp lại", "File thật"],
-    link: "#mot-mot", chuLink: "Xem cách làm" },
-  { ten: "Tự động hoá nhỏ", trangThai: "live", nhan: "Nhận khách", gia: "Báo giá trọn gói sau khi xem việc. Đã gồm bảo hành và duy trì.",
+  { ten: "Bản đồ việc", trangThai: "live", nhan: "Tư vấn · Miễn phí", gia: "Miễn phí",
+    mota: "Trả lời 4 câu, trợ lý vẽ ra việc nào của bạn nên giao cho AI. Sau đó chúng tôi liên hệ lại để báo giá.",
+    the: ["4 câu hỏi", "Khoảng 1 phút", "Gợi ý gói hợp"],
+    link: "#mot-mot", chuLink: "Bắt đầu tư vấn", tuVan: true },
+  { ten: "Luồng việc tự chạy", trangThai: "live", nhan: "Tự động hoá", gia: "Báo giá trọn gói sau khi xem việc. Đã gồm bảo hành và duy trì.",
     mota: "Một việc bạn đang làm tay lặp đi lặp lại, chúng tôi làm cho máy tự chạy. Bạn vẫn dùng Excel, Google Sheet, Zalo như cũ, không phải học phần mềm mới.",
     the: ["Excel, Google Sheet", "Báo cáo tự động", "Gom dữ liệu"],
     link: "#tham-gia", chuLink: "Liên hệ" },
-  { ten: "Phần mềm nhỏ", trangThai: "live", nhan: "Nhận khách", gia: "Báo giá trọn gói sau khi xem việc. Đã gồm bảo hành và duy trì.",
+  { ten: "Ứng dụng may đo", trangThai: "live", nhan: "Phần mềm riêng", gia: "Báo giá trọn gói sau khi xem việc. Đã gồm bảo hành và duy trì.",
     mota: "Một trang web hoặc ứng dụng riêng, có đăng nhập, nhiều người cùng dùng: đặt lịch, quản lý khách hàng, trợ lý AI trả lời theo tài liệu nội bộ.",
     the: ["Web riêng", "Trợ lý AI nội bộ", "Nhiều người dùng"],
     link: "#tham-gia", chuLink: "Liên hệ" }
 ];
-/* Góc nhìn và tình huống mẫu, kiểu thẻ bài viết của Accenture. Tình huống mẫu là ví dụ minh hoạ, không phải khách thật. */
-var GOC_NHIN = [
-  { nhan: "Góc nhìn", ten: "Phần mềm có sẵn hay làm riêng?",
-    mota: "Nếu một phần mềm trên thị trường đã làm được phần lớn việc của bạn, thường nên dùng nó. Chúng tôi nói thẳng khi bạn không cần làm mới." },
-  { nhan: "Góc nhìn", ten: "Hỏi đúng trước khi làm",
-    mota: "Rắc rối của nhiều dự án bắt đầu từ yêu cầu chưa rõ. Chúng tôi dùng AI tách điều đã rõ, điều còn thiếu và điều chỉ là giả định, rồi hỏi bạn trước khi báo giá." },
-  { nhan: "Góc nhìn", ten: "Dữ liệu của bạn khi dùng AI",
-    mota: "Chỉ đưa lên AI những gì cần cho việc. Thông tin cá nhân được bỏ trước khi xử lý, và bạn biết rõ dữ liệu của mình đi đâu." },
-  { nhan: "Tình huống mẫu", ten: "Shop online bán 3 nơi: gom đơn mỗi tối về một bảng",
-    mota: "Ví dụ minh hoạ cho gói Tự động hoá nhỏ: thay việc chép đơn bằng tay mỗi tối bằng một bảng tự cập nhật tổng đơn, doanh thu từng nơi và hàng sắp hết." },
-  { nhan: "Tình huống mẫu", ten: "Phòng khám nha: đặt lịch và nhắc lịch",
-    mota: "Ví dụ minh hoạ cho gói Phần mềm nhỏ: làm phần đặt lịch và nhắc lịch trước, phần hồ sơ điều trị làm sau, dữ liệu sức khoẻ được phân quyền chặt." },
-  { nhan: "Tình huống mẫu", ten: "Công ty 30 người: hỏi đáp quy trình nội bộ",
-    mota: "Ví dụ minh hoạ: trợ lý AI trả lời câu hỏi về quy trình và mẫu biểu, luôn chỉ ra tài liệu gốc, và chỉ cho xem đúng tài liệu theo quyền." }
+var ICON = {
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  download: '<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
+  sheet: '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M4 15h16M10 4v16"/>',
+  ai: '<rect x="5" y="8" width="14" height="11" rx="3"/><path d="M12 4v4M9.5 13v1.5M14.5 13v1.5M2.5 13h2.5M19 13h2.5"/>',
+  branch: '<path d="M4 18h4l7-12h5M16 3l4 3-4 3"/>',
+  send: '<path d="M4 12l16-8-6 16-3-7z"/>',
+  calendar: '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/>',
+  db: '<ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v12c0 1.7 3 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3 3 7 3s7-1.3 7-3"/>',
+  check: '<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>',
+  phone: '<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1z"/>',
+  message: '<path d="M4 5h16v11H9l-5 4z"/>',
+  files: '<path d="M8 3h7l4 4v12H8z"/><path d="M15 3v4h4M5 7v14h11"/>',
+  link: '<path d="M10 14a4 4 0 0 0 6 0l3-3a4 4 0 0 0-6-6l-1 1M14 10a4 4 0 0 0-6 0l-3 3a4 4 0 0 0 6 6l1-1"/>',
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4 20c1-4 4-6 8-6s7 2 8 6"/>'
+};
+/* Luồng việc dài (bấm + để nối thêm), có nhiều ví dụ. Ví dụ minh hoạ, không phải khách thật.
+   Mỗi ví dụ: tab (tên nút chọn), mo (dòng mô tả), chang: danh sách chặng; mỗi chặng là các CỘT; mỗi cột là các bước.
+   Mỗi bước: i = biểu tượng, t = chữ, k = "mo" (điểm bắt đầu) hoặc "ai" (bước AI), m = màu riêng (không bắt buộc).
+   Máy tự xếp vị trí và tự nối các cột liền nhau. Bước "branch" có 2 nhánh thì tự ghi Có / Không.
+   Thêm ví dụ mới: chép một khối { tab: ..., chang: [...] } rồi sửa chữ. */
+var LUONG_VIEC = [
+  { tab: "Shop online", mo: "Việc cuối ngày của một shop bán trên 3 sàn",
+    chang: [
+      [ [ { i: "clock", t: "Mỗi tối 21:00", k: "mo" } ],
+        [ { i: "bag", t: "Lấy đơn Shopee" }, { i: "bag", t: "Lấy đơn TikTok Shop", m: "#fe2c55" }, { i: "message", t: "Đọc tin nhắn Facebook" } ],
+        [ { i: "branch", t: "Gộp dữ liệu" } ],
+        [ { i: "ai", t: "AI tóm tắt, phân loại đơn", k: "ai" } ],
+        [ { i: "mail", t: "Email báo cáo cho chủ shop" } ] ],
+      [ [ { i: "branch", t: "Hàng sắp hết?" } ],
+        [ { i: "cart", t: "Tạo đơn nhập hàng" }, { i: "sheet", t: "Cập nhật tồn kho" } ],
+        [ { i: "user", t: "Chủ shop duyệt" } ] ],
+      [ [ { i: "send", t: "Nhắn Zalo khách chưa nhận hàng" }, { i: "pdf", t: "Xuất hoá đơn điện tử" }, { i: "folder", t: "Lưu chứng từ vào Drive" } ],
+        [ { i: "branch", t: "Gộp kết quả" } ],
+        [ { i: "send", t: "Báo nhóm Zalo nội bộ" } ] ],
+      [ [ { i: "ai", t: "AI dự báo nhập hàng tuần sau", k: "ai" }, { i: "calendar", t: "Nhắc lịch giao hàng" } ],
+        [ { i: "db", t: "Lưu lịch sử bán hàng" }, { i: "sheet", t: "Báo cáo cuối tháng" } ] ]
+    ] },
+  { tab: "Công ty 30 người", mo: "AI vận hành cho 5 đội ngũ khác nhau",
+    chang: [
+      [ [ { i: "clock", t: "8:00 mỗi sáng", k: "mo" } ],
+        [ { i: "bag", t: "Đội kinh doanh" }, { i: "sheet", t: "Đội kế toán" }, { i: "cart", t: "Đội kho" }, { i: "message", t: "Đội chăm sóc khách" }, { i: "user", t: "Đội nhân sự" } ],
+        [ { i: "branch", t: "Gộp báo cáo 5 đội" } ],
+        [ { i: "ai", t: "AI vận hành: tổng hợp, tìm việc trễ", k: "ai" } ],
+        [ { i: "mail", t: "Báo cáo sáng cho giám đốc" } ] ],
+      [ [ { i: "branch", t: "Có việc trễ hạn?" } ],
+        [ { i: "send", t: "Nhắc người phụ trách qua Zalo" }, { i: "db", t: "Lưu nhật ký vận hành" } ],
+        [ { i: "user", t: "Trưởng đội xác nhận" } ] ],
+      [ [ { i: "ai", t: "Trợ lý AI hỏi đáp quy trình", k: "ai" }, { i: "files", t: "Phân quyền tài liệu theo đội" }, { i: "calendar", t: "Lên lịch họp tuần" } ],
+        [ { i: "branch", t: "Gộp kết quả" } ],
+        [ { i: "sheet", t: "Bảng theo dõi cho giám đốc" } ] ],
+      [ [ { i: "ai", t: "AI đề xuất việc cần ưu tiên", k: "ai" }, { i: "mail", t: "Gửi tổng kết tuần" } ],
+        [ { i: "user", t: "Giám đốc duyệt kế hoạch" } ] ]
+    ] },
+  { tab: "Phòng khám", mo: "Đặt lịch, nhắc lịch và chăm sóc sau khám",
+    chang: [
+      [ [ { i: "message", t: "Khách nhắn đặt lịch", k: "mo" } ],
+        [ { i: "calendar", t: "Kiểm tra lịch trống" }, { i: "db", t: "Tìm hồ sơ bệnh nhân cũ" } ],
+        [ { i: "ai", t: "AI xếp lịch phù hợp", k: "ai" } ],
+        [ { i: "send", t: "Gửi xác nhận qua Zalo" } ] ],
+      [ [ { i: "clock", t: "Trước giờ hẹn 1 ngày" } ],
+        [ { i: "send", t: "Nhắc lịch tự động" } ],
+        [ { i: "branch", t: "Khách xác nhận?" } ],
+        [ { i: "check", t: "Giữ lịch hẹn" }, { i: "phone", t: "Báo lễ tân gọi lại" } ] ],
+      [ [ { i: "pdf", t: "Đơn thuốc, hoá đơn" }, { i: "db", t: "Cập nhật hồ sơ điều trị" } ],
+        [ { i: "user", t: "Bác sĩ duyệt" } ],
+        [ { i: "mail", t: "Gửi hướng dẫn sau khám" } ] ],
+      [ [ { i: "clock", t: "Sau 7 ngày" } ],
+        [ { i: "ai", t: "AI hỏi thăm, nhắc tái khám", k: "ai" } ],
+        [ { i: "sheet", t: "Báo cáo doanh thu tháng" } ] ]
+    ] },
+  { tab: "Khách sạn", mo: "Chatbot tự động trả lời và chăm sóc khách",
+    chang: [
+      [ [ { i: "message", t: "Khách nhắn Facebook, Zalo, web", k: "mo" } ],
+        [ { i: "ai", t: "Chatbot AI trả lời 24/7", k: "ai" } ],
+        [ { i: "branch", t: "Khách hỏi gì?" } ],
+        [ { i: "calendar", t: "Phòng trống, giá phòng" }, { i: "files", t: "Tiện ích, quy định" }, { i: "send", t: "Chỉ đường, giờ nhận phòng" } ] ],
+      [ [ { i: "branch", t: "Muốn đặt phòng?" } ],
+        [ { i: "bank", t: "Giữ phòng, gửi link đặt cọc" }, { i: "user", t: "Chuyển cho lễ tân" } ],
+        [ { i: "db", t: "Lưu vào hệ thống đặt phòng" } ] ],
+      [ [ { i: "clock", t: "Trước ngày khách đến" } ],
+        [ { i: "send", t: "Gửi hướng dẫn nhận phòng" }, { i: "mail", t: "Gửi hoá đơn đặt cọc" } ],
+        [ { i: "message", t: "Hỏi nhu cầu đưa đón" } ] ],
+      [ [ { i: "clock", t: "Sau khi trả phòng" } ],
+        [ { i: "ai", t: "AI xin đánh giá, gửi ưu đãi", k: "ai" } ],
+        [ { i: "sheet", t: "Báo cáo công suất phòng" } ] ]
+    ] }
 ];
+var MAU_ICON = { clock: "#e8e8e8", bag: "#ee4d2d", message: "#1877f2", branch: "#e8e8e8", ai: "#f07a3c", mail: "#ea4335", cart: "#34a853",
+  sheet: "#0f9d58", user: "#f07a3c", send: "#2f80ff", pdf: "#e8e8e8", folder: "#fbbc04", calendar: "#a78bfa", db: "#a78bfa",
+  files: "#e8e8e8", check: "#34a853", phone: "#34a853", bank: "#34a853", link: "#2f80ff" };
+ICON.bag = '<path d="M6 8h12l-1 12H7z"/><path d="M9 8a3 3 0 0 1 6 0"/>';
+ICON.cart = '<path d="M3 4h2l2.5 11h10L20 7H7"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/>';
+ICON.folder = '<path d="M3 7h6l2 2h10v10H3z"/>';
+ICON.mail = ICON.mail || '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>';
+ICON.pdf = ICON.pdf || '<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M9 14h6M9 17h4"/>';
+ICON.bank = ICON.bank || '<path d="M3 10l9-6 9 6M5 10v8M9 10v8M15 10v8M19 10v8M3 20h18"/>';
+/* Khách hàng đã dùng dịch vụ (Sir tự điền). Để trống = dải tên ẩn đi.
+   Chỉ ghi tên: "Shop Hoa Mai"   hoặc kèm logo: { ten: "Shop Hoa Mai", logo: "anh/logo-hoa-mai.png" } */
+var KHACH_HANG = ["Trần Cẩm Anh", "Xe điện Việt Phương", "Anh Lâm"];
+
+/* Câu chuyện khách hàng THẬT (Sir kể 25/11). Chỉ ghi đúng điều đã làm; không tự viết lời thay khách.
+   loi: lời của chính khách (để trống cho tới khi khách gửi). anh: đường dẫn ảnh khách nếu có (để trống thì hiện chữ cái đầu).
+   CẦN SIR BỔ SUNG: vai trò/nghề của Cẩm Anh, lời của khách, ảnh (nếu khách đồng ý). */
+var CASE_STUDY = [
+  { nhan: "Làm video", ten: "Trần Cẩm Anh", vaiTro: "", anh: "",
+    tieuDe: "Cẩm Anh chỉ còn quay và duyệt, AI lo phần còn lại",
+    tomTat: "Chúng tôi dựng cho bạn ấy quy trình làm video tự động: tự lấy nội dung, tự lên kịch bản, tự cắt ghép.",
+    truoc: "Tự tìm nội dung, tự viết kịch bản, tự cắt ghép từng video.",
+    cachLam: "Dựng quy trình AI tự lấy nội dung, tự lên kịch bản và tự cắt ghép video.",
+    ketQua: "Bạn ấy chỉ việc quay và duyệt.", loi: "" },
+  { nhan: "Tổng hợp file", ten: "Anh Lâm", vaiTro: "Văn phòng nhà nước", anh: "",
+    tieuDe: "Anh Lâm tiết kiệm hàng giờ tổng hợp file từ nhiều bên",
+    tomTat: "Anh làm việc với nhiều bên một lúc, việc tổng hợp các file rất khó. Giờ anh đã hiểu cách làm cùng AI.",
+    truoc: "Làm việc với nhiều bên cùng lúc, tổng hợp file và số liệu rất khó.",
+    cachLam: "Cùng anh dựng cách tổng hợp file bằng AI, đến khi anh hiểu cách làm và tự làm được.",
+    ketQua: "Tiết kiệm hàng giờ đồng hồ.", loi: "" }
+];
+
+/* Lời khen của khách (Sir dán lời thật vào đây): { loi: "…", ten: "Tên khách" }.
+   Các ô { mau: true } chỉ là ô chờ, CHỈ hiện khi xem trên máy, KHÔNG hiện trên web thật. Có lời thật thì xoá ô mẫu. */
+var LOI_KHEN = [
+  { mau: true, loi: "Ô chờ lời khen thật số 1", ten: "Tên khách" },
+  { mau: true, loi: "Ô chờ lời khen thật số 2", ten: "Tên khách" },
+  { mau: true, loi: "Ô chờ lời khen thật số 3", ten: "Tên khách" },
+  { mau: true, loi: "Ô chờ lời khen thật số 4", ten: "Tên khách" },
+  { mau: true, loi: "Ô chờ lời khen thật số 5", ten: "Tên khách" },
+  { mau: true, loi: "Ô chờ lời khen thật số 6", ten: "Tên khách" }
+];
+/* Phần "Thấy rõ + hiểu rõ + tin được AI". Mỗi ý: tên, nội dung khi mở, nhóm trên sơ đồ sẽ sáng lên
+   (chinh = luồng chính, luat = bước người duyệt, dulieu = mô hình AI và dữ liệu). */
+var MINH_BACH = [
+  { ten: "Thấy rõ mọi bước AI làm", nd: "Mỗi việc được vẽ thành các bước như sơ đồ bên cạnh. Bạn mở từng bước, xem AI đã làm gì và vì sao.", nhom: "chinh" },
+  { ten: "Đặt luật cho việc AI được làm", nd: "Việc quan trọng như trả tiền hay gửi tin cho khách luôn có bước người duyệt trước.", nhom: "luat" },
+  { ten: "Dữ liệu ở lại chỗ của bạn", nd: "Chỉ đưa lên AI những gì cần cho việc. Thông tin cá nhân được bỏ trước khi xử lý, và bạn biết rõ dữ liệu của mình đi đâu.", nhom: "dulieu" }
+];
+ICON.inbox = '<path d="M4 13h4l2 3h4l2-3h4"/><path d="M4 13l2-8h12l2 8v6H4z"/>';
+ICON.model = '<rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 3v4M15 3v4M9 17v4M15 17v4M3 9h4M3 15h4M17 9h4M17 15h4"/>';
 (function(){
   function el(tag, cls, text){ var x = document.createElement(tag); if (cls) x.className = cls; if (text) x.textContent = text; return x; }
   var box = document.getElementById('dsDichVu');
@@ -568,7 +897,7 @@ var GOC_NHIN = [
       inner.appendChild(ul);
     }
     inner.appendChild(el('p', 'price', d.gia));
-    var a = el('a', 'more', d.chuLink); a.href = d.link;
+    var a = el('a', 'more', d.chuLink); a.href = d.link; if (d.tuVan) a.setAttribute('data-tu-van', '');
     var ch = el('span', 'chev', '›'); ch.setAttribute('aria-hidden', 'true'); a.appendChild(ch);
     if (/^https?:/.test(d.link)) { a.target = '_blank'; a.rel = 'noopener'; }
     var pa = el('p'); pa.appendChild(a); inner.appendChild(pa);
@@ -578,20 +907,231 @@ var GOC_NHIN = [
     box.appendChild(c);
   });
 
-  // thẻ Góc nhìn: chữ ở trên, hình trừu tượng ở dưới; màu và hình xoay vòng
-  var box2 = document.getElementById('dsGocNhin');
-  var MAU2 = ['light', 'grey', 'dark', 'dark', 'light', 'grey'];
-  GOC_NHIN.forEach(function(g, i){
-    var c = el('article', 'icard ' + MAU2[i % 6]);
-    var inner = el('div', 'in');
-    inner.appendChild(el('span', 'kicker', g.nhan));
-    inner.appendChild(el('h3', '', g.ten));
-    inner.appendChild(el('p', '', g.mota));
-    c.appendChild(inner);
-    var art = el('div', 'art a' + (i % 6 + 1)); art.setAttribute('aria-hidden', 'true');
-    c.appendChild(art);
-    box2.appendChild(c);
-  });
+  // luồng việc dài: chọn ví dụ, bấm + để nối thêm chặng, cuối cùng là nút Tư vấn miễn phí. Vị trí tự xếp theo cột.
+  var wf = document.getElementById('wf'), wfWrap = document.getElementById('wfWrap'), wfTabs = document.getElementById('wfTabs');
+  if (wf) {
+    var SVGNS = 'http://www.w3.org/2000/svg', tatCD2 = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var CAO = 470, GIUA = 235, BUOC_X = 180, KHE = 110, ex = null, chang = -1, svg;
+    // xếp vị trí: cột g (đếm chung), chặng s; các bước trong cột chia đều theo chiều dọc
+    function xep(vd){
+      var cot = [], g = 0;
+      vd.chang.forEach(function(ch, s){ ch.forEach(function(c){
+        var n = c.length, kc = n <= 3 ? 140 : 112;
+        cot.push({ s: s, buoc: c.map(function(b, j){ return { b: b, s: s, x: 70 + BUOC_X * g + KHE * s, y: GIUA + (j - (n - 1) / 2) * kc }; }) }); g++;
+      }); });
+      var noi = [];   // nối 2 cột liền nhau
+      for (var k = 0; k + 1 < cot.length; k++) {
+        var A = cot[k].buoc, B = cot[k + 1].buoc, s = cot[k + 1].s, co = {};
+        var nhanh = A.length === 1 && A[0].b.i === 'branch' && B.length === 2;
+        if (A.length === 1 || B.length === 1) A.forEach(function(a){ B.forEach(function(b, j){ noi.push({ a: a, b: b, s: s, nhan: nhanh ? (j ? 'Không' : 'Có') : '' }); }); });
+        else {
+          A.forEach(function(a, j){ var b = B[Math.min(j, B.length - 1)]; noi.push({ a: a, b: b, s: s }); co[B.indexOf(b)] = 1; });
+          B.forEach(function(b, j){ if (!co[j]) noi.push({ a: A[Math.min(j, A.length - 1)], b: b, s: s }); });
+        }
+      }
+      return { cot: cot, noi: noi, soChang: vd.chang.length };
+    }
+    // khung cao lên khi có cột nhiều bước (5 đội...), để chữ dưới mỗi bước không bị che
+    function doCao(vd){
+      var maxN = 1; vd.chang.forEach(function(ch){ ch.forEach(function(c){ maxN = Math.max(maxN, c.length); }); });
+      return maxN <= 3 ? 470 : 140 + (maxN - 1) * 112 + 90;
+    }
+    function cuoiChang(L, s){ var c = L.cot.filter(function(c){ return c.s === s; }); return c[c.length - 1]; }
+    function cong2(x, y, them){ var c = document.createElementNS(SVGNS, 'circle'); c.setAttribute('class', 'cg' + (them ? ' ' + them : '')); c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r', 4); svg.appendChild(c); }
+    function duong(x1, y1, x2, y2, nhan, moi, them){
+      var mx = (x1 + x2) / 2, p = document.createElementNS(SVGNS, 'path');
+      p.setAttribute('d', 'M' + x1 + ' ' + y1 + ' C' + mx + ' ' + y1 + ' ' + mx + ' ' + y2 + ' ' + x2 + ' ' + y2);
+      p.setAttribute('class', 'e chay' + (moi ? ' moi' : '') + (them ? ' ' + them : '')); svg.appendChild(p);
+      cong2(x1, y1, them); cong2(x2, y2, them);
+      if (nhan) { var t = document.createElementNS(SVGNS, 'text'); t.setAttribute('class', 'nh'); t.setAttribute('x', mx - 16); t.setAttribute('y', (y1 + y2) / 2 + (y2 < y1 ? -8 : 18)); t.textContent = nhan; svg.appendChild(t); }
+    }
+    function veNut(n, moi, tre){
+      var b = n.b, d = el('div', 'wn' + (b.k ? ' ' + b.k : '') + (moi ? ' moi' : '')); d.style.left = n.x + 'px'; d.style.top = n.y + 'px';
+      if (moi && tre) d.style.animationDelay = tre + 'ms';
+      var o = el('div', 'o'); o.innerHTML = '<svg viewBox="0 0 24 24" style="stroke:' + (b.m || MAU_ICON[b.i] || '#e8e8e8') + '" aria-hidden="true">' + (ICON[b.i] || '') + '</svg>';
+      d.appendChild(o); d.appendChild(el('span', '', b.t)); wf.appendChild(d);
+    }
+    function lenChang(moi){
+      chang++;
+      Array.prototype.forEach.call(wf.querySelectorAll('.wplus, .e-cong'), function(x){ x.remove(); });   // bỏ dấu + cũ và đường dẫn tới nó
+      var L = ex.L, cuoi = cuoiChang(L, chang), xCuoi = cuoi.buoc[0].x, het = chang === L.soChang - 1;
+      var rong = het ? xCuoi + 330 : xCuoi + 190;
+      wf.style.width = rong + 'px'; svg.setAttribute('width', rong); svg.setAttribute('height', CAO); svg.style.height = CAO + 'px'; svg.setAttribute('viewBox', '0 0 ' + rong + ' ' + CAO);
+      L.noi.filter(function(e){ return e.s === chang; }).forEach(function(e){ duong(e.a.x + 36, e.a.y, e.b.x - 36, e.b.y, e.nhan, moi); });
+      var buocMoi = []; L.cot.filter(function(c){ return c.s === chang; }).forEach(function(c){ buocMoi = buocMoi.concat(c.buoc); });
+      buocMoi.forEach(function(n, i){ veNut(n, moi, i * 70); });
+      if (!het) {
+        var px = xCuoi + 125;
+        cuoi.buoc.forEach(function(n){ duong(n.x + 36, n.y, px - 20, GIUA, null, moi, 'e-cong'); });
+        var b = el('button', 'wplus', '+'); b.type = 'button'; b.setAttribute('aria-label', 'Nối thêm bước');
+        b.style.left = px + 'px'; b.style.top = GIUA + 'px';
+        b.addEventListener('click', function(){ lenChang(true); var nut = wf.querySelector('.wplus') || wf.querySelector('.wend'); if (nut) nut.focus({ preventScroll: true }); });
+        wf.appendChild(b);
+      } else {
+        var bx = xCuoi + 120;
+        cuoi.buoc.forEach(function(n){ duong(n.x + 36, n.y, bx, GIUA, null, moi); });
+        var a2 = el('a', 'btn main wend', 'Tư vấn miễn phí'); a2.href = '#mot-mot';
+        a2.style.left = bx + 'px'; a2.style.top = GIUA + 'px';
+        a2.addEventListener('click', function(e){ e.preventDefault(); var n = document.querySelector('.hero-cta [data-tu-van]'); if (n) n.click(); });
+        wf.appendChild(a2);
+        document.getElementById('wfLai').hidden = false;
+      }
+      var daCo = []; L.cot.filter(function(c){ return c.s <= chang; }).forEach(function(c){ daCo = daCo.concat(c.buoc.map(function(n){ return n.b.t; })); });
+      document.getElementById('wfDem').textContent = daCo.length;
+      wf.setAttribute('aria-label', 'Sơ đồ ' + ex.vd.tab + ', đang có ' + daCo.length + ' bước: ' + daCo.join(', ') + '.');
+      if (moi && wfWrap) {
+        var x0 = Math.min.apply(null, buocMoi.map(function(n){ return n.x; }));
+        wfWrap.scrollTo({ left: Math.max(0, x0 - wfWrap.clientWidth * 0.35), behavior: tatCD2 ? 'auto' : 'smooth' });
+      }
+    }
+    function moVd(i, focusTab){
+      CAO = doCao(LUONG_VIEC[i]); GIUA = CAO / 2; wf.style.height = CAO + 'px';
+      ex = { vd: LUONG_VIEC[i], L: xep(LUONG_VIEC[i]) }; chang = -1;
+      wf.innerHTML = ''; svg = document.createElementNS(SVGNS, 'svg'); svg.setAttribute('aria-hidden', 'true'); wf.appendChild(svg);
+      document.getElementById('wfMo').textContent = ex.vd.mo;
+      document.getElementById('wfLai').hidden = true;
+      Array.prototype.forEach.call(wfTabs.children, function(b, j){ b.setAttribute('aria-selected', j === i); b.tabIndex = j === i ? 0 : -1; });
+      if (wfWrap) wfWrap.scrollTo({ left: 0 });
+      lenChang(false);
+    }
+    LUONG_VIEC.forEach(function(vd, i){
+      var b = el('button', '', vd.tab); b.type = 'button'; b.setAttribute('role', 'tab'); b.setAttribute('aria-controls', 'wfWrap');
+      b.addEventListener('click', function(){ moVd(i); });
+      b.addEventListener('keydown', function(e){
+        var j = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : null;
+        if (j === null) return; e.preventDefault(); j = (j + LUONG_VIEC.length) % LUONG_VIEC.length; moVd(j); wfTabs.children[j].focus();
+      });
+      wfTabs.appendChild(b);
+    });
+    document.getElementById('wfLai').addEventListener('click', function(){
+      var i = Array.prototype.findIndex.call(wfTabs.children, function(b){ return b.getAttribute('aria-selected') === 'true'; });
+      moVd(i); var p = wf.querySelector('.wplus'); if (p) p.focus({ preventScroll: true });
+    });
+    moVd(0);
+  }
+
+  // "Thấy rõ + hiểu rõ + tin được AI": vẽ sơ đồ trợ lý AI kiểm tra hoá đơn + danh sách mở ra
+  var tinG = document.getElementById('tinGraph'), acc = document.getElementById('acc');
+  if (tinG && acc) {
+    // sơ đồ nhiều luồng (25/11): hoá đơn → đọc PDF → AI → khớp? → Có: chuyển khoản → người duyệt → Zalo / Không: bảng xem lại → email
+    ICON.mail = '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>';
+    ICON.pdf = '<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M9 14h6M9 17h4"/>';
+    ICON.bank = '<path d="M3 10l9-6 9 6M5 10v8M9 10v8M15 10v8M19 10v8M3 20h18"/>';
+    ICON.search = '<circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/>';
+    function ic(k, cx, cy, mau, co){ var c = co || 26; return '<g class="ic" style="stroke:' + (mau || '#e8e8e8') + '" transform="translate(' + (cx - c / 2) + ' ' + (cy - c / 2) + ') scale(' + (c / 24) + ')">' + (ICON[k] || '') + '</g>'; }
+    function chu(x, y, dong, cls){ return dong.map(function(t, i){ return '<text x="' + x + '" y="' + (y + i * 18) + '" text-anchor="middle"' + (cls ? ' class="' + cls + '"' : '') + '>' + t + '</text>'; }).join(''); }
+    function cong(x, y){ return '<circle class="c" cx="' + x + '" cy="' + y + '" r="4"/>'; }
+    // nút vuông 64 x 64 có biểu tượng màu; tam: tâm (cx, cy)
+    function nut(cx, cy, k, mau, nhan){ return '<rect class="k" x="' + (cx - 32) + '" y="' + (cy - 32) + '" width="64" height="64" rx="14"/>' + ic(k, cx, cy, mau) + chu(cx, cy + 50, nhan); }
+    // nút tròn nhỏ (nhánh phụ dưới AI)
+    function tron(cx, cy, k, mau, nhan){ return '<circle class="k" cx="' + cx + '" cy="' + cy + '" r="24"/>' + ic(k, cx, cy, mau, 22) + chu(cx, cy + 42, nhan); }
+    var s = '<svg viewBox="0 0 940 450" aria-hidden="true">';
+    s += '<g data-nhom="chinh">';
+    // điểm bắt đầu (hình chữ D như n8n)
+    s += '<path class="k" d="M52 118 H84 V182 H52 A32 32 0 0 1 52 118 Z"/>' + ic('mail', 58, 150, '#ea4335') + chu(52, 200, ['Hoá đơn', 'mới']);
+    s += '<path class="d chay" d="M84 150 H120"/>' + nut(152, 150, 'pdf', '#e8e8e8', ['Đọc', 'file PDF']);
+    s += '<path class="d chay" d="M184 150 H220"/>';
+    s += '<rect class="k" x="220" y="118" width="220" height="64" rx="14"/>' + ic('ai', 250, 150, '#f07a3c', 28);
+    s += '<text class="t" x="276" y="145">Kiểm tra và</text><text class="t" x="276" y="165">đối chiếu hoá đơn</text>';
+    s += '<path class="d chay" d="M440 150 H480"/>' + nut(512, 150, 'branch', '#e8e8e8', ['Khớp', 'công nợ?']);
+    // nhánh Có
+    s += '<path class="d chay" d="M544 150 C575 150 570 70 600 70"/>' + nut(632, 70, 'bank', '#34a853', ['Lên lệnh', 'chuyển khoản']);
+    s += '<path class="d chay" d="M664 70 H710"/>';
+    s += '<path class="d chay" d="M774 70 H820"/>' + nut(852, 70, 'send', '#2f80ff', ['Báo nhóm Zalo', 'kế toán']);
+    s += '<path class="d" d="M884 70 H904"/><rect class="k" x="904" y="58" width="24" height="24" rx="5"/><text x="916" y="75" text-anchor="middle">+</text>';
+    // nhánh Không
+    s += '<path class="d chay" d="M544 150 C575 150 570 250 600 250"/>' + nut(632, 250, 'sheet', '#0f9d58', ['Ghi vào bảng', 'cần xem lại']);
+    s += '<path class="d chay" d="M664 250 H710"/>' + nut(742, 250, 'mail', '#4285f4', ['Email hỏi', 'nhà cung cấp']);
+    s += '<text class="nhanh" x="566" y="96">Có</text><text class="nhanh" x="558" y="214">Không</text>';
+    s += '</g>';
+    // luật: người duyệt trước khi trả tiền
+    s += '<g data-nhom="luat">' + nut(742, 70, 'user', '#f07a3c', ['Người duyệt', 'trước khi trả']) + '</g>';
+    [[84,150],[120,150],[184,150],[220,150],[440,150],[480,150],[544,150],[600,70],[664,70],[710,70],[774,70],[820,70],[600,250],[664,250],[710,250]].forEach(function(p){ s += cong(p[0], p[1]); });
+    // cổng phía dưới AI + nhánh phụ (nét đứt)
+    s += cong(260, 182) + cong(330, 182) + cong(410, 182);
+    s += chu(260, 200, ['Mô hình AI'], 'm') + chu(330, 200, ['Bộ nhớ'], 'm') + chu(410, 200, ['Công cụ'], 'm');
+    s += '<g data-nhom="dulieu">';
+    s += '<path class="d n" d="M260 208 C260 270 200 280 200 336"/>' + tron(200, 360, 'model', '#d97757', ['Claude hoặc', 'mô hình khác']);
+    s += '<path class="d n" d="M330 208 C330 270 300 290 300 336"/>' + tron(300, 360, 'db', '#a78bfa', ['Lịch sử', 'hoá đơn']);
+    s += '<path class="d n" d="M410 208 C410 270 400 290 400 336"/>' + tron(400, 360, 'sheet', '#21a366', ['File công nợ', 'Excel']);
+    s += '<path class="d n" d="M410 208 C420 280 500 280 500 336"/>' + tron(500, 360, 'pdf', '#e8e8e8', ['Hợp đồng', 'nhà cung cấp']);
+    s += '<path class="d n" d="M410 208 C430 290 600 270 600 336"/>' + tron(600, 360, 'search', '#fbbc04', ['Tra mã số', 'thuế']);
+    s += '</g></svg>';
+    tinG.innerHTML = s;
+    var nhom = tinG.querySelectorAll('g[data-nhom]');
+    // máy tính (kiểu n8n): cuộn tới đâu, ý ở giữa màn hình sáng tới đó; điện thoại: bấm để mở
+    var cuon = matchMedia('(min-width:980px)');
+    function mo(i){
+      Array.prototype.forEach.call(acc.querySelectorAll('.it'), function(it, j){
+        it.classList.toggle('on', j === i);
+        it.querySelector('button').setAttribute('aria-expanded', j === i);
+        document.getElementById('accNd' + j).hidden = !cuon.matches && j !== i;
+      });
+      Array.prototype.forEach.call(nhom, function(g){ g.classList.toggle('sang', g.getAttribute('data-nhom') === MINH_BACH[i].nhom); });
+    }
+    var cacY = MINH_BACH.map(function(m, i){
+      var it = el('div', 'it'), b = el('button', '', m.ten); b.type = 'button'; b.id = 'accNut' + i;
+      b.setAttribute('aria-controls', 'accNd' + i);
+      b.addEventListener('click', function(){ mo(i); if (cuon.matches) it.scrollIntoView({ block: 'center', behavior: 'smooth' }); });
+      var p = el('p', 'nd2', m.nd); p.id = 'accNd' + i; p.setAttribute('role', 'region'); p.setAttribute('aria-labelledby', 'accNut' + i);
+      it.appendChild(b); it.appendChild(p); acc.appendChild(it); return it;
+    });
+    if ('IntersectionObserver' in window) {
+      var ioY = new IntersectionObserver(function(es){
+        if (!cuon.matches) return;
+        es.forEach(function(x){ if (x.isIntersecting) mo(cacY.indexOf(x.target)); });
+      }, { rootMargin: '-45% 0px -45% 0px' });
+      cacY.forEach(function(it){ ioY.observe(it); });
+    }
+    mo(0);
+  }
+
+  // câu chuyện khách hàng thật
+  var boxCs = document.getElementById('dsCase');
+  if (boxCs) {
+    CASE_STUDY.forEach(function(c, i){
+      var a = el('article');
+      var nh = el('p', 'cs-nhan'); nh.appendChild(el('span', '', 'Câu chuyện thật')); nh.appendChild(el('span', 'o', c.nhan)); a.appendChild(nh);
+      a.appendChild(el('h3', 'cs-tieu', c.tieuDe));
+      var the = el('div', 'cs-the');
+      if (c.anh) { var im = el('img', 'cs-av'); im.src = c.anh; im.alt = 'Ảnh ' + c.ten; im.width = 84; im.height = 84; im.loading = 'lazy'; the.appendChild(im); }
+      else { var av = el('span', 'cs-av', c.ten.replace(/^(Anh|Chị|Em)\s+/, '').trim().split(/\s+/).pop().charAt(0)); av.setAttribute('aria-hidden', 'true'); the.appendChild(av); }
+      var nd = el('div'); nd.appendChild(el('p', '', c.loi ? '“' + c.loi + '”' : c.tomTat));
+      var ai = el('p', 'ai'); ai.appendChild(el('b', '', c.ten)); if (c.vaiTro) ai.appendChild(document.createTextNode(c.vaiTro)); nd.appendChild(ai);
+      the.appendChild(nd); a.appendChild(the);
+      var d = el('details'), sm = el('summary', '', 'Xem cách làm'); d.appendChild(sm);
+      var dl = el('dl');
+      [['Trước đây', c.truoc], ['Cách làm', c.cachLam], ['Kết quả', c.ketQua]].forEach(function(r){ var w = el('div'); w.appendChild(el('dt', '', r[0])); w.appendChild(el('dd', '', r[1])); dl.appendChild(w); });
+      d.appendChild(dl); a.appendChild(d); boxCs.appendChild(a);
+    });
+  }
+
+  // ô lời khen chạy vòng: lời thật luôn hiện; ô mẫu chỉ hiện khi xem trên máy
+  var ray = document.getElementById('khenRay');
+  if (ray) {
+    var tren_may = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+    var ds = LOI_KHEN.filter(function(k){ return !k.mau || tren_may; });
+    if (ds.length) {
+      [0, 1].forEach(function(vong){   // nhân đôi dãy để chạy vòng liền mạch
+        ds.forEach(function(k){
+          var o = el('figure', 'o' + (k.mau ? ' mau' : '')); if (vong) o.setAttribute('aria-hidden', 'true');
+          o.appendChild(el('p', '', k.loi)); o.appendChild(el('small', '', k.ten)); ray.appendChild(o);
+        });
+      });
+      document.getElementById('loi-khen').hidden = false;
+    }
+  }
+
+  // dải tên khách hàng: chỉ hiện khi KHACH_HANG có dữ liệu
+  var boxKh = document.getElementById('dsKhach');
+  if (boxKh && KHACH_HANG.length) {
+    KHACH_HANG.forEach(function(k){
+      var li = el('li'), ten = typeof k === 'string' ? k : k.ten;
+      if (k.logo) { var im = el('img'); im.src = k.logo; im.alt = ten; im.height = 36; im.loading = 'lazy'; li.appendChild(im); } else li.textContent = ten;
+      boxKh.appendChild(li);
+    });
+    document.getElementById('khach-hang').hidden = false;
+  }
 
   // đội ngũ: nút trước/sau, vạch chỉ người đang xem
   var team = document.getElementById('team');
@@ -613,7 +1153,7 @@ var GOC_NHIN = [
   }
 
   // menu trên máy tính và mục lục gập trên điện thoại, đánh dấu phần đang đọc
-  var secs = Array.prototype.slice.call(document.querySelectorAll('section[data-toc]'));
+  var secs = Array.prototype.slice.call(document.querySelectorAll('section[data-toc]:not([hidden])'));
   var menu = document.getElementById('menu'), list = document.getElementById('tocList');
   var now = document.getElementById('tocNow'), toc = document.getElementById('toc'), top = document.getElementById('top');
   var ngan = {};
@@ -643,21 +1183,11 @@ var GOC_NHIN = [
   Array.prototype.forEach.call(document.querySelectorAll('.scene-v'), function(sv){
     if (tat) { sv.removeAttribute('autoplay'); sv.pause(); }
   });
-  // mỗi video có một nút nhỏ góc dưới để dừng/chạy lại
-  Array.prototype.forEach.call(document.querySelectorAll('.cover video, .scene-v'), function(vd){
-    var b = el('button', 'vbtn'); b.type = 'button';
-    function ve(){ var d = vd.paused; b.classList.toggle('paused', d); b.setAttribute('aria-label', d ? 'Chạy video nền' : 'Dừng video nền'); }
-    b.addEventListener('click', function(){ if (vd.paused) vd.play(); else vd.pause(); });
-    vd.addEventListener('play', ve); vd.addEventListener('pause', ve);
-    if (tat) vd.pause();
-    ve(); vd.parentNode.appendChild(b);
-  });
-
   // Nền hạt 3D: một lưới chấm nằm trên mặt phẳng, nhấp nhô theo sóng, chiếu phối cảnh
   // (chấm gần thì to và sáng, xa thì nhỏ và mờ). Chỉ chạy khi đang nhìn thấy trên màn hình.
   Array.prototype.forEach.call(document.querySelectorAll('canvas.waves'), function(cv){
     var ctx = cv.getContext('2d'); if (!ctx) return;
-    var a0 = parseFloat(cv.dataset.alpha || '1'), W = 0, H = 0, dpr = 1, cols = 0, rows = 0, run = false, t = 0, last = 0;
+    var mo = 1, a0 = parseFloat(cv.dataset.alpha || '1'), W = 0, H = 0, dpr = 1, cols = 0, rows = 0, run = false, t = 0, last = 0;
     function size(){
       dpr = Math.min(devicePixelRatio || 1, 2);
       W = cv.clientWidth; H = cv.clientHeight;
@@ -676,7 +1206,7 @@ var GOC_NHIN = [
           var px = W / 2 + x / z * W * .52;
           var py = H * .16 + (1.15 - y * 1.6) * H * .62 / z;
           if (px < -4 || px > W + 4 || py > H + 4) continue;
-          var al = Math.min(1, ((1 - v) * .8 + .25) * a0 * (.75 + y));
+          var al = Math.min(1, ((1 - v) * .8 + .25) * a0 * mo * (.75 + y));
           if (al <= .03) continue;
           var r = Math.max(1, 3.2 / z);
           ctx.fillStyle = (i * 7 + j * 13) % 23 === 0 ? 'rgba(255,226,196,' + al + ')' : 'rgba(240,122,60,' + al + ')';
@@ -691,6 +1221,8 @@ var GOC_NHIN = [
     }
     size(); draw();
     addEventListener('resize', function(){ size(); draw(); });
+    // chấm đậm ở đầu trang, mờ dần khi cuộn xuống (còn 40%) để chữ các phần dưới vẫn dễ đọc
+    addEventListener('scroll', function(){ mo = Math.max(.4, 1 - scrollY / (innerHeight * 1.2)); if (!run) draw(); }, {passive:true});
     if (tat || !('IntersectionObserver' in window)) return;   // tắt chuyển động: chỉ vẽ một khung đứng yên
     new IntersectionObserver(function(es){
       var on = es[0].isIntersecting;
@@ -700,5 +1232,7 @@ var GOC_NHIN = [
 
 })();
 </script>
+<script src="../config.js?v=5"></script>
+<script src="chung.js?v=4"></script>
 </body>
 </html>

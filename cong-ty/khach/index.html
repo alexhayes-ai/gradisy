@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Khách tư vấn · Gradisy (nội bộ)</title>
+<meta name="theme-color" content="#0b0b0c">
+<link rel="stylesheet" href="../style.css?v=2">
+<style>
+  table{width:100%;border-collapse:collapse;font-size:15px}
+  th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+  th{color:var(--gold-hi);font-weight:500}
+  td small{display:block;color:var(--muted)}
+  .wrapt{overflow-x:auto}
+  tr.xong td{opacity:.55}
+</style>
+</head>
+<body>
+<!-- Trang nội bộ: chỉ tài khoản quản trị (bảng admins) xem được, do luật quyền trên Supabase chặn.
+     Đăng nhập ở trang cộng đồng Gradisy (../../) trước, rồi mở trang này. -->
+<header class="top"><div class="wrap"><a class="brand" href="../">Gradisy</a><span class="note">Nội bộ · Khách tư vấn</span></div></header>
+<main class="part"><div class="wrap">
+  <h1 style="font-size:40px;margin-bottom:16px">Khách tư vấn</h1>
+  <p class="note" id="tt">Đang tải…</p>
+  <div class="wrapt"><table id="bang" hidden><thead><tr><th>Lúc gửi</th><th>Khách</th><th>Việc</th><th>Gợi ý</th><th>Đã liên hệ</th></tr></thead><tbody></tbody></table></div>
+</div></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="../../config.js?v=5"></script>
+<script>
+(async function () {
+  var tt = document.getElementById('tt'), bang = document.getElementById('bang'), tb = bang.querySelector('tbody');
+  var c = window.APP_CONFIG || {};
+  if (!c.SUPABASE_URL || !window.supabase) { tt.textContent = 'Chưa cấu hình Supabase.'; return; }
+  var sb = window.supabase.createClient(c.SUPABASE_URL, c.SUPABASE_ANON_KEY);
+  var s = await sb.auth.getSession();
+  if (!s.data.session) { tt.innerHTML = 'Bạn chưa đăng nhập. <a href="../../">Đăng nhập ở trang Gradisy</a> rồi quay lại trang này.'; return; }
+  var r = await sb.from('khach_tu_van').select('*').order('tao_luc', { ascending: false }).limit(200);
+  if (r.error) { tt.textContent = 'Chưa đọc được: ' + (r.error.code === '42P01' ? 'chưa tạo bảng (chạy khach-tu-van.sql).' : r.error.message); return; }
+  if (!r.data.length) { tt.textContent = 'Chưa có khách nào để lại thông tin (hoặc tài khoản này không phải quản trị).'; return; }
+  var f = new Intl.DateTimeFormat('vi-VN', { dateStyle: 'short', timeStyle: 'short' });
+  r.data.forEach(function (k) {
+    var tr = document.createElement('tr'); if (k.da_lien_he) tr.className = 'xong';
+    function o(main, sub) { var td = document.createElement('td'); td.textContent = main || ''; if (sub) { var s = document.createElement('small'); s.textContent = sub; td.appendChild(s); } return td; }
+    tr.appendChild(o(f.format(new Date(k.tao_luc))));
+    tr.appendChild(o(k.ten, k.lien_he));
+    tr.appendChild(o(k.viec, [k.nganh, k.gio && k.gio + '/tuần', k.dang_dung, k.ghi_chu].filter(Boolean).join(' · ')));
+    tr.appendChild(o(k.goi_y));
+    var td = document.createElement('td'), cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = k.da_lien_he;
+    cb.setAttribute('aria-label', 'Đã liên hệ ' + k.ten);
+    cb.addEventListener('change', async function () {
+      var u = await sb.from('khach_tu_van').update({ da_lien_he: cb.checked }).eq('id', k.id);
+      if (u.error) { cb.checked = !cb.checked; alert('Chưa lưu được.'); } else tr.className = cb.checked ? 'xong' : '';
+    });
+    td.appendChild(cb); tr.appendChild(td); tb.appendChild(tr);
+  });
+  tt.textContent = r.data.length + ' khách, mới nhất ở trên.'; bang.hidden = false;
+})();
+</script>
+</body>
+</html>
