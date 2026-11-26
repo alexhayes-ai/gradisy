@@ -113,6 +113,9 @@ h1 .l1,h1 .l2{display:block}
 .cover .mark{text-shadow:0 2px 24px rgba(60,20,4,.35)}
 .cover .mark{position:absolute;inset:0;display:grid;place-items:center;z-index:1;text-align:center}
 .cover .mark span{display:block;font-weight:500;font-size:clamp(34px,7vw,84px);letter-spacing:-.02em;color:#fff;line-height:1}
+.cover .mark .logo-bia{display:flex;align-items:center;justify-content:center;gap:clamp(12px,1.6vw,22px)}
+.cover .mark .logo-bia img{width:clamp(36px,5vw,64px);height:auto;flex:none;filter:drop-shadow(0 2px 12px rgba(60,20,4,.35))}
+.cover .mark .logo-bia b{font-family:Poppins,var(--font);font-weight:500;font-size:clamp(22px,3.4vw,44px);letter-spacing:.34em;text-transform:uppercase;margin-right:-.34em;line-height:1}
 .cover .mark small{display:block;margin-top:12px;font-size:clamp(14px,1.8vw,18px);color:rgba(255,255,255,.85)}
 
 /* nút: góc vuông, nền trắng hoặc viền */
@@ -505,7 +508,7 @@ footer a:hover{color:var(--accent)}
   .icard{min-height:520px}
   .founder{grid-template-columns:5fr 7fr;gap:64px}
   .join{grid-template-columns:1fr 1fr;gap:56px}
-  .foot{grid-template-columns:1.2fr 1.6fr 1fr}
+  .foot{grid-template-columns:1fr auto}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -534,7 +537,7 @@ footer a:hover{color:var(--accent)}
 <!-- Nền hạt 3D: mặt sóng chấm cam vẽ bằng canvas (mã ở cuối trang, không dùng thư viện). -->
 <canvas class="waves" data-alpha="1" aria-hidden="true"></canvas>
 <header class="head">
-  <h1><span class="sr">Gradisy: </span><span class="l1">Giao việc lặp lại cho AI.</span> <span class="l2">Hiểu rõ từng bước nó làm.</span></h1>
+  <h1><span class="sr">Gradisy: </span><span class="l1">Vận hành hiệu quả hơn,</span> <span class="l2">đội ngũ vững&nbsp;vàng hơn cùng&nbsp;AI.</span></h1>
   <div class="side">
     <span class="bar" aria-hidden="true"></span>
     <p class="sub">Gradisy làm công cụ AI cho đúng việc của doanh nghiệp bạn. Mở từng bước, xem nó làm gì, và giải thích được cho cả đội.</p>
@@ -546,18 +549,11 @@ footer a:hover{color:var(--accent)}
 </header>
 </div>
 
-<!-- Dải 3 cam kết (25/11, học từ dải số liệu của n8n.io; mình chưa có số thật nên dùng cam kết) -->
-<div class="promises" aria-label="Cam kết của Gradisy">
-  <div><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg></i><span>Tư vấn miễn phí<small>Trả lời 5 câu, nhận gợi ý ngay</small></span></div>
-  <div><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 12l9-9h8v8l-9 9z"/><circle cx="16" cy="8" r="1.5"/></svg></i><span>Báo giá trọn gói<small>Một giá cho cả việc, không phát sinh</small></span></div>
-  <div><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></i><span>Bảo hành, duy trì<small>Có lỗi hoặc cần chỉnh, chúng tôi sửa</small></span></div>
-</div>
-
 <div class="cover"><div class="box">
   <!-- Video ghép từ 5 đoạn Pexels (giấy phép Pexels, miễn phí): 5944692, 35402241, 7681386, 8631874, 2516160.
        Bản nền cam cũ vẫn giữ ở video/bia.mp4. -->
   <video id="biaVideo" src="video/bia-nguoi.mp4" poster="video/bia-nguoi.jpg" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
-  <div class="mark"><span>Gradisy</span><small>Đồng hành cùng AI, bằng việc thật</small></div></div></div>
+  <div class="mark"><span class="logo-bia"><img src="anh/logo-gradisy-sang.svg" alt="" width="64" height="64"><b>Gradisy</b></span><small>Đồng hành cùng AI, bằng việc thật</small></div></div></div>
 
 <main id="noi-dung" tabindex="-1">
 
@@ -753,12 +749,6 @@ footer a:hover{color:var(--accent)}
         <b class="logo-chan"><img src="anh/logo-gradisy-sang.svg" alt="" width="40" height="40" loading="lazy"><span>Gradisy</span></b>
         <span>Đồng hành cùng AI, bằng việc thật.</span>
       </div>
-      <dl>
-        <dt>Tên</dt><dd>Gradisy (chưa đăng ký pháp nhân)</dd>
-        <dt>Bắt đầu</dt><dd>Tháng 11/2026</dd>
-        <dt>Lĩnh vực</dt><dd>Dịch vụ tự động hoá công việc và phần mềm có AI</dd>
-        <dt>Khách hàng</dt><dd>Doanh nghiệp vừa và nhỏ, hộ kinh doanh, người đi làm</dd>
-      </dl>
       <ul>
         <li><a href="../">Cộng đồng Gradisy</a></li>
         <li><a href="https://www.youtube.com/@Vannam_alexhayes" target="_blank" rel="noopener">Kênh YouTube</a></li>
@@ -893,19 +883,20 @@ ICON.pdf = ICON.pdf || '<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M9 14h6M9 
 ICON.bank = ICON.bank || '<path d="M3 10l9-6 9 6M5 10v8M9 10v8M15 10v8M19 10v8M3 20h18"/>';
 /* Khách hàng đã dùng dịch vụ (Sir tự điền). Để trống = dải tên ẩn đi.
    Chỉ ghi tên: "Shop Hoa Mai"   hoặc kèm logo: { ten: "Shop Hoa Mai", logo: "anh/logo-hoa-mai.png" } */
-var KHACH_HANG = ["Trần Cẩm Anh", "Xe điện Việt Phương", "Anh Lâm"];
+// 26/11 Sir bảo bỏ dải này; tên cũ: "Trần Cẩm Anh", "Xe điện Việt Phương", "Anh Lâm". Mảng rỗng thì dải tự ẩn.
+var KHACH_HANG = [];
 
 /* Câu chuyện khách hàng THẬT (Sir kể 25/11). Chỉ ghi đúng điều đã làm; không tự viết lời thay khách.
    loi: lời của chính khách (để trống cho tới khi khách gửi). anh: đường dẫn ảnh khách nếu có (để trống thì hiện chữ cái đầu).
    CẦN SIR BỔ SUNG: vai trò/nghề của Cẩm Anh, lời của khách, ảnh (nếu khách đồng ý). */
 var CASE_STUDY = [
-  { nhan: "Làm video", ten: "Trần Cẩm Anh", vaiTro: "", anh: "",
+  { nhan: "Làm video", ten: "Trần Cẩm Anh", vaiTro: "", anh: "anh/khach-cam-anh.jpg",
     tieuDe: "Cẩm Anh chỉ còn quay và duyệt, AI lo phần còn lại",
     tomTat: "Chúng tôi dựng cho bạn ấy quy trình làm video tự động: tự lấy nội dung, tự lên kịch bản, tự cắt ghép.",
     truoc: "Tự tìm nội dung, tự viết kịch bản, tự cắt ghép từng video.",
     cachLam: "Dựng quy trình AI tự lấy nội dung, tự lên kịch bản và tự cắt ghép video.",
     ketQua: "Bạn ấy chỉ việc quay và duyệt.", loi: "" },
-  { nhan: "Tổng hợp file", ten: "Anh Lâm", vaiTro: "Văn phòng nhà nước", anh: "",
+  { nhan: "Tổng hợp file", ten: "Anh Lâm", vaiTro: "Văn phòng nhà nước", anh: "anh/khach-anh-lam.jpg",
     tieuDe: "Anh Lâm tiết kiệm hàng giờ tổng hợp file từ nhiều bên",
     tomTat: "Anh làm việc với nhiều bên một lúc, việc tổng hợp các file rất khó. Giờ anh đã hiểu cách làm cùng AI.",
     truoc: "Làm việc với nhiều bên cùng lúc, tổng hợp file và số liệu rất khó.",
